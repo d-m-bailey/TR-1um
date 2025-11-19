@@ -5,7 +5,7 @@
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 # See: https://www.klayout.de/doc-qt5/manual/lvs_device_extractors.html
 #
-#deep          # Hierarchical extraction
+deep          # Hierarchical extraction
 #
 report_lvs    # LVS report window
 #----
@@ -20,6 +20,7 @@ report_lvs    # LVS report window
 # 
 # cell_name + ".extracted" is extracted circuit file 
 # cell_name + ".cir"       is circuit file to compare
+# cell_name + ".spice"     is circuit file to compare (alternative)
 #
 Lay_file = source.cell_name + ".extracted"
 Sch_file = source.cell_name + ".cir"
@@ -92,7 +93,8 @@ reader      = RBA::NetlistSpiceReader::new(MyDelegate::new)
 #
 #
 schematic(Sch_file, reader)
-schematic.make_top_level_pins
+#
+schematic.make_top_level_pins   # https://www.klayout.de/doc/manual/lvs_compare.html#h2-299
 #
 align
 #

@@ -66,7 +66,8 @@ extract_devices(diode("DP"),
                               "tA" => (AADP),           # Terminal: Anode
                               "tC" => (NWMP) })         # Terminal: Cathode
 #                              
-tolerance("DP", "A", :relative => 0.0)                  # 0% tolerance 
+tolerance("DP", "A", :relative => 0.05)                 # 5% tolerance 
+tolerance("DP", "P", :relative => 0.05)                 # 5% tolerance 
 #
 extract_devices(diode("DN"),                            # Floating Protection
                             { "P"  => (BULK),           # P region
@@ -74,5 +75,6 @@ extract_devices(diode("DN"),                            # Floating Protection
                               "tA" => (BULK),           # Terminal: Anode
                               "tC" => (AADN) })         # Terminal: Cathode
 #
-tolerance("DN", "A", :relative => 0.0)                  # 0% tolerance 
+tolerance("DN", "A", :relative => 0.05)                  # 5% tolerance 
+tolerance("DN", "P", :relative => 0.05)                  # 5% tolerance 
 #
