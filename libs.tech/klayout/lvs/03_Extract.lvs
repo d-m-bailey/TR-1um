@@ -6,23 +6,23 @@
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 # Capacitance extraction ( F_CSIO: 3 terminal capacitor device is optional, either one to use )
 #
-extract_devices(capacitor("m_CSIO", 0.6e-15 ), 
-                    { "P1" => (SGG),            # Top plate
-                      "P2" => (AACC),           # Bottom plate
-                      "tA" => (SGG),            # Terminal: A
-                      "tB" => (NWCS) })         # Terminal: B
-#
-tolerance("m_CSIO", "C", :relative => 0.01)     # 1% tolerance 
-#
-# extract_devices(capacitor_with_bulk("F_CSIO", 0.6e-15 ), 
+#extract_devices(capacitor("m_CSIO", 0.6e-15 ), 
 #                    { "P1" => (SGG),            # Top plate
 #                      "P2" => (AACC),           # Bottom plate
-#                      "W"  => (NWCS),           # Bulk plate
 #                      "tA" => (SGG),            # Terminal: A
-#                      "tB" => (NWCS),           # Terminal: B
-#                      "tW" => (BULK) })         # Terminal: BULK
+#                      "tB" => (NWCS) })         # Terminal: B
 #
-#tolerance("F_CSIO", "C", :relative => 0.01)     # 1% tolerance 
+#tolerance("m_CSIO", "C", :relative => 0.01)     # 1% tolerance 
+#
+extract_devices(capacitor_with_bulk("F_CSIO", 0.6e-15 ), 
+                    { "P1" => (SGG),            # Top plate
+                      "P2" => (AACC),           # Bottom plate
+                      "W"  => (NWCS),           # Bulk plate
+                      "tA" => (SGG),            # Terminal: A
+                      "tB" => (NWCS),           # Terminal: B
+                      "tW" => (BULK) })         # Terminal: BULK
+
+tolerance("F_CSIO", "C", :relative => 0.01)     # 1% tolerance 
 #
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 # L/W extraction Class definition
@@ -35,7 +35,7 @@ class LWResistor < RBA::DeviceClassResistor
   end
 end
 #
-class LWResistorWithBulk < RBA::DeviceClassResistor
+class LWResistorWithBulk < RBA::DeviceClassResistorWithBulk
   def initialize
     super
     enable_parameter("W", true)
@@ -68,3 +68,6 @@ tolerance("F_RR", "W", :relative => 0.01)        # 1% tolerance
 tolerance("F_RR", "L", :relative => 0.01)        # 1% tolerance
 ignore_parameter("F_RR", "R")                    # ignore "R" for comparison
 #
+# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
+equivalent_pins("F_RS", "A", "B")
+equivalent_pins("F_RR", "A", "B")
