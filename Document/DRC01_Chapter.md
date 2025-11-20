@@ -1,6 +1,6 @@
 # Chapter 1 : 00_Layers.drc and 01_Basics.drc
 
-## [00_Layers.drc](../tech/drc/00_Layers.drc)
+## [00_Layers.drc](../libs.tech/klayout/drc/00_Layers.drc)
 
 Loading layer by layer GDSII data while implementing **waiver** capability to ignore the DRC checking area, such as the Shield Ring. **ESD** is also a recognition area, especially for ESD device, which has special rules. I would respect the original "TR-1um MASK Layer name" as an implementation to avoid further confusion. 
 

@@ -1,6 +1,6 @@
 # Preface: lvs.lylvs
 
-## [lvs.lylvs](../tech/lvs/lvs.lylvs)
+## [lvs.lylvs](../libs.tech/klayout/lvs/lvs.lylvs)
 
 It seems **lvs.lylvs** file is cached in the KLayout once it is launched, so it has to be edited in the tools for debugging. So my **lvs.lylvs** only includes **# %include run.lvs** commands, as shown below.
 
@@ -14,7 +14,7 @@ It seems **lvs.lylvs** file is cached in the KLayout once it is launched, so it 
 #----
 ```
 
-## [run.lvs](../tech/lvs/run.lvs)
+## [run.lvs](../libs.tech/klayout/lvs/run.lvs)
 
 **run.lvs** contain a couple of **# %include** commands, as shown below.
 
