@@ -4,14 +4,16 @@ TR-1um -- openIP62 -- AnagixLoader
        |           +- IP62
        +- GDSII
        +- Schematic
-       +- STDLIB
+       +- STDLIB ----- extracted 
+       |
        +- libs.tech -- klayout
        |            +- xschem 
+       |            +- ngspice
        +- Tools
        +- Document
 ```
 
-Since the original DRC cannot check a full-custom layout, such as Standard Cell development, except for PCEL use, new DRC runset development is ongoing under the tech/drc directory. Additionally, the [Tutorial: How to make DRC runset for KLayout](Document/Tutorial_DRC.md) project is also ongoing; feel free to join as always. We welcome your feedback on the DRC result and bug report as well.
+Since the original DRC cannot check a full-custom layout, such as Standard Cell development, except for PCEL use, new DRC runset development is ongoing under the tech/drc directory. Additionally, the [Tutorial: How to make DRC runset for KLayout](Document/Tutorial_DRC.md) and the [Tutorial: How to make LVS runset for KLayout](Document/Tutorial_LVS.md)project is also ongoing; feel free to join as always. We welcome your feedback on the DRC result and bug report as well.
 
 ## openIP62 (AS-IS)
 The directory contains the original PDKs provided by [**Tokai Rika**](https://tr-semicon.tokai-rika.co.jp/foundry-service). It includes two main subdirectories: **AnagixLoader** and **IP62**. Detailed documentation and installation manuals (in Japanese) can be found in: **openIP62/IP62/Technology/doc**
