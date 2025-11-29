@@ -28,7 +28,7 @@ Final schematic data for 2025/09/24-25 OSS hands-on seminar on Kyushu university
 Extracted spice files from **openIP62/IP62/Basic/libraries/xxx.gds** by LVS operation which are including AD/AS/PD/PS information.
 
 ## libs.tech
-**Try to alighn this to IIC-OSIC-TOOLS pdk directory** 
+**Try to align this to IIC-OSIC-TOOLS pdk directory** 
 
 Currently working directry for Open Source Silicon community to exchange new idea and **drc** and **lvs** directories are active for KLayout DRC/LVS runset development. **TR-1um.lyp** is KLayout layer file for both **DRC** and **LVS**.
 Also Xschem symbol library development is ongoing. 
