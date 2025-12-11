@@ -74,12 +74,11 @@ def draw_acont ( cell, xnum : int = 1, ynum : int = 1 ):
             draw_cont( cell, num = ynum , x_disp = x_disp )
             #
             sign = sign * -1
-    #
 
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 # 
 #
-def draw_poly ( cell, xnum : int = 1, ynum : int = 1 ):
+def draw_plate ( cell, xnum : int = 1, ynum : int = 1, layer = PG_layer, enc = 1.0 ):
     #
     co_pitch = (co_width + co_space)
     #
@@ -99,11 +98,9 @@ def draw_poly ( cell, xnum : int = 1, ynum : int = 1 ):
             n2 = math.ceil((xnum - 1) / 2)
             x_disp = co_pitch * n2 + co_width / 2 
         #
-    po_box = pya.DBox(-(x_disp + co_enc_po),-(y_disp + co_enc_po), (x_disp + co_enc_po), (y_disp + co_enc_po))
-    m1_box = pya.DBox(-(x_disp + co_enc_po),-(y_disp + co_enc_m1), (x_disp + co_enc_po), (y_disp + co_enc_m1))
+    box = pya.DBox(-(x_disp + enc),-(y_disp + enc), (x_disp + enc), (y_disp + enc))
     #                      
-    cell.shapes(PG_layer).insert(po_box)
-    cell.shapes(M1_layer).insert(m1_box)
+    cell.shapes(layer).insert(box)
     #
 
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 

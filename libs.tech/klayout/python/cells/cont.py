@@ -14,21 +14,22 @@ class cont_po(pya.PCellDeclarationHelper):
 
     def __init__(self):
         # Initialize super class.
-        super(cont_p, self).__init__()
+        super(cont_po, self).__init__()
         #
         self.param("nx", self.TypeInt,  "X-Num", default=1)
         self.param("ny", self.TypeInt,  "Y-Num", default=1)
 
     def display_text_impl(self):
         # Provide a descriptive text for the cell
-        return "pcont(X-Num" + ('%3d' % self.nx) + ",Y-Num" + ('%3d' % self.ny) + ")"
+        return "cont_po(X-Num" + ('%3d' % self.nx) + ",Y-Num" + ('%3d' % self.ny) + ")"
     
     def produce_impl(self):
         #
         draw_acont( self.cell, xnum=self.nx, ynum=self.ny )
-        draw_poly ( self.cell, xnum=self.nx, ynum=self.ny )
+        draw_plate( self.cell, xnum=self.nx, ynum=self.ny, layer=M1_layer, enc=DR['CO.M'].value )
+        draw_plate( self.cell, xnum=self.nx, ynum=self.ny, layer=PG_layer, enc=DR['CO.O'].value )
       
-class cont_v1(pya.PCellDeclarationHelper):
+class cont_p(pya.PCellDeclarationHelper):
 
     def __init__(self):
         # Initialize super class.
@@ -39,10 +40,30 @@ class cont_v1(pya.PCellDeclarationHelper):
 
     def display_text_impl(self):
         # Provide a descriptive text for the cell
-        return "pcont(X-Num" + ('%3d' % self.nx) + ",Y-Num" + ('%3d' % self.ny) + ")"
+        return "cont_n(X-Num" + ('%3d' % self.nx) + ",Y-Num" + ('%3d' % self.ny) + ")"
     
     def produce_impl(self):
         #
         draw_acont( self.cell, xnum=self.nx, ynum=self.ny )
-        draw_poly ( self.cell, xnum=self.nx, ynum=self.ny )
+        draw_plate( self.cell, xnum=self.nx, ynum=self.ny, layer=M1_layer, enc=DR['CO.M'].value )
+        draw_plate( self.cell, xnum=self.nx, ynum=self.ny, layer=AP_layer, enc=DR['CO.P'].value )
       
+class cont_n(pya.PCellDeclarationHelper):
+
+    def __init__(self):
+        # Initialize super class.
+        super(cont_n, self).__init__()
+        #
+        self.param("nx", self.TypeInt,  "X-Num", default=1)
+        self.param("ny", self.TypeInt,  "Y-Num", default=1)
+
+    def display_text_impl(self):
+        # Provide a descriptive text for the cell
+        return "cont_n(X-Num" + ('%3d' % self.nx) + ",Y-Num" + ('%3d' % self.ny) + ")"
+    
+    def produce_impl(self):
+        #
+        draw_acont( self.cell, xnum=self.nx, ynum=self.ny )
+        draw_plate( self.cell, xnum=self.nx, ynum=self.ny, layer=M1_layer, enc=DR['CO.M'].value )
+        draw_plate( self.cell, xnum=self.nx, ynum=self.ny, layer=AN_layer, enc=DR['CO.N'].value )
+    
