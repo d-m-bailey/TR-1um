@@ -7,10 +7,8 @@
 #
 import pya
 from .layers_def import *
+from .rules_def  import *
 from .util       import *
-
-fet_lp   = 1.0
-fet_wp   = 2.6
 
 class pfet(pya.PCellDeclarationHelper):
 
@@ -20,10 +18,10 @@ class pfet(pya.PCellDeclarationHelper):
         #
         self.param("type", self.TypeString, "Type", default="PFET")
         #
-        self.param("l", self.TypeDouble, "Length",  default=fet_lp, unit="um")
-        self.param("w", self.TypeDouble, "Width",   default=fet_wp, unit="um")
+        self.param("l", self.TypeDouble, "Length",  default=DR['PO.1'].value, unit="um")
+        self.param("w", self.TypeDouble, "Width",   default=DR['AP.W'].value, unit="um")
         self.param("n", self.TypeInt,    "Fingers", default=1)
-        #
+
     def display_text_impl(self):
         # Provide a descriptive text for the cell
         return "pfet(L=" + ('%.3f' % self.l) + ",W=" + ('%.3f' % self.w) + ")"
@@ -48,25 +46,33 @@ class pfet(pya.PCellDeclarationHelper):
         # OPTIONAL: Implement the "Create PCell from shape" protocol: we use the center of the shape's
         # bounding box to determine the transformation
         return pya.Trans(self.shape.bbox().center())
-    '''
-    
+    '''   
+  
     def produce_impl(self):
-        end_cap = 1.2       # end cap
-        co2g_sp = 1.0       # contact to poly space
-        co_w    = 1.0       # contact size
-        co_enc  = 0.8       # contact enclosure
         #
-        num     = len_2_num( self.w )
-        sdg_w   = self.l + 2 * (co2g_sp + co_w + co_enc)
-        co_disp = self.l/2.0 + co2g_sp + co_w/2.0
-        #
-        sdg_box = pya.DBox(-sdg_w/2.0,  -self.w/2.0, sdg_w/2.0, self.w/2.0 )
-        #
-        self.cell.shapes(AP_layer).insert(sdg_box)
-        #
-        draw_gate( self.cell, self.l, self.w , 1.2, self.n )
-        draw_cont( self.cell, num, x_disp = -co_disp )
-        draw_cont( self.cell, num, x_disp =  co_disp )
+        draw_fet( self.cell, l=self.l, w=self.w, fnum=self.n, layer=AP_layer)
         # 
-    #
+        #
+      
+class nfet(pya.PCellDeclarationHelper):
+
+    def __init__(self):
+        # Initialize super class.
+        super(nfet, self).__init__()
+        #
+        self.param("type", self.TypeString, "Type", default="NFET")
+        #
+        self.param("l", self.TypeDouble, "Length",  default=DR['PO.1'].value, unit="um")
+        self.param("w", self.TypeDouble, "Width",   default=DR['AN.W'].value, unit="um")
+        self.param("n", self.TypeInt,    "Fingers", default=1)
+
+    def display_text_impl(self):
+        # Provide a descriptive text for the cell
+        return "nfet(L=" + ('%.3f' % self.l) + ",W=" + ('%.3f' % self.w) + ")"
+ 
+    def produce_impl(self):
+        #
+        draw_fet( self.cell, l=self.l, w=self.w, fnum=self.n, layer=AN_layer)
+        # 
+        #
       

@@ -18,7 +18,7 @@ class tr_1um(pya.Library):
     # Create the PCell declarations
         # MOS DEVICES
         self.layout().register_pcell("pfet", pfet())
-        #self.layout().register_pcell("nfet", nfet())
+        self.layout().register_pcell("nfet", nfet())
 
         # CAP Devices 
         #self.layout().register_pcell("cap",  cap()) # CSIO device
