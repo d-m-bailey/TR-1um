@@ -91,3 +91,9 @@ DR['PO.N'] = DRule(  0.4,  "PO-AN min      " )
 #DR['PC.P'] = DRule(  1.0,  "PO-CO min in AP" )
 #DR['PC.N'] = DRule(  1.0,  "PO-CO min in AN" )
 DR['PO.E'] = DRule(  1.2,  "Endcap min     " )
+# V1 
+DR['V1.1'] = DRule(  1.4,  "Width min      " )
+DR['V1.2'] = DRule(  1.5,  "Space min      " )
+# CO on AA
+DR['V1.M1']= DRule(  1.0,  "ENC min to M1  " )
+DR['V1.M2']= DRule(  1.0,  "ENC min to M2  " )

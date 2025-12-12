@@ -7,7 +7,9 @@
 #
 import pya
 from .fet     import *
+from .diode   import *
 from .cont    import *
+from .via     import *
 
 # It's a Python class that inherits from the pya.Library class
 class tr_1um(pya.Library):
@@ -17,20 +19,30 @@ class tr_1um(pya.Library):
         self.description = "TR-1um Pcells library"
 
     # Create the PCell declarations
-        # MOS DEVICES
-        self.layout().register_pcell("fet_p",  pfet())
-        self.layout().register_pcell("fet_n",  nfet())
         #
-        self.layout().register_pcell("cont_g", cont_po())
-        self.layout().register_pcell("cont_p", cont_p())
-        self.layout().register_pcell("cont_n", cont_n())
+        # MOS DEVICES
+        self.layout().register_pcell("fet_p",   pfet())
+        self.layout().register_pcell("fet_n",   nfet())
+        #
+        # DIODE DEVICES
+        self.layout().register_pcell("diode_p", diode_p())
+        self.layout().register_pcell("diode_n", diode_n())
         #
         # CAP Devices 
         #self.layout().register_pcell("cap",  cap()) # CSIO device
+        #
         # RES Devices 
         #self.layout().register_pcell("res_diff", cap()) # Diff resistance
         #self.layout().register_pcell("res_poly", cap()) # Poly resistance
-
+        #
+        #　Contacts
+        self.layout().register_pcell("cont_g",  cont_po())
+        self.layout().register_pcell("cont_p",  cont_p())
+        self.layout().register_pcell("cont_n",  cont_n())
+        #
+        #　Via
+        self.layout().register_pcell("via_1",   via_1())
+        #
         # Register us with the name "TR-1um".
         self.register("TR-1um")
 

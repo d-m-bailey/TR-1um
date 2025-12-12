@@ -78,25 +78,26 @@ def draw_acont ( cell, xnum : int = 1, ynum : int = 1 ):
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 # 
 #
-def draw_plate ( cell, xnum : int = 1, ynum : int = 1, layer = PG_layer, enc = 1.0 ):
+def draw_plate ( cell, width : float = co_width, space : float = co_space,
+                xnum : int = 1, ynum : int = 1, layer = PG_layer, enc = 1.0 ):
     #
-    co_pitch = (co_width + co_space)
+    pitch = (width + space)
     #
     if ynum > 0 :
         if ynum % 2 == 0 :   # even number of contacts
             n2 = math.floor((ynum - 1)/ 2)
-            y_disp = (co_pitch * n2 + co_pitch / 2) + co_width / 2
+            y_disp = (pitch * n2 + pitch / 2) + width / 2
         else :              # odd number of contacts
             n2 = math.ceil((ynum - 1) / 2)
-            y_disp = co_pitch * n2 + co_width / 2 
+            y_disp =  pitch * n2 + width / 2 
         #
     if xnum > 0 :
         if xnum % 2 == 0 :   # even number of contacts
             n2 = math.floor((xnum - 1)/ 2)
-            x_disp = (co_pitch * n2 + co_pitch / 2) + co_width / 2
+            x_disp = (pitch * n2 + pitch / 2) + width / 2
         else :              # odd number of contacts
             n2 = math.ceil((xnum - 1) / 2)
-            x_disp = co_pitch * n2 + co_width / 2 
+            x_disp =  pitch * n2 + width / 2 
         #
     box = pya.DBox(-(x_disp + enc),-(y_disp + enc), (x_disp + enc), (y_disp + enc))
     #                      
@@ -106,25 +107,49 @@ def draw_plate ( cell, xnum : int = 1, ynum : int = 1, layer = PG_layer, enc = 1
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 # Insert number of contacts into cell
 #
-def draw_cont ( cell, num : int = 1, x_disp : float = 0 ):
+def draw_cont ( cell, width : float = co_width, space : float = co_space,
+               num : int = 1, x_disp : float = 0, layer = CO_layer ):
     #
-    sign     = 1.0
-    co_pitch = (co_width + co_space)
-    co_box   = pya.DBox(-co_width/2.0, -co_width/2.0,  co_width/2.0,  co_width/2.0)
+    sign  = 1.0
+    pitch = (width + space)
+    box   =  pya.DBox(-width/2.0, -width/2.0,  width/2.0,  width/2.0)
     #
     if num > 0 :
         for n in range(num) :
             if num % 2 == 0 :   # even number of contacts
                 n2 = math.floor(n / 2)
-                y_disp = sign * (co_pitch * n2 + co_pitch / 2)
+                y_disp = sign * (pitch * n2 + pitch / 2)
             else :              # odd number of contacts
                 n2 = math.ceil(n / 2)
-                y_disp = sign * co_pitch * n2
+                y_disp = sign * pitch * n2
             #
-            cell.shapes(CO_layer).insert(co_box).transform(pya.DTrans( x_disp, y_disp ))
+            cell.shapes(layer).insert(box).transform(pya.DTrans( x_disp, y_disp ))
             #
             sign = sign * -1
     #
+
+# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
+# Insert X-Y array of contacts into cell
+#
+def draw_acont ( cell, width : float = co_width, space : float = co_space,
+                xnum : int = 1, ynum : int = 1, layer = CO_layer ):
+    #
+    sign  = 1.0
+    pitch = (width + space)
+    box   = pya.DBox(-width/2.0, -width/2.0,  width/2.0,  width/2.0)
+    #
+    if xnum > 0 :
+        for n in range(xnum) :
+            if xnum % 2 == 0 :   # even number of contacts
+                n2 = math.floor(n / 2)
+                x_disp = sign * (pitch * n2 + pitch / 2)
+            else :              # odd number of contacts
+                n2 = math.ceil(n / 2)
+                x_disp = sign * pitch * n2
+            #
+            draw_cont( cell, width = width, space = space, num = ynum, x_disp = x_disp, layer = layer)
+            #
+            sign = sign * -1
 
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 # 
@@ -161,11 +186,11 @@ def draw_fet( cell, l, w ,layer, fnum = 1):
     #
     # Add CO
     # 
-    draw_cont( cell, len_2_num( w ), x_disp = -co_disp )
-    draw_cont( cell, len_2_num( w ), x_disp =  co_disp )
+    draw_cont( cell, num=len_2_num( w ), x_disp = -co_disp )
+    draw_cont( cell, num=len_2_num( w ), x_disp =  co_disp )
     #
     # Add M1
     # 
-    draw_metal( cell, len_2_num( w ), x_disp = -co_disp )
-    draw_metal( cell, len_2_num( w ), x_disp =  co_disp )
+    draw_metal( cell, num=len_2_num( w ), x_disp = -co_disp )
+    draw_metal( cell, num=len_2_num( w ), x_disp =  co_disp )
 

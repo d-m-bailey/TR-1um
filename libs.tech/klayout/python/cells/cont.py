@@ -23,6 +23,13 @@ class cont_po(pya.PCellDeclarationHelper):
         # Provide a descriptive text for the cell
         return "cont_po(X-Num" + ('%3d' % self.nx) + ",Y-Num" + ('%3d' % self.ny) + ")"
     
+    def coerce_parameters_impl(self):
+        # Check parameters
+        if self.nx < 1 :
+            self.nx = 1
+        if self.ny < 1 :
+            self.ny = 1
+
     def produce_impl(self):
         #
         draw_acont( self.cell, xnum=self.nx, ynum=self.ny )
@@ -42,6 +49,13 @@ class cont_p(pya.PCellDeclarationHelper):
         # Provide a descriptive text for the cell
         return "cont_n(X-Num" + ('%3d' % self.nx) + ",Y-Num" + ('%3d' % self.ny) + ")"
     
+    def coerce_parameters_impl(self):
+        # Check parameters
+        if self.nx < 1 :
+            self.nx = 1
+        if self.ny < 1 :
+            self.ny = 1
+
     def produce_impl(self):
         #
         draw_acont( self.cell, xnum=self.nx, ynum=self.ny )
@@ -60,7 +74,14 @@ class cont_n(pya.PCellDeclarationHelper):
     def display_text_impl(self):
         # Provide a descriptive text for the cell
         return "cont_n(X-Num" + ('%3d' % self.nx) + ",Y-Num" + ('%3d' % self.ny) + ")"
-    
+
+    def coerce_parameters_impl(self):
+        # Check parameters
+        if self.nx < 1 :
+            self.nx = 1
+        if self.ny < 1 :
+            self.ny = 1
+
     def produce_impl(self):
         #
         draw_acont( self.cell, xnum=self.nx, ynum=self.ny )

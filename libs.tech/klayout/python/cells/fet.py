@@ -26,10 +26,16 @@ class pfet(pya.PCellDeclarationHelper):
         # Provide a descriptive text for the cell
         return "pfet(L=" + ('%.3f' % self.l) + ",W=" + ('%.3f' % self.w) + ")"
     
-    '''
     def coerce_parameters_impl(self):
-        self.a = self.w * self.l
+        # Check parameters
+        if self.w < DR['AP.W'].value :
+            self.w = DR['AP.W'].value
+        if self.l < DR['PO.1'].value :
+            self.l = DR['PO.1'].value
+        if self.n < 1 :
+            self.n = 1
 
+    '''
     def can_create_from_shape_impl(self):
         # OPTIONAL: Implement the "Create PCell from shape" protocol: we can use any shape which
         # has a finite bounding box
@@ -47,7 +53,6 @@ class pfet(pya.PCellDeclarationHelper):
         # bounding box to determine the transformation
         return pya.Trans(self.shape.bbox().center())
     '''   
-  
     def produce_impl(self):
         #
         draw_fet( self.cell, l=self.l, w=self.w, fnum=self.n, layer=AP_layer)
@@ -69,6 +74,15 @@ class nfet(pya.PCellDeclarationHelper):
         # Provide a descriptive text for the cell
         return "nfet(L=" + ('%.3f' % self.l) + ",W=" + ('%.3f' % self.w) + ")"
  
+    def coerce_parameters_impl(self):
+        # Check parameters
+        if self.w < DR['AN.W'].value :
+            self.w = DR['AN.W'].value
+        if self.l < DR['PO.1'].value :
+            self.l = DR['PO.1'].value
+        if self.n < 1 :
+            self.n = 1
+
     def produce_impl(self):
         #
         draw_fet( self.cell, l=self.l, w=self.w, fnum=self.n, layer=AN_layer)
