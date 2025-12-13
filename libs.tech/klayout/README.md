@@ -13,15 +13,17 @@ klayout -- README.md
 ```
 
 ## Contents
-- **d25**     directory contain 2.5D (empty).
-- **drc**     directory contain DRC runset files.
-- **lvs**     directory contain LVS runset files.
-- **macros**  directory contain MACRO files (empty).
-- **pymacro** directory contain Python macro files.
-- **python**  directory contain Python.py files.
-- **ruby**    directory contain Ruby related (empty).
-- **tech**    directory contain TR-1um.lyp Layer files.
-- **klayoutrc** Klayout resource file.
+|         | Description |
+| ------- | ---------   |
+|- **d25**       | directory contain 2.5D (empty).
+|- **drc**       | directory contain DRC runset files.
+|- **lvs**       | directory contain LVS runset files.
+|- **macros**    | directory contain MACRO files (empty).
+|- **pymacro**   | directory contain Python macro files.
+|- **python**    | directory contain Python.py files.
+|- **ruby**      | directory contain Ruby related (empty).
+|- **tech**      | directory contain TR-1um.lyp Layer files.
+|- **klayoutrc** | Klayout resource file.
 
 # Usage
 

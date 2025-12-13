@@ -33,12 +33,12 @@ Extracted spice files from **openIP62/IP62/Basic/libraries/xxx.gds** by LVS oper
 Currently working directry for Open Source Silicon community to exchange new idea and **drc** and **lvs** directories are active for KLayout DRC/LVS runset development. **TR-1um.lyp** is KLayout layer file for both **DRC** and **LVS**.
 Also Xschem symbol library development is ongoing. 
 
-- **klayout/drc**    directory contain DRC runset files.
-- **klayout/lvs**    directory contain LVS runset files.
-- **klayout/pymacros** directory contain PCell loader.
-- **klayout/python** directory contain Python PCell files.
-- **ngspice**        directory is a symbolic link to the originals.
-- **xschem**         directory contain symbol library which under development.
+### Contents
+|         | Description |
+| ------- | ---------   |
+| - **klayout**   | directory contain KLayout (DRC/LVS/PCells)
+| - **ngspice**   | directory is tentativly a symbolic link to the originals.
+| - **xschem**    | directory contain symbol library which under development.
 
 ## Tools
 Preserved.
@@ -48,5 +48,7 @@ Preserved.
 [Tutorial: How to make DRC runset for KLayout](Document/Tutorial_DRC.md)
 
 [Tutorial: How to make LVS runset for KLayout](Document/Tutorial_LVS.md) 
+
+[Tutorial: How to make PCell python script for KLayout](Document/Tutorial_PCell.md) 
 
 [Manifesto: PDK renewal for TR-1um technology](Document/Manifesto.md)
