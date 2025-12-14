@@ -1,3 +1,11 @@
+# TR-1um Open Source PDK project (NDA-free 1um CMOS PDK)
+
+The TR-1um Open Source PDK project, a new NDA-Free PDK ecosystem in Japan, is supported by the non-profit OpenSUSI (Open Source Utilized Silicon Initiatives). [**Tokai Rika**](https://tr-semicon.tokai-rika.co.jp/foundry-service) approved to open their PDK and manufacture the data, which is designed by the Open Source EDA tool at Tokai Rika's facility.
+
+The original document and the DRC/LVS runsets are deliverable as-is by Tokai Rika. Yet, the OpenSUSI proposes new PDK package development based on the Drawing layer + MDP (Mask Development Preparation) procedure. Please see [Manifest](Document/Manifesto.md).
+
+**We welcome your feedback and advice.** We are also planning the Shuttle service once any budgets are in place.
+
 # TR-1um Directory Structure 
 ```
 TR-1um -- openIP62 -- AnagixLoader
