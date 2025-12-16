@@ -32,9 +32,9 @@ class diode_p(pya.PCellDeclarationHelper):
 
     def produce_impl(self):
         #
-        draw_acont( self.cell, width = DR['CO.W'].value, xnum=self.nx, ynum=self.ny )
-        draw_plate( self.cell, width = DR['CO.W'].value, xnum=self.nx, ynum=self.ny, layer=M1_layer, enc=DR['CO.M'].value )
-        draw_plate( self.cell, width = DR['CO.W'].value, xnum=self.nx, ynum=self.ny, layer=AP_layer, enc=DR['CO.D'].value )
+        draw_acont( self.cell, width = DR['CO.W1'].value, xnum=self.nx, ynum=self.ny )
+        draw_plate( self.cell, width = DR['CO.W1'].value, xnum=self.nx, ynum=self.ny, layer=M1_layer, enc=DR['CO.M1'].value )
+        draw_plate( self.cell, width = DR['CO.W1'].value, xnum=self.nx, ynum=self.ny, layer=AP_layer, enc=DR['CO.AD'].value )
       
 class diode_n(pya.PCellDeclarationHelper):
 
@@ -58,7 +58,7 @@ class diode_n(pya.PCellDeclarationHelper):
 
     def produce_impl(self):
         #
-        draw_acont( self.cell, width = DR['CO.W'].value, xnum=self.nx, ynum=self.ny )
-        draw_plate( self.cell, width = DR['CO.W'].value, xnum=self.nx, ynum=self.ny, layer=M1_layer, enc=DR['CO.M'].value )
-        draw_plate( self.cell, width = DR['CO.W'].value, xnum=self.nx, ynum=self.ny, layer=AN_layer, enc=DR['CO.D'].value )
+        draw_acont( self.cell, width = DR['CO.W1'].value, xnum=self.nx, ynum=self.ny )
+        draw_plate( self.cell, width = DR['CO.W1'].value, xnum=self.nx, ynum=self.ny, layer=M1_layer, enc=DR['CO.M1'].value )
+        draw_plate( self.cell, width = DR['CO.W1'].value, xnum=self.nx, ynum=self.ny, layer=AN_layer, enc=DR['CO.AD'].value )
     

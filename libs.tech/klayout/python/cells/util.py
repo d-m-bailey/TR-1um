@@ -10,14 +10,15 @@ import math
 from .layers_def import *
 from .rules_def  import *
 
-co_width    = DR['CO.1'].value
-co_space    = DR['CO.2'].value
-co_enc_diff = DR['CO.P'].value
-co_sep_pg   = DR['CO.G'].value
-co_enc_po   = DR['CO.O'].value
-co_enc_m1   = DR['CO.M'].value
-po_end      = DR['PO.E'].value
-po_space    = DR['PO.2'].value
+co_width    = DR['CO.W1'].value
+co_space    = DR['CO.S2'].value
+co_enc_diff = DR['CO.AP'].value
+co_sep_pg   = DR['CO.PO'].value
+co_enc_pg   = DR['CO.PG'].value
+co_enc_pr   = DR['CO.PR'].value
+co_enc_m1   = DR['CO.M1'].value
+po_end      = DR['PO.EC'].value
+po_space    = DR['PO.S2'].value
 
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 # How many contacts can place within len
@@ -124,6 +125,16 @@ def draw_cont ( cell, width : float = co_width, space : float = co_space,
     #
 
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
+# Insert long shape of contacts into cell
+#
+def draw_lcont ( cell, x_size : float = co_width, y_size : float = co_width, 
+               x_disp : float = 0, y_disp : float = 0, layer = CO_layer ):
+    #
+    box   =  pya.DBox(-x_size/2.0, -y_size/2.0,  x_size/2.0,  y_size/2.0)
+    cell.shapes(layer).insert(box).transform(pya.DTrans( x_disp, y_disp ))
+    #
+
+# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 # Insert X-Y array of contacts into cell
 #
 def draw_acont ( cell, width : float = co_width, space : float = co_space,
@@ -186,4 +197,32 @@ def draw_fet( cell, l, w ,layer, fnum = 1):
     # 
     draw_metal( cell, num=len_2_num( w ), x_disp = -co_disp )
     draw_metal( cell, num=len_2_num( w ), x_disp =  co_disp )
+
+# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
+# 
+#
+def draw_res( cell, l, w ,layer):
+    #
+    res_len = l + co_width + 2 * co_enc_pr
+    #
+    res_box = pya.DBox(-w/2.0,  -res_len/2.0, w/2.0, res_len/2.0 )
+    #
+    cont_l  = w - 2 * co_enc_pr
+    #
+    # Draw PR
+    #
+    cell.shapes(layer).insert(res_box)                         
+    #
+    # Add CO
+    # 
+    draw_lcont( cell, x_size=cont_l, y_disp = -l/2 )
+    draw_lcont( cell, x_size=cont_l, y_disp =  l/2 )
+    #
+    # Add M1
+    # 
+    metal_x = cont_l + 2 * co_enc_m1
+    metal_y = co_width + 2 * co_enc_m1
+    #
+    draw_lcont( cell, x_size=metal_x, y_size=metal_y, y_disp = -l/2, layer=M1_layer )
+    draw_lcont( cell, x_size=metal_x, y_size=metal_y, y_disp =  l/2, layer=M1_layer )
 

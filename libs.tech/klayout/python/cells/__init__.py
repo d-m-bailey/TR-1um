@@ -6,10 +6,11 @@
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 #
 import pya
-from .fet     import *
-from .diode   import *
-from .cont    import *
-from .via     import *
+from .fet      import *
+from .diode    import *
+from .resistor import *
+from .cont     import *
+from .via      import *
 
 # It's a Python class that inherits from the pya.Library class
 class tr_1um(pya.Library):
@@ -32,8 +33,8 @@ class tr_1um(pya.Library):
         #self.layout().register_pcell("cap",  cap()) # CSIO device
         #
         # RES Devices 
-        #self.layout().register_pcell("res_diff", cap()) # Diff resistance
-        #self.layout().register_pcell("res_poly", cap()) # Poly resistance
+        self.layout().register_pcell("res_diff", res_d()) # Diff resistance
+        self.layout().register_pcell("res_poly", res_p()) # Poly resistance
         #
         #　Contacts
         self.layout().register_pcell("cont_g",  cont_po())
