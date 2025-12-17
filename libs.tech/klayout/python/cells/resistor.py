@@ -32,7 +32,7 @@ class res_p(pya.PCellDeclarationHelper):
 
     def produce_impl(self):
         #
-        draw_res( self.cell, l=self.l, w=self.w, layer=AP_layer)
+        draw_res( self.cell, l=self.l, w=self.w, layer=PR_layer)
 
 class res_d(pya.PCellDeclarationHelper):
 

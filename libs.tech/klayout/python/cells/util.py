@@ -75,7 +75,7 @@ def draw_acont ( cell, xnum : int = 1, ynum : int = 1 ):
         sign = sign * -1
 
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-# 
+#  Draw Bottom/Top plate for contact
 #
 def draw_plate ( cell, width : float = co_width, space : float = co_space,
                 xnum : int = 1, ynum : int = 1, layer = PG_layer, enc = 1.0 ):
@@ -157,7 +157,7 @@ def draw_acont ( cell, width : float = co_width, space : float = co_space,
         sign = sign * -1
 
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-# 
+#  Draw FET
 #
 def draw_fet( cell, l, w ,layer, fnum = 1):
     #
@@ -199,19 +199,21 @@ def draw_fet( cell, l, w ,layer, fnum = 1):
     draw_metal( cell, num=len_2_num( w ), x_disp =  co_disp )
 
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-# 
+#  Draw Resistor 
 #
 def draw_res( cell, l, w ,layer):
     #
     res_len = l + co_width + 2 * co_enc_pr
     #
     res_box = pya.DBox(-w/2.0,  -res_len/2.0, w/2.0, res_len/2.0 )
+    mes_box = pya.DBox(-w/2.0,  -l/2.0, w/2.0, l/2.0 )
     #
     cont_l  = w - 2 * co_enc_pr
     #
     # Draw PR
     #
     cell.shapes(layer).insert(res_box)                         
+    cell.shapes(ME_layer).insert(mes_box)                         
     #
     # Add CO
     # 
