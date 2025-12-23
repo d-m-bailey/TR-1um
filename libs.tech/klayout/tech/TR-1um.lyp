@@ -9,7 +9,7 @@
   <dither-pattern>I1</dither-pattern>
   <line-style>I0</line-style>
   <valid>true</valid>
-  <visible>false</visible>
+  <visible>true</visible>
   <transparent>false</transparent>
   <width>1</width>
   <marked>false</marked>
@@ -99,13 +99,13 @@
   <dither-pattern>I5</dither-pattern>
   <line-style/>
   <valid>true</valid>
-  <visible>false</visible>
+  <visible>true</visible>
   <transparent>false</transparent>
   <width>1</width>
   <marked>false</marked>
   <xfill>false</xfill>
   <animation>0</animation>
-  <name>PG</name>
+  <name>PO</name>
   <source>8/1@1</source>
  </properties>
  <properties>
@@ -200,6 +200,78 @@
  </properties>
  <properties>
   <expanded>false</expanded>
+  <frame-color>#8c8ca6</frame-color>
+  <fill-color>#8c8ca6</fill-color>
+  <frame-brightness>0</frame-brightness>
+  <fill-brightness>0</fill-brightness>
+  <dither-pattern>I1</dither-pattern>
+  <line-style>C0</line-style>
+  <valid>true</valid>
+  <visible>true</visible>
+  <transparent>false</transparent>
+  <width>1</width>
+  <marked>false</marked>
+  <xfill>false</xfill>
+  <animation>0</animation>
+  <name>PD</name>
+  <source>14/0@1</source>
+ </properties>
+ <properties>
+  <expanded>false</expanded>
+  <frame-color>#ffae00</frame-color>
+  <fill-color>#ffae00</fill-color>
+  <frame-brightness>0</frame-brightness>
+  <fill-brightness>0</fill-brightness>
+  <dither-pattern>I1</dither-pattern>
+  <line-style>I2</line-style>
+  <valid>true</valid>
+  <visible>true</visible>
+  <transparent>false</transparent>
+  <width>1</width>
+  <marked>false</marked>
+  <xfill>false</xfill>
+  <animation>0</animation>
+  <name>ESD</name>
+  <source>ESD 63/62@1</source>
+ </properties>
+ <properties>
+  <expanded>false</expanded>
+  <frame-color>#c0c0c0</frame-color>
+  <fill-color>#c0c0c0</fill-color>
+  <frame-brightness>0</frame-brightness>
+  <fill-brightness>0</fill-brightness>
+  <dither-pattern>I1</dither-pattern>
+  <line-style>I3</line-style>
+  <valid>true</valid>
+  <visible>false</visible>
+  <transparent>false</transparent>
+  <width>1</width>
+  <marked>false</marked>
+  <xfill>false</xfill>
+  <animation>0</animation>
+  <name>MEAS</name>
+  <source>63/1@1</source>
+ </properties>
+ <properties>
+  <expanded>false</expanded>
+  <frame-color>#c0c0c0</frame-color>
+  <fill-color>#c0c0c0</fill-color>
+  <frame-brightness>0</frame-brightness>
+  <fill-brightness>0</fill-brightness>
+  <dither-pattern>I2</dither-pattern>
+  <line-style>I1</line-style>
+  <valid>true</valid>
+  <visible>true</visible>
+  <transparent>false</transparent>
+  <width>1</width>
+  <marked>false</marked>
+  <xfill>false</xfill>
+  <animation>0</animation>
+  <name>MASK</name>
+  <source>63/0@1</source>
+ </properties>
+ <properties>
+  <expanded>false</expanded>
   <frame-color>#c0c0c0</frame-color>
   <fill-color>#c0c0c0</fill-color>
   <frame-brightness>0</frame-brightness>
@@ -272,12 +344,30 @@
  </properties>
  <properties>
   <expanded>false</expanded>
-  <frame-color>#c0c0c0</frame-color>
-  <fill-color>#c0c0c0</fill-color>
+  <frame-color>#0000ff</frame-color>
+  <fill-color>#0000ff</fill-color>
+  <frame-brightness>0</frame-brightness>
+  <fill-brightness>0</fill-brightness>
+  <dither-pattern>I3</dither-pattern>
+  <line-style/>
+  <valid>true</valid>
+  <visible>true</visible>
+  <transparent>false</transparent>
+  <width/>
+  <marked>false</marked>
+  <xfill>false</xfill>
+  <animation>0</animation>
+  <name>NW</name>
+  <source>36/0@1</source>
+ </properties>
+ <properties>
+  <expanded>false</expanded>
+  <frame-color>#9900e6</frame-color>
+  <fill-color>#9900e6</fill-color>
   <frame-brightness>0</frame-brightness>
   <fill-brightness>0</fill-brightness>
   <dither-pattern>I1</dither-pattern>
-  <line-style>I3</line-style>
+  <line-style>C0</line-style>
   <valid>true</valid>
   <visible>false</visible>
   <transparent>false</transparent>
@@ -285,44 +375,8 @@
   <marked>false</marked>
   <xfill>false</xfill>
   <animation>0</animation>
-  <name>MEAS</name>
-  <source>63/1@1</source>
- </properties>
- <properties>
-  <expanded>false</expanded>
-  <frame-color>#c0c0c0</frame-color>
-  <fill-color>#c0c0c0</fill-color>
-  <frame-brightness>0</frame-brightness>
-  <fill-brightness>0</fill-brightness>
-  <dither-pattern>I2</dither-pattern>
-  <line-style>I1</line-style>
-  <valid>true</valid>
-  <visible>true</visible>
-  <transparent>false</transparent>
-  <width>1</width>
-  <marked>false</marked>
-  <xfill>false</xfill>
-  <animation>0</animation>
-  <name>MASK</name>
-  <source>63/0@1</source>
- </properties>
- <properties>
-  <expanded>false</expanded>
-  <frame-color>#8c8ca6</frame-color>
-  <fill-color>#8c8ca6</fill-color>
-  <frame-brightness>0</frame-brightness>
-  <fill-brightness>0</fill-brightness>
-  <dither-pattern>I1</dither-pattern>
-  <line-style>C0</line-style>
-  <valid>true</valid>
-  <visible>true</visible>
-  <transparent>false</transparent>
-  <width>1</width>
-  <marked>false</marked>
-  <xfill>false</xfill>
-  <animation>0</animation>
-  <name>PD</name>
-  <source>14/0@1</source>
+  <name>HVNW</name>
+  <source>141/0@1</source>
  </properties>
  <properties>
   <expanded>false</expanded>
@@ -362,62 +416,8 @@
  </properties>
  <properties>
   <expanded>false</expanded>
-  <frame-color>#ff80a8</frame-color>
-  <fill-color>#ff80a8</fill-color>
-  <frame-brightness>0</frame-brightness>
-  <fill-brightness>0</fill-brightness>
-  <dither-pattern>I1</dither-pattern>
-  <line-style/>
-  <valid>true</valid>
-  <visible>false</visible>
-  <transparent>false</transparent>
-  <width/>
-  <marked>false</marked>
-  <xfill>false</xfill>
-  <animation>0</animation>
-  <name>NSD</name>
-  <source>28/0@1</source>
- </properties>
- <properties>
-  <expanded>false</expanded>
-  <frame-color>#ffffff</frame-color>
-  <fill-color>#ffffff</fill-color>
-  <frame-brightness>0</frame-brightness>
-  <fill-brightness>0</fill-brightness>
-  <dither-pattern>I1</dither-pattern>
-  <line-style>C0</line-style>
-  <valid>true</valid>
-  <visible>false</visible>
-  <transparent>false</transparent>
-  <width>1</width>
-  <marked>false</marked>
-  <xfill>false</xfill>
-  <animation>0</animation>
-  <name>HPM</name>
-  <source>33/0@1</source>
- </properties>
- <properties>
-  <expanded>false</expanded>
-  <frame-color>#ffff00</frame-color>
-  <fill-color>#ffff00</fill-color>
-  <frame-brightness>0</frame-brightness>
-  <fill-brightness>0</fill-brightness>
-  <dither-pattern>I1</dither-pattern>
-  <line-style>C0</line-style>
-  <valid>true</valid>
-  <visible>false</visible>
-  <transparent>false</transparent>
-  <width>1</width>
-  <marked>false</marked>
-  <xfill>false</xfill>
-  <animation>0</animation>
-  <name>PM</name>
-  <source>35/0@1</source>
- </properties>
- <properties>
-  <expanded>false</expanded>
-  <frame-color>#0000ff</frame-color>
-  <fill-color>#0000ff</fill-color>
+  <frame-color>#01ff6b</frame-color>
+  <fill-color>#01ff6b</fill-color>
   <frame-brightness>0</frame-brightness>
   <fill-brightness>0</fill-brightness>
   <dither-pattern>I3</dither-pattern>
@@ -429,80 +429,8 @@
   <marked>false</marked>
   <xfill>false</xfill>
   <animation>0</animation>
-  <name>NW</name>
-  <source>36/0@1</source>
- </properties>
- <properties>
-  <expanded>false</expanded>
-  <frame-color>#ff8000</frame-color>
-  <fill-color>#ff8000</fill-color>
-  <frame-brightness>0</frame-brightness>
-  <fill-brightness>0</fill-brightness>
-  <dither-pattern>I16</dither-pattern>
-  <line-style/>
-  <valid>true</valid>
-  <visible>false</visible>
-  <transparent>false</transparent>
-  <width>1</width>
-  <marked>false</marked>
-  <xfill>false</xfill>
-  <animation>0</animation>
-  <name>TC23</name>
-  <source>121/0@1</source>
- </properties>
- <properties>
-  <expanded>false</expanded>
-  <frame-color>#008000</frame-color>
-  <fill-color>#008000</fill-color>
-  <frame-brightness>0</frame-brightness>
-  <fill-brightness>0</fill-brightness>
-  <dither-pattern>I5</dither-pattern>
-  <line-style/>
-  <valid>true</valid>
-  <visible>false</visible>
-  <transparent>false</transparent>
-  <width>1</width>
-  <marked>false</marked>
-  <xfill>false</xfill>
-  <animation>0</animation>
-  <name>M3</name>
-  <source>122/0@1</source>
- </properties>
- <properties>
-  <expanded>false</expanded>
-  <frame-color>#9900e6</frame-color>
-  <fill-color>#9900e6</fill-color>
-  <frame-brightness>0</frame-brightness>
-  <fill-brightness>0</fill-brightness>
-  <dither-pattern>I1</dither-pattern>
-  <line-style>C0</line-style>
-  <valid>true</valid>
-  <visible>false</visible>
-  <transparent>false</transparent>
-  <width>1</width>
-  <marked>false</marked>
-  <xfill>false</xfill>
-  <animation>0</animation>
-  <name>HVNW</name>
-  <source>141/0@1</source>
- </properties>
- <properties>
-  <expanded>false</expanded>
-  <frame-color>#ff80a8</frame-color>
-  <fill-color>#ff80a8</fill-color>
-  <frame-brightness>0</frame-brightness>
-  <fill-brightness>0</fill-brightness>
-  <dither-pattern>I1</dither-pattern>
-  <line-style>C0</line-style>
-  <valid>true</valid>
-  <visible>false</visible>
-  <transparent>false</transparent>
-  <width>1</width>
-  <marked>false</marked>
-  <xfill>false</xfill>
-  <animation>0</animation>
-  <name>CL</name>
-  <source>143/0@1</source>
+  <name>L</name>
+  <source>3/0@1</source>
  </properties>
  <properties>
   <expanded>false</expanded>
@@ -591,6 +519,168 @@
   <marked>false</marked>
   <xfill>false</xfill>
   <animation>0</animation>
+  <name>SG</name>
+  <source>8/0@1</source>
+ </properties>
+ <properties>
+  <expanded>false</expanded>
+  <frame-color>#ffff00</frame-color>
+  <fill-color>#ffff00</fill-color>
+  <frame-brightness>0</frame-brightness>
+  <fill-brightness>0</fill-brightness>
+  <dither-pattern>I1</dither-pattern>
+  <line-style>C0</line-style>
+  <valid>true</valid>
+  <visible>false</visible>
+  <transparent>false</transparent>
+  <width>1</width>
+  <marked>false</marked>
+  <xfill>false</xfill>
+  <animation>0</animation>
+  <name>PM</name>
+  <source>35/0@1</source>
+ </properties>
+ <properties>
+  <expanded>false</expanded>
+  <frame-color>#ff80a8</frame-color>
+  <fill-color>#ff80a8</fill-color>
+  <frame-brightness>0</frame-brightness>
+  <fill-brightness>0</fill-brightness>
+  <dither-pattern>I1</dither-pattern>
+  <line-style>I0</line-style>
+  <valid>true</valid>
+  <visible>false</visible>
+  <transparent>false</transparent>
+  <width>1</width>
+  <marked>false</marked>
+  <xfill>false</xfill>
+  <animation>0</animation>
+  <name>NM</name>
+  <source>7/0@1</source>
+ </properties>
+ <properties>
+  <expanded>false</expanded>
+  <frame-color>#ff80a8</frame-color>
+  <fill-color>#ff80a8</fill-color>
+  <frame-brightness>0</frame-brightness>
+  <fill-brightness>0</fill-brightness>
+  <dither-pattern>I1</dither-pattern>
+  <line-style/>
+  <valid>true</valid>
+  <visible>false</visible>
+  <transparent>false</transparent>
+  <width/>
+  <marked>false</marked>
+  <xfill>false</xfill>
+  <animation>0</animation>
+  <name>NSD</name>
+  <source>28/0@1</source>
+ </properties>
+ <properties>
+  <expanded>false</expanded>
+  <frame-color>#f3ff80</frame-color>
+  <fill-color>#f3ff80</fill-color>
+  <frame-brightness>0</frame-brightness>
+  <fill-brightness>0</fill-brightness>
+  <dither-pattern>I1</dither-pattern>
+  <line-style/>
+  <valid>true</valid>
+  <visible>false</visible>
+  <transparent>false</transparent>
+  <width/>
+  <marked>false</marked>
+  <xfill>false</xfill>
+  <animation>0</animation>
+  <name>PSD</name>
+  <source>9/0@1</source>
+ </properties>
+ <properties>
+  <expanded>false</expanded>
+  <frame-color>#ff80a8</frame-color>
+  <fill-color>#ff80a8</fill-color>
+  <frame-brightness>0</frame-brightness>
+  <fill-brightness>0</fill-brightness>
+  <dither-pattern>I1</dither-pattern>
+  <line-style>C0</line-style>
+  <valid>true</valid>
+  <visible>false</visible>
+  <transparent>false</transparent>
+  <width>1</width>
+  <marked>false</marked>
+  <xfill>false</xfill>
+  <animation>0</animation>
+  <name>CL</name>
+  <source>143/0@1</source>
+ </properties>
+ <properties>
+  <expanded>false</expanded>
+  <frame-color>#ffffff</frame-color>
+  <fill-color>#ffffff</fill-color>
+  <frame-brightness>0</frame-brightness>
+  <fill-brightness>0</fill-brightness>
+  <dither-pattern>I1</dither-pattern>
+  <line-style>C0</line-style>
+  <valid>true</valid>
+  <visible>false</visible>
+  <transparent>false</transparent>
+  <width>1</width>
+  <marked>false</marked>
+  <xfill>false</xfill>
+  <animation>0</animation>
+  <name>HPM</name>
+  <source>33/0@1</source>
+ </properties>
+ <properties>
+  <expanded>false</expanded>
+  <frame-color>#ff8000</frame-color>
+  <fill-color>#ff8000</fill-color>
+  <frame-brightness>0</frame-brightness>
+  <fill-brightness>0</fill-brightness>
+  <dither-pattern>I16</dither-pattern>
+  <line-style/>
+  <valid>true</valid>
+  <visible>false</visible>
+  <transparent>false</transparent>
+  <width>1</width>
+  <marked>false</marked>
+  <xfill>false</xfill>
+  <animation>0</animation>
+  <name>TC23</name>
+  <source>121/0@1</source>
+ </properties>
+ <properties>
+  <expanded>false</expanded>
+  <frame-color>#008000</frame-color>
+  <fill-color>#008000</fill-color>
+  <frame-brightness>0</frame-brightness>
+  <fill-brightness>0</fill-brightness>
+  <dither-pattern>I5</dither-pattern>
+  <line-style/>
+  <valid>true</valid>
+  <visible>false</visible>
+  <transparent>false</transparent>
+  <width>1</width>
+  <marked>false</marked>
+  <xfill>false</xfill>
+  <animation>0</animation>
+  <name>M3</name>
+  <source>122/0@1</source>
+ </properties>
+ <properties>
+  <expanded>false</expanded>
+  <frame-color>#ff0000</frame-color>
+  <fill-color>#ff0000</fill-color>
+  <frame-brightness>0</frame-brightness>
+  <fill-brightness>0</fill-brightness>
+  <dither-pattern>I3</dither-pattern>
+  <line-style/>
+  <valid>true</valid>
+  <visible>false</visible>
+  <transparent>false</transparent>
+  <width/>
+  <marked>false</marked>
+  <xfill>false</xfill>
+  <animation>0</animation>
   <name>RHP</name>
   <source>148/0@1</source>
  </properties>
@@ -632,24 +722,6 @@
  </properties>
  <properties>
   <expanded>false</expanded>
-  <frame-color>#ffae00</frame-color>
-  <fill-color>#ffae00</fill-color>
-  <frame-brightness>0</frame-brightness>
-  <fill-brightness>0</fill-brightness>
-  <dither-pattern>I1</dither-pattern>
-  <line-style>I2</line-style>
-  <valid>true</valid>
-  <visible>false</visible>
-  <transparent>false</transparent>
-  <width>1</width>
-  <marked>false</marked>
-  <xfill>false</xfill>
-  <animation>0</animation>
-  <name>ESD</name>
-  <source>ESD 63/62@1</source>
- </properties>
- <properties>
-  <expanded>false</expanded>
   <frame-color>#ff0080</frame-color>
   <fill-color>#ff0080</fill-color>
   <frame-brightness>0</frame-brightness>
@@ -665,78 +737,6 @@
   <animation>0</animation>
   <name/>
   <source>ERR02@1</source>
- </properties>
- <properties>
-  <expanded>false</expanded>
-  <frame-color>#01ff6b</frame-color>
-  <fill-color>#01ff6b</fill-color>
-  <frame-brightness>0</frame-brightness>
-  <fill-brightness>0</fill-brightness>
-  <dither-pattern>I3</dither-pattern>
-  <line-style/>
-  <valid>true</valid>
-  <visible>false</visible>
-  <transparent>false</transparent>
-  <width/>
-  <marked>false</marked>
-  <xfill>false</xfill>
-  <animation>0</animation>
-  <name>L</name>
-  <source>3/0@1</source>
- </properties>
- <properties>
-  <expanded>false</expanded>
-  <frame-color>#ff80a8</frame-color>
-  <fill-color>#ff80a8</fill-color>
-  <frame-brightness>0</frame-brightness>
-  <fill-brightness>0</fill-brightness>
-  <dither-pattern>I1</dither-pattern>
-  <line-style>I0</line-style>
-  <valid>true</valid>
-  <visible>false</visible>
-  <transparent>false</transparent>
-  <width>1</width>
-  <marked>false</marked>
-  <xfill>false</xfill>
-  <animation>0</animation>
-  <name>NM</name>
-  <source>7/0@1</source>
- </properties>
- <properties>
-  <expanded>false</expanded>
-  <frame-color>#ff0000</frame-color>
-  <fill-color>#ff0000</fill-color>
-  <frame-brightness>0</frame-brightness>
-  <fill-brightness>0</fill-brightness>
-  <dither-pattern>I3</dither-pattern>
-  <line-style/>
-  <valid>true</valid>
-  <visible>false</visible>
-  <transparent>false</transparent>
-  <width/>
-  <marked>false</marked>
-  <xfill>false</xfill>
-  <animation>0</animation>
-  <name>SG</name>
-  <source>8/0@1</source>
- </properties>
- <properties>
-  <expanded>false</expanded>
-  <frame-color>#f3ff80</frame-color>
-  <fill-color>#f3ff80</fill-color>
-  <frame-brightness>0</frame-brightness>
-  <fill-brightness>0</fill-brightness>
-  <dither-pattern>I1</dither-pattern>
-  <line-style/>
-  <valid>true</valid>
-  <visible>false</visible>
-  <transparent>false</transparent>
-  <width/>
-  <marked>false</marked>
-  <xfill>false</xfill>
-  <animation>0</animation>
-  <name>PSD</name>
-  <source>9/0@1</source>
  </properties>
  <name>GDS</name>
  <custom-dither-pattern>

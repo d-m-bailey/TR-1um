@@ -12,11 +12,18 @@
 
     5. DONE: LVS runset initial version (MOS/DIODE/CAP/RR/RS).
 
-    6. ONGOING: WRITE LVS Tutrial.
+    6. DONE: WRITE LVS Tutrial.
 
-    7. PROPOSE: Simplified drawing layer, means introduce MDP runset as an after-process to generate MASK layer.
+    7. DONE: Simplified drawing layer, means introduce MDP runset as an after-process to generate MASK layer.
 
+    8. DONE: Develop MASK to Drawing Layer conversion tool.
 
+    9. DONE: Develop new DRC for Drawing Layer design.
+
+   10. ONGOING: Develop Drawing to MASK Layer conversion tool.
+   
+   11. PLAN: Develop new LVS for Drawing Layer design.
+  
 
 
 
