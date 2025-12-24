@@ -38,6 +38,8 @@ NSD  = ly.layer( 28, 0)     # L8
 R    = ly.layer( 12, 0)     # L9
 CL   = ly.layer(143, 0)     # LA
 HPM  = ly.layer( 33, 0)     
+ESD  = ly.layer( 63, 2)
+##
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 # DLXXX 
 DPBG  = ly.layer(116, 0)
@@ -73,25 +75,19 @@ PR    = ly.layer(  8, 2)
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 def convert_drawing( cell : db.Cell ) :
     #
-    NWCS = (db.Region(cell.shapes(PSUB)).merged() & 
-            db.Region(cell.shapes(NW  )).merged().interacting(db.Region(cell.shapes(CL)).merged()))
     NWMP = (db.Region(cell.shapes(PSUB)).merged() & 
             db.Region(cell.shapes(NW  )).merged()).not_interacting(db.Region(cell.shapes(CL)).merged())
+    NWCS = (db.Region(cell.shapes(PSUB)).merged() & 
+            db.Region(cell.shapes(NW  )).merged().interacting(db.Region(cell.shapes(CL)).merged()))
     NWRR = (db.Region(cell.shapes(PSUB)).merged() & db.Region(cell.shapes(HVNW)).merged())
     PWMN = (db.Region(cell.bbox()) - db.Region(cell.shapes(PSUB)).merged())
     #
-    LG   = (db.Region(cell.shapes(L  )).merged()).interacting(db.Region(cell.shapes(SG)).merged())
+    LG   = (db.Region(cell.shapes(L  )).merged()).interacting(    db.Region(cell.shapes(SG)).merged())
     LX   = (db.Region(cell.shapes(L  )).merged()).not_interacting(db.Region(cell.shapes(SG)).merged())
     # 
     P1   = (db.Region(cell.shapes(SG )).merged() - db.Region(cell.shapes(DLRS)).merged())
     P2   = (db.Region(cell.shapes(SG )).merged() & db.Region(cell.shapes(DLRS)).merged())
     #
-    L1   = (db.Region(cell.shapes(NF )).merged())
-    L2   = (db.Region(cell.shapes(PF )).merged())
-    L3   = (db.Region(cell.shapes(NBE)).merged())
-    L4   = (db.Region(cell.shapes(PBE)).merged())
-    L5   = (db.Region(cell.shapes(PM )).merged())
-    L6   = (db.Region(cell.shapes(NM )).merged())
     L7   = (db.Region(cell.shapes(PSD)).merged())
     L8   = (db.Region(cell.shapes(NSD)).merged())
     L9   = (db.Region(cell.shapes(R  )).merged())
@@ -109,19 +105,20 @@ def convert_drawing( cell : db.Cell ) :
     DA   = (db.Region(cell.shapes(DLBGRR)).merged())
     DB   = (db.Region(cell.shapes(DLCSIO)).merged())
     #
-    AAMP = (LG & ( NWMP & L1 & L2 - L3 & L4 - L5 & L6 - L7 & L8 - L9 - LA)) #| (LG & D1 )
-    AAMN = (LG & ( PWMN - L1 - L2 & L3 - L4 & L5 - L6 & L7 - L8 - L9 - LA)) #| (LG & D2 )
-    AAPE = (LG & ( NWMP & L1 & L2 - L3 & L4 - L5 & L6 - L7 & L8 - L9 - LA)) #| (LG & D3 )
-    AANE = (LG & ( PWMN - L1 - L2 & L3 - L4 & L5 & L6 & L7 - L8 - L9 - LA)) #| (LG & D4 )
+    AAMP = (LG & ( NWMP - L7 & L8 - L9 - LA )) | (LG & D1)
+    AAMN = (LG & ( PWMN & L7 - L8 - L9 - LA )) | (LG & D2)
+    AAPE = (LG & ( NWMP - L7 & L8 - L9 - LA )) | (LG & D3)
+    AANE = (LG & ( PWMN & L7 - L8 - L9 - LA )) | (LG & D4)
     #
-    AADP = (LX & ( NWMP & L1 & L2 - L3 - L4 & L5 & L6 - L7 & L8 - L9 - LA)) #| (LX & D5 )  
-    AADN = (LX & ( PWMN - L1 - L2 - L3 - L4 & L5 & L6 & L7 - L8 - L9 - LA)) #| (LX & D6 )  
-    AAGP = (LX & ( NWMP & L1 & L2 - L3 - L4 & L5 & L6 & L7 - L8 - L9 - LA)) #| (LX & D7 )
-    AAGN = (LX & ( PWMN - L1 - L2 - L3 - L4 & L5 & L6 - L7 & L8 - L9 - LA)) #| (LX & D8 )
-    AARR = (LX & ( NWRR & L1 - L2 - L3 - L4 & L5 & L6      & L8 & L9 - LA)) | (LX & D9 )    
-    AAGR = (LX & ( NWRR & L1 - L2 - L3 - L4 & L5 & L6 & L7 - L8 - L9 - LA)) | (LX & DA )
-    AACC = (LG & ( NWCS & L1 - L2 - L3 - L4 & L5 & L6 & L7 & L8 - L9 & LA)) | (LG & NWCS & DB )
-    AAGC = (LX & ( NWCS & L1 - L2 - L3 - L4 & L5 & L6 & L7 - L8 - L9 - LA)) | (LX & NWCS & D8 )
+    AADP = (LX & ( NWMP - L7 & L8 - L9 - LA )) | (LX & D5)
+    AADN = (LX & ( PWMN & L7 - L8 - L9 - LA )) | (LX & D6)
+    AAGP = (LX & ( NWMP & L7 - L8 - L9 - LA )) | (LX & D7)
+    AAGN = (LX & ( NWMP - L7 & L8 - L9 - LA )) | (LX & D8)
+    #
+    AARR = (LX & ( NWRR &      L8 & L9 - LA )) | (LX & D9 )    
+    AAGR = (LX & ( NWRR & L7 - L8 - L9 - LA )) | (LX & DA )
+    AACC = (LG & ( NWCS & L7 & L8 - L9 & LA )) | (LG & NWCS & DB )
+    AAGC = (LX & ( NWCS & L7 - L8 - L9 - LA )) | (LX & NWCS & D8 )
     # ----- ----- ----- -----  
     # Create Drawing
     # 

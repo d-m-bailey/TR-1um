@@ -10,7 +10,7 @@
 (M2 ).edges.inside_part(PRO).output("ERR09: PRO crossed M2")
 #
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-#  PRO NOT outside of M1/M2 
+#  PRO NOT outside of M1/M2 inside of SCRB
 # 
 (PRO).drc( outside(M1 + M2) ).output("ERR09: PRO outside of M1/M2")
 #
