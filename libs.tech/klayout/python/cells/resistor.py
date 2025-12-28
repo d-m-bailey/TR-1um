@@ -25,14 +25,18 @@ class res_p(pya.PCellDeclarationHelper):
     
     def coerce_parameters_impl(self):
         # Check parameters
-        if self.w < DR['PR.W1'].value :
-            self.w = DR['PR.W1'].value
-        if self.l < DR['PR.L3'].value :
-            self.l = DR['PR.L3'].value
+        if self.w < DR['PR.W1'].min :
+            self.w = DR['PR.W1'].min
+        elif self.w > DR['PR.W1'].max :
+            self.w = DR['PR.W1'].max
+        if self.l < DR['PR.L1'].min :
+            self.l = DR['PR.L1'].min
+        elif self.l > DR['PR.L1'].max :
+            self.l = DR['PR.L1'].max
 
     def produce_impl(self):
         #
-        draw_res( self.cell, l=self.l, w=self.w, layer=PR_layer)
+        draw_res_p( self.cell, l=self.l, w=self.w )
 
 class res_d(pya.PCellDeclarationHelper):
 
@@ -49,13 +53,17 @@ class res_d(pya.PCellDeclarationHelper):
     
     def coerce_parameters_impl(self):
         # Check parameters
-        if self.w < DR['AR.W1'].value :
-            self.w = DR['AR.W1'].value
-        if self.l < DR['AR.L3'].value :
-            self.l = DR['AR.L3'].value
+        if self.w < DR['AR.W1'].min :
+            self.w = DR['AR.W1'].min
+        elif self.w > DR['AR.W1'].max :
+            self.w = DR['AR.W1'].max
+        if self.l < DR['AR.L1'].min :
+            self.l = DR['AR.L1'].min
+        elif self.l > DR['AR.L1'].max :
+            self.l = DR['AR.L1'].max
 
     def produce_impl(self):
         #
-        draw_res( self.cell, l=self.l, w=self.w, layer=AR_layer, )
-        draw_rpo( self.cell, l=self.l, w=self.w, layer=PG_layer)
+        draw_res_d( self.cell, l=self.l, w=self.w )
+    #   draw_rpo( self.cell, l=self.l, w=self.w, layer=PG_layer)
 

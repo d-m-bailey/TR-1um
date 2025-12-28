@@ -32,10 +32,10 @@ class via_1(pya.PCellDeclarationHelper):
 
     def produce_impl(self):
         #
-        draw_acont( self.cell, width=DR['V1.1'].value, space=DR['V1.2'].value, 
+        draw_acont( self.cell, width=DR['V1.W1'].min, space=DR['V1.S1'].min, 
                    xnum=self.nx, ynum=self.ny, layer=V1_layer )
-        draw_plate( self.cell, width=DR['V1.1'].value, space=DR['V1.2'].value, 
-                   xnum=self.nx, ynum=self.ny, layer=M1_layer, enc=DR['V1.M1'].value )
-        draw_plate( self.cell, width=DR['V1.1'].value, space=DR['V1.2'].value, 
-                   xnum=self.nx, ynum=self.ny, layer=M2_layer, enc=DR['V1.M2'].value )
+        draw_plate( self.cell, width=DR['V1.W1'].min, space=DR['V1.S1'].min, 
+                   xnum=self.nx, ynum=self.ny, layer=M1_layer, enc=DR['V1.M1'].min )
+        draw_plate( self.cell, width=DR['V1.W1'].min, space=DR['V1.S1'].min, 
+                   xnum=self.nx, ynum=self.ny, layer=M2_layer, enc=DR['M2.V1'].min )
       

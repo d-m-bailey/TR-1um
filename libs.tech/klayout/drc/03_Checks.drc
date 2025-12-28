@@ -59,8 +59,3 @@ AA = (AN + AP - AD)
 (CO & WC).drc( space            !=  1.2 ).output("CC.S1: CO(C)    Smin !=  1.2")
 (CO & WC).drc( enclosed(AC)      <  2.9 ).output("CC.AC: CO(C)-AC Emin  <  2.9")
 (CO & WC).drc( enclosed(AC)      <  1.2 ).output("CC.AN: CO(C)-AN Emin  <  1.2")
-#
-# CO under M1
-#
-(CO     ).drc( enclosed(M1)      <  0.8 ).output("CO.M1: CO-M1    Emin  <  0.8")
-(CO & WC).drc( enclosed(M1)      <  1.2 ).output("CC.M1: CO(C)-M1 Emin  <  1.2")

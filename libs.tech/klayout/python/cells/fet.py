@@ -18,8 +18,8 @@ class pfet(pya.PCellDeclarationHelper):
         #
         self.param("type", self.TypeString, "Type", default="PFET")
         #
-        self.param("l", self.TypeDouble, "Length",  default=DR['PO.W1'].value, unit="um")
-        self.param("w", self.TypeDouble, "Width",   default=DR['AP.WM'].value, unit="um")
+        self.param("l", self.TypeDouble, "Length",  default=DR['PO.W1'].min, unit="um")
+        self.param("w", self.TypeDouble, "Width",   default=DR['AP.WM'].min, unit="um")
         self.param("n", self.TypeInt,    "Fingers", default=1)
 
     def display_text_impl(self):
@@ -28,10 +28,14 @@ class pfet(pya.PCellDeclarationHelper):
     
     def coerce_parameters_impl(self):
         # Check parameters
-        if self.w < DR['AP.WM'].value :
-            self.w = DR['AP.WM'].value
-        if self.l < DR['PO.W1'].value :
-            self.l = DR['PO.W1'].value
+        if self.w < DR['AP.WM'].min :
+            self.w = DR['AP.WM'].min
+        elif self.w > DR['AP.WM'].max :
+            self.w = DR['AP.WM'].max
+        if self.l < DR['AP.LM'].min :
+            self.l = DR['AP.LM'].min
+        elif self.l > DR['AP.LM'].max :
+            self.l = DR['AP.LM'].max
         if self.n < 1 :
             self.n = 1
 
@@ -66,8 +70,8 @@ class nfet(pya.PCellDeclarationHelper):
         #
         self.param("type", self.TypeString, "Type", default="NFET")
         #
-        self.param("l", self.TypeDouble, "Length",  default=DR['PO.W1'].value, unit="um")
-        self.param("w", self.TypeDouble, "Width",   default=DR['AN.WM'].value, unit="um")
+        self.param("l", self.TypeDouble, "Length",  default=DR['PO.W1'].min, unit="um")
+        self.param("w", self.TypeDouble, "Width",   default=DR['AN.WM'].min, unit="um")
         self.param("n", self.TypeInt,    "Fingers", default=1)
 
     def display_text_impl(self):
@@ -76,10 +80,14 @@ class nfet(pya.PCellDeclarationHelper):
  
     def coerce_parameters_impl(self):
         # Check parameters
-        if self.w < DR['AN.WM'].value :
-            self.w = DR['AN.WM'].value
-        if self.l < DR['PO.W1'].value :
-            self.l = DR['PO.W1'].value
+        if self.w < DR['AN.WM'].min :
+            self.w = DR['AN.WM'].min
+        elif self.w > DR['AN.WM'].max :
+            self.w = DR['AN.WM'].max
+        if self.l < DR['AN.LM'].min :
+            self.l = DR['AN.LM'].min
+        elif self.l > DR['AN.LM'].max :
+            self.l = DR['AN.LM'].max
         if self.n < 1 :
             self.n = 1
 

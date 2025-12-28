@@ -33,8 +33,8 @@ class cont_po(pya.PCellDeclarationHelper):
     def produce_impl(self):
         #
         draw_acont( self.cell, xnum=self.nx, ynum=self.ny )
-        draw_plate( self.cell, xnum=self.nx, ynum=self.ny, layer=M1_layer, enc=DR['CO.M1'].value )
-        draw_plate( self.cell, xnum=self.nx, ynum=self.ny, layer=PG_layer, enc=DR['CO.PO'].value )
+        draw_plate( self.cell, xnum=self.nx, ynum=self.ny, layer=M1_layer, enc=DR['M1.CO'].min )
+        draw_plate( self.cell, xnum=self.nx, ynum=self.ny, layer=PG_layer, enc=DR['CO.PO'].min )
       
 class cont_p(pya.PCellDeclarationHelper):
 
@@ -59,8 +59,8 @@ class cont_p(pya.PCellDeclarationHelper):
     def produce_impl(self):
         #
         draw_acont( self.cell, xnum=self.nx, ynum=self.ny )
-        draw_plate( self.cell, xnum=self.nx, ynum=self.ny, layer=M1_layer, enc=DR['CO.M1'].value )
-        draw_plate( self.cell, xnum=self.nx, ynum=self.ny, layer=AP_layer, enc=DR['CO.AP'].value )
+        draw_plate( self.cell, xnum=self.nx, ynum=self.ny, layer=M1_layer, enc=DR['M1.CO'].min )
+        draw_plate( self.cell, xnum=self.nx, ynum=self.ny, layer=AP_layer, enc=DR['CO.AP'].min )
       
 class cont_n(pya.PCellDeclarationHelper):
 
@@ -85,6 +85,6 @@ class cont_n(pya.PCellDeclarationHelper):
     def produce_impl(self):
         #
         draw_acont( self.cell, xnum=self.nx, ynum=self.ny )
-        draw_plate( self.cell, xnum=self.nx, ynum=self.ny, layer=M1_layer, enc=DR['CO.M1'].value )
-        draw_plate( self.cell, xnum=self.nx, ynum=self.ny, layer=AN_layer, enc=DR['CO.AN'].value )
+        draw_plate( self.cell, xnum=self.nx, ynum=self.ny, layer=M1_layer, enc=DR['M1.CO'].min )
+        draw_plate( self.cell, xnum=self.nx, ynum=self.ny, layer=AN_layer, enc=DR['CO.AN'].min )
     
