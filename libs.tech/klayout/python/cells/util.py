@@ -446,17 +446,11 @@ def draw_cap( cell, l, w ,
               co_w  : float = DR['CO.W1'].min, 
               co_s  : float = DR['CO.S1'].min, 
               co_e  : float = DR['CC.AN'].min, 
-              m1_e  : float = DR['M1.CO'].min, 
               ac_an : float = DR['AC.AN'].min,
               inlet : float = DR['M1.SC'].min,
               layer = AC_layer ):
     #
-    an_w   = co_w + 2 * co_e
-    box_x  = l + 2 * ( ac_an + an_w )
-    box_y  = w + 2 * ( ac_an + an_w )
-    co_lx  = l + 2 * ( ac_an + co_e ) + co_w
-    co_ly  = w + 2 * ( ac_an + co_e ) + co_w
-    co_xi  = (box_x - inlet) / 4
+    an_w   = co_w + 2 * co_e    # AN ring width
     #
     # BOX shape
     #
