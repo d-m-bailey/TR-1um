@@ -6,11 +6,13 @@
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 #  M1 related
 # 
+CL = CO.drc( area > 1.0 )
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 # M1 to CO
 #
 (M1     ).drc( enclosing(CO)      <  0.8 ).output("M1.CO: M1-M1    Fmin  <  0.8")
-(M1     ).drc( enclosing(CO & WC) <  1.2 ).output("CC.M1: M1-CO(C) Fmin  <  1.2")
+(M1     ).drc( enclosing(CO & WC) <  1.2 ).output("M1.CC: M1-CO(C) Fmin  <  1.2")
+(M1     ).drc( enclosing(CL)      <  1.2 ).output("M1,CL: M1-CO(L) Fmin  <  1.2")
 #
 # M1 L/S
 #
