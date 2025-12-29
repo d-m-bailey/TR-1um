@@ -31,11 +31,11 @@ class tr_1um(pya.Library):
         self.layout().register_pcell("diode_n", diode_n())
         #
         # CAP Devices 
-#        self.layout().register_pcell("cap",  cap()) # CSIO device
+        self.layout().register_pcell("cap",  cap()) # CSIO device
         #
         # RES Devices 
-#        self.layout().register_pcell("res_diff", res_d()) # Diff resistance
-#        self.layout().register_pcell("res_poly", res_p()) # Poly resistance
+        self.layout().register_pcell("res_diff", res_d()) # Diff resistance
+        self.layout().register_pcell("res_poly", res_p()) # Poly resistance
         #
         #　Contacts
         self.layout().register_pcell("cont_g",  cont_po())

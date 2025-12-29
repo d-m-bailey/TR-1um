@@ -16,7 +16,9 @@ class diode_p(pya.PCellDeclarationHelper):
         # Initialize super class.
         super(diode_p, self).__init__()
         #
-        self.Wmin = DR['CO.WD'].min + 2 * DR['CO.AD'].min
+        self.Cmin = DR['CO.WD'].min
+        self.Emin = DR['CO.AD'].min
+        self.Wmin = self.Cmin + 2 * self.Emin
         #
         self.param("x",  self.TypeDouble, "X(um)",     default=self.Wmin)
         self.param("y",  self.TypeDouble, "Y(um)",     default=self.Wmin)
@@ -35,10 +37,10 @@ class diode_p(pya.PCellDeclarationHelper):
     def produce_impl(self):
         #
         draw_acont( self.cell, x_size=self.x, y_size=self.y, 
-                   co_w = DR['CO.WD'].min, co_e = DR['CO.AD'].min, layer = CO_layer )
+                   co_w = self.Cmin, co_e = self.Emin, layer = CO_layer )
         #
-        draw_metal( self.cell, x_size = self.x, y_size = self.y, layer = AN_layer)
-        draw_metal( self.cell, x_size = self.x, y_size = self.y, layer = M1_layer)
+        draw_metal( self.cell, x_size = self.x, y_size = self.y, co_w = self.Cmin, layer = AP_layer)
+        draw_metal( self.cell, x_size = self.x, y_size = self.y, co_w = self.Cmin, layer = M1_layer, keep=False)
 
 class diode_n(pya.PCellDeclarationHelper):
 
@@ -46,7 +48,9 @@ class diode_n(pya.PCellDeclarationHelper):
         # Initialize super class.
         super(diode_n, self).__init__()
         #
-        self.Wmin = DR['CO.WD'].min + 2 * DR['CO.AD'].min
+        self.Cmin = DR['CO.WD'].min
+        self.Emin = DR['CO.AD'].min
+        self.Wmin = self.Cmin + 2 * self.Emin
         #
         self.param("x",  self.TypeDouble, "X(um)",     default=self.Wmin)
         self.param("y",  self.TypeDouble, "Y(um)",     default=self.Wmin)
@@ -65,7 +69,7 @@ class diode_n(pya.PCellDeclarationHelper):
     def produce_impl(self):
         #
         draw_acont( self.cell, x_size=self.x, y_size=self.y, 
-                   co_w = DR['CO.WD'].min, co_e = DR['CO.AD'].min, layer = CO_layer )
+                   co_w = self.Cmin, co_e = self.Emin, layer = CO_layer )
         #
-        draw_metal( self.cell, x_size = self.x, y_size = self.y, layer = AN_layer)
-        draw_metal( self.cell, x_size = self.x, y_size = self.y, layer = M1_layer)
+        draw_metal( self.cell, x_size = self.x, y_size = self.y, co_w = self.Cmin, layer = AN_layer)
+        draw_metal( self.cell, x_size = self.x, y_size = self.y, co_w = self.Cmin, layer = M1_layer, keep=False)

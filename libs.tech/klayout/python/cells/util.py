@@ -102,21 +102,27 @@ def draw_hole ( cell, l, w,
         box   =  pya.DPolygon( [(-inlet/2.0,   -box_y/2.0 ), 
                                 (-box_x/2.0,   -box_y/2.0 ),
                                 (-box_x/2.0,    box_y/2.0 ),
-                                ( box_x/2.0,    box_y/2.0 ),
-                                ( box_x/2.0,   -box_y/2.0 ),
-                                ( inlet/2.0,   -box_y/2.0 ),
-                                ( inlet/2.0,   -hole_y/2.0),
-                                ( hole_x/2.0,  -hole_y/2.0),
-                                ( hole_x/2.0,   hole_y/2.0),
-                                (-hole_x/2.0,   hole_y/2.0),
-                                (-hole_x/2.0,  -hole_y/2.0),
-                                (-inlet/2.0,   -hole_y/2.0) ] )
+                                (-inlet/2.0,    box_y/2.0 ), 
+                                (-inlet/2.0,    hole_y/2.0), 
+                                (-hole_x/2.0,   hole_y/2.0), 
+                                (-hole_x/2.0,  -hole_y/2.0), 
+                                (-inlet/2.0,   -hole_y/2.0) ]) 
         cell.shapes(layer).insert(box)
+        box   =  pya.DPolygon( [( inlet/2.0,   -box_y/2.0 ), 
+                                ( box_x/2.0,   -box_y/2.0 ),
+                                ( box_x/2.0,    box_y/2.0 ),
+                                ( inlet/2.0,    box_y/2.0 ), 
+                                ( inlet/2.0,    hole_y/2.0), 
+                                ( hole_x/2.0,   hole_y/2.0), 
+                                ( hole_x/2.0,  -hole_y/2.0), 
+                                ( inlet/2.0,   -hole_y/2.0) ]) 
+        cell.shapes(layer).insert(box)
+    #
     else :
-        box   =  pya.DPolygon(  [(-box_x/2.0,  -box_y/2.0),
+        box   =  pya.DPolygon(  [(-box_x/2.0, -box_y/2.0),
                                 (-box_x/2.0,   box_y/2.0),
                                 ( box_x/2.0,   box_y/2.0),
-                                ( box_x/2.0,  -box_y/2.0) ] )
+                                ( box_x/2.0,  -box_y/2.0) ])
         hole  =  pya.DBox( -hole_x/2.0, -hole_y/2.0,  hole_x/2.0,  hole_y/2.0 )
         #                      
         cell.shapes(layer).insert(box.insert_hole(hole))
@@ -171,7 +177,7 @@ def draw_cont ( cell,
         elif y_0 == 't' :                   # start from north
             disp = -1.0 * pitch * n + (y_size / 2.0 - co_e - co_w / 2)
         #
-        cell.shapes(layer).insert(co_box).transform(pya.DTrans( x_disp, disp ))
+        cell.shapes(layer).insert(co_box).transform(pya.DTrans( x_disp, y_disp + disp ))
         #
         sign = sign * -1
     #
@@ -187,7 +193,7 @@ def draw_cont ( cell,
         elif x_0 == 'r' :                   # start from east
             disp = -1.0 * pitch * n + (x_size / 2.0 - co_e - co_w / 2)
         #
-        cell.shapes(layer).insert(co_box).transform(pya.DTrans( disp, y_disp ))
+        cell.shapes(layer).insert(co_box).transform(pya.DTrans( x_disp + disp, y_disp ))
         #
         sign = sign * -1
     #
@@ -224,8 +230,6 @@ def draw_acont ( cell,
         elif x_0 == 'r' :                    # start from east
             x_disp = -1.0 * pitch * n + (x_size / 2.0 - (co_e + co_w / 2))
         #
-        print(co_w, co_s, co_e, x_disp, x_size, y_size, x_num)
-        #
         draw_cont ( cell, 
                    co_w   = co_w, 
                    co_s   = co_s, 
@@ -236,6 +240,76 @@ def draw_acont ( cell,
                    layer = layer )
         #
         sign = sign * -1
+
+# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
+#  Draw FET
+#
+def draw_dcont ( cell, l, w,
+                 co_w  : float = DR['CO.W1'].min, 
+                 co_s  : float = DR['CO.S1'].min, 
+                 co_e  : float = DR['CC.AN'].min, 
+                 ac_an : float = DR['AC.AN'].min,
+                 inlet : float = DR['M1.SC'].min,
+                 layer = CO_layer ):
+    #
+    an_w   = co_w + 2 * co_e
+    box_x  = l + 2 * ( ac_an + an_w )
+    box_y  = w + 2 * ( ac_an + an_w )
+    co_lx  = l + 2 * ( ac_an + co_e ) + co_w
+    co_ly  = w + 2 * ( ac_an + co_e ) + co_w
+    co_xi  = (box_x - inlet) / 4
+    #
+    draw_cont ( cell, co_w = co_w, co_s = co_s, co_e = co_e, 
+               y_size =  box_y / 2, 
+               x_disp = -co_lx / 2, 
+               y_disp =  box_y / 4, 
+               y_0    = 't',
+               layer  = layer  )
+    draw_cont ( cell, co_w = co_w, co_s = co_s, co_e = co_e, 
+               y_size =  box_y / 2, 
+               x_disp = -co_lx / 2, 
+               y_disp = -box_y / 4, 
+               y_0    = 'b',
+               layer  = layer  )
+    #
+    draw_cont ( cell, co_w = co_w, co_s = co_s, co_e = co_e, 
+               y_size =  box_y / 2, 
+               x_disp =  co_lx / 2, 
+               y_disp =  box_y / 4, 
+               y_0    = 't',
+               layer  = layer  )
+    draw_cont ( cell, co_w = co_w, co_s = co_s, co_e = co_e, 
+               y_size =  box_y / 2, 
+               x_disp =  co_lx / 2, 
+               y_disp = -box_y / 4, 
+               y_0    = 'b',
+               layer  = layer  )
+    #
+    draw_cont ( cell, co_w = co_w, co_s = co_s, co_e = co_e, 
+               x_size =  (box_x - inlet) / 2, 
+               y_disp =  co_ly / 2, 
+               x_disp = -(box_x / 2 - co_xi), 
+               x_0 = 'l',
+               layer  = layer  )
+    draw_cont ( cell, co_e = co_e, 
+               x_size =  (box_x - inlet) / 2, 
+               y_disp = -co_ly / 2, 
+               x_disp = -(box_x / 2 - co_xi), 
+               x_0 = 'l',
+               layer  = layer  )
+    #
+    draw_cont ( cell, co_w = co_w, co_s = co_s, co_e = co_e, 
+               x_size =  (box_x - inlet) / 2, 
+               y_disp =  co_ly / 2, 
+               x_disp =  (box_x / 2 - co_xi), 
+               x_0 = 'r',
+               layer  = layer  )
+    draw_cont ( cell, co_e = co_e, 
+               x_size =  (box_x - inlet) / 2, 
+               y_disp = -co_ly / 2, 
+               x_disp =  (box_x / 2 - co_xi), 
+               x_0 = 'r',
+               layer  = layer  )
 
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 #  Draw FET
@@ -295,7 +369,8 @@ def draw_res_p( cell, l, w ,
                co_e : float = DR['CO.PO'].min, 
                layer = PR_layer):
     #
-    res_len = l + co_width + 2 * co_enc 
+    m1_w    = co_w + 2 * co_e
+    res_len = l + co_w + 2 * co_e 
     #
     res_box = pya.DBox(-res_len/2.0, -w/2.0,  res_len/2.0, w/2.0 )
     #
@@ -305,39 +380,42 @@ def draw_res_p( cell, l, w ,
     #
     # Add CO
     # 
-    draw_cont( cell, y_num=len_2_num( w ), x_disp = -l/2 )
-    draw_cont( cell, y_num=len_2_num( w ), x_disp =  l/2 )
+    draw_cont( cell, y_size = w, x_disp = -l/2, layer = CO_layer )
+    draw_cont( cell, y_size = w, x_disp =  l/2, layer = CO_layer )
     #
     # Add M1
     # 
-    draw_metal ( cell, num=len_2_num( w ), x_disp= -l/2 )
-    draw_metal ( cell, num=len_2_num( w ), x_disp=  l/2 )
+    draw_metal( cell, x_size = m1_w, y_size = w, x_disp = -l/2, keep = False)
+    draw_metal( cell, x_size = m1_w, y_size = w, x_disp =  l/2, keep = False)
     #
 
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 #  Draw Diff Resistor 
 #
 def draw_res_d( cell, l, w ,
-               co_width : float = DR['CO.W1'].min, 
-               co_enc :float = DR['CR.AS'].min, 
-               co_top :float = DR['CR.AT'].min, 
-               res_xy = DR['AR.XY'].min,
+               co_w : float = DR['CO.W1'].min, 
+               co_s : float = DR['CR.AS'].min, 
+               co_t : float = DR['CR.AT'].min, 
+               r_xy : float = DR['AR.XY'].min,
+               co_m : float = DR['M1.CL'].min, 
                layer = AR_layer ):
     #
-    res_len = l + 2 * (co_width + co_top)
-    cont_l  = w - (co_width + 2 * co_enc)
-    x_disp  = (l + co_width) / 2
+    res_len = l + 2 * (co_w + co_t)
+    cont_l  = w - 2 * co_s
+    x_disp  = (l + co_w) / 2
+    m1_x    = co_w   + 2 * co_m
+    m1_y    = cont_l + 2 * co_m
     #
     # Octagon shape
     #
-    res_oct = pya.DPolygon( [ (-(res_len/2.0         ), (w/2.0 - res_xy)),
-                              (-(res_len/2.0 - res_xy), (w/2.0         )),
-                              ( (res_len/2.0 - res_xy), (w/2.0         )),
-                              ( (res_len/2.0         ), (w/2.0 - res_xy)),
-                              ( (res_len/2.0         ),-(w/2.0 - res_xy)),
-                              ( (res_len/2.0 - res_xy),-(w/2.0         )),
-                              (-(res_len/2.0 - res_xy),-(w/2.0         )),
-                              (-(res_len/2.0         ),-(w/2.0 - res_xy)) ])
+    res_oct = pya.DPolygon( [ (-(res_len/2.0       ), (w/2.0 - r_xy)),
+                              (-(res_len/2.0 - r_xy), (w/2.0       )),
+                              ( (res_len/2.0 - r_xy), (w/2.0       )),
+                              ( (res_len/2.0       ), (w/2.0 - r_xy)),
+                              ( (res_len/2.0       ),-(w/2.0 - r_xy)),
+                              ( (res_len/2.0 - r_xy),-(w/2.0       )),
+                              (-(res_len/2.0 - r_xy),-(w/2.0       )),
+                              (-(res_len/2.0       ),-(w/2.0 - r_xy)) ])
     #
     # Draw AR
     #
@@ -345,13 +423,13 @@ def draw_res_d( cell, l, w ,
     #
     # Add CO (variable)
     # 
-    draw_lcont ( cell, y_size = cont_l, x_disp= -x_disp)
-    draw_lcont ( cell, y_size = cont_l, x_disp=  x_disp)
+    draw_lcont ( cell, y_size = cont_l, x_disp= -x_disp )
+    draw_lcont ( cell, y_size = cont_l, x_disp=  x_disp )
     #
     # Add M1
     # 
-    draw_metal ( cell, num=len_2_num( w ), x_disp= -x_disp )
-    draw_metal ( cell, num=len_2_num( w ), x_disp=  x_disp )
+    draw_metal( cell, x_size = m1_x, y_size = m1_y, x_disp = -x_disp )
+    draw_metal( cell, x_size = m1_x, y_size = m1_y, x_disp =  x_disp )
     #
     # Add PO hole 
     # 
@@ -362,34 +440,27 @@ def draw_res_d( cell, l, w ,
 #  Draw Capacito
 #
 def draw_cap( cell, l, w , 
-              cc_width : float = DR['CC.W1'].min, 
-              cc_space : float = DR['CC.S1'].min, 
-              cc_enc   : float = DR['CC.AC'].min,
-              co_width : float = DR['CO.W1'].min, 
-              co_space : float = DR['CO.S1'].min, 
-              co_enc   : float = DR['CC.AN'].min, 
-              m1_enc   : float = DR['M1.CO'].min, 
-              an_sep   : float = DR['AC.AN'].min,
-              inlet    : float = DR['M1.SC'].min,
+              cc_w  : float = DR['CC.W1'].min, 
+              cc_s  : float = DR['CC.S1'].min, 
+              cc_e  : float = DR['CC.AC'].min,
+              co_w  : float = DR['CO.W1'].min, 
+              co_s  : float = DR['CO.S1'].min, 
+              co_e  : float = DR['CC.AN'].min, 
+              m1_e  : float = DR['M1.CO'].min, 
+              ac_an : float = DR['AC.AN'].min,
+              inlet : float = DR['M1.SC'].min,
               layer = AC_layer ):
     #
-    cc_nx  = len_2_num ( l, width = cc_width, space = cc_space, enc = cc_enc )
-    cc_ny  = len_2_num ( w, width = cc_width, space = cc_space, enc = cc_enc )
-    #
-    an_w   = co_width + 2 * co_enc
-    box_x  = l + 2 * ( an_sep )
-    box_y  = w + 2 * ( an_sep + an_w )
-    co_lx  = l + 2 * ( an_sep + co_enc) + co_width
-    co_ly  = w + 2 * ( an_sep + co_enc) + co_width
-    co_xi  = (box_x + inlet) / 2 
-    #
-    co_nx  = len_2_num ( box_x, width = co_width, space = co_space, enc = co_enc )
-    co_ny  = len_2_num ( box_y, width = co_width, space = co_space, enc = co_enc )
-    co_ni  = len_2_num ((box_x - inlet)/2.0, width = co_width, space = co_space, enc = co_enc )
+    an_w   = co_w + 2 * co_e
+    box_x  = l + 2 * ( ac_an + an_w )
+    box_y  = w + 2 * ( ac_an + an_w )
+    co_lx  = l + 2 * ( ac_an + co_e ) + co_w
+    co_ly  = w + 2 * ( ac_an + co_e ) + co_w
+    co_xi  = (box_x - inlet) / 4
     #
     # BOX shape
     #
-    ac_box   =  pya.DBox(-l/2.0, -w/2.0,  l/2.0,  w/2.0)
+    ac_box =  pya.DBox(-l/2.0, -w/2.0,  l/2.0,  w/2.0)
     #
     # Draw AC
     #
@@ -397,20 +468,20 @@ def draw_cap( cell, l, w ,
     #
     # Add CO (variable)
     # 
-    draw_acont( cell, width=cc_width, space=cc_space, 
-               xnum=cc_nx, ynum=cc_ny, layer=CO_layer )
-    draw_plate( cell, width=cc_space, space=cc_space,
-               xnum=cc_nx, ynum=cc_ny, layer=M1_layer, enc=cc_enc )
+    draw_acont( cell,
+                co_w   = cc_w,
+                co_s   = cc_s,
+                co_e   = cc_e,
+                x_size = l, 
+                y_size = w,
+                layer  = CO_layer )
+    #
+    draw_metal( cell, x_size = l, y_size = w, keep = False)
+    #
     #
     # Add AN hole 
     # 
-    draw_hole ( cell, l, w , thick= an_w, sep = an_sep, layer = AN_layer )
-    draw_hole ( cell, l, w , thick= an_w, sep = an_sep, layer = M1_layer, inlet = inlet)
+    draw_hole ( cell, l, w, thick = an_w, sep = ac_an, layer = AN_layer )
+    draw_hole ( cell, l, w, thick = an_w, sep = ac_an, layer = M1_layer, inlet = inlet)
     #
-    draw_cont( cell, y_num=co_ny, x_disp = -co_lx / 2.0 )
-    draw_cont( cell, y_num=co_ny, x_disp =  co_lx / 2.0 )
-    draw_cont( cell, x_num=co_nx, y_disp =  co_ly / 2.0 )
-    draw_cont( cell, x_num=co_ni, x_disp =  co_xi / 2.0, y_disp =  -co_ly / 2.0 )
-    draw_cont( cell, x_num=co_ni, x_disp = -co_xi / 2.0, y_disp =  -co_ly / 2.0 )
-    #
-
+    draw_dcont( cell, l, w,  co_w = co_w, co_s = co_s, co_e = co_e, ac_an = ac_an, inlet = inlet)
