@@ -17,7 +17,6 @@ WN.S5,WN(R),WN(R),Smin,8.0,,ER0122
 WN.S6,WN(C),WN(C),Smin,12.0,,ER0129
 WN.AP,WN,AP,Smin,5.0,,ERWLMN01
 WN.AN,WN,AN,Smin,10.0,,ERWLMN03
-AR.W1,AR ,,Wmin/max,2.8,20.0,ERRR07
 AR.S1,AR ,AR,Smin,4.0,,ERWLRR03
 AR.WR,AR,WN(R),Emin,10.0,,ERWLRR02
 AN.WR,AN,WN(R),Emin,5.0,,ERWLRR01
@@ -68,16 +67,17 @@ CO.PG,CO,PO(G),Smin,1.0,,ERMP12/ERMN12
 CO.PO,CO,PO,Emin,0.8,,ER0050
 #,AR/PR related,,,,,
 Rule,L1,L2,Func,MIN,MAX,IP62 Rule Name
-AR.L1,AR,,Lmin/max,13.0,100.0,Table I-2-1
+AR.W1,RR,RR(L),Wmin/max,2.8,20.0,Table I-2-1
+AR.L1,RR,RR(W),Lmin/max,13.0,100.0,Table I-2-1
 AR.PO,PO,AR,Smin,1.0,,ERRR15
 AR.PW,PO(AR),,Wmin,2.0,,ERRR06
 AR.XY,AR,Bevel,XYmin,1.0,,
 PO.AN,PO(AR),AN,Smin,???,???,
 PO.R1,AR,PO(AR),Donut,0.0,,
 ,PO,TieDown,,0.0,,
-PR.W1,PR,,Wmin/max,4.0,20.0,Table I-2-1
-PR.L1,PR,,Lmin/max,20.0,100.0,Table I-2-1
-PR.S1,PR,PR,Smin,2.0,,ERRS04
+PR.W1,RS,RS(L),Wmin/max,4.0,20.0,Table I-2-1
+PR.L1,RS,RS(W),Lmin/max,20.0,100.0,Table I-2-1
+PR.S1,RS,RS,Smin,2.0,,ERRS04
 CR.W1,CO(RR),,Wmin,1.0,,
 CR.W2,CL(RR),,Wmin/max,1.0,97.5,CO(L)
 CR.AT,CO(RR),AR(T),Emin,1.5,,

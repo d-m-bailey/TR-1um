@@ -27,13 +27,20 @@ AM  = (AN + AP - AD)
 #
 CL  = CO.drc( area > 1.0 )
 M1W = M1.drc( width(projection) > 10.0 ).extents(1)
+M1C = (M1 & WC).not_interacting(AC)
+#
+RS  = (PR - (CO & PR).sized(2.0)).and(PR).sized(2.0).and(PR)
+RR  = (AR - (CO & AR).sized(2.0)).and(AR).sized(2.0).and(AR)
+#
+RSW = (PR - (CO & PR).sized(2.0)).and(PR).sized(2.0)
+ARW = (AR - (CO & AR).sized(2.0)).and(AR).sized(2.0)
 #
 # ----- ----- ----- ----- ----- ----- -----
 # Prohibited
 #
-(WR     ).covering(AP + AC).output('WN.Z1:AP + AC not in WR')
-(WC     ).covering(AP + AR).output('WN.Z2:AP + AR not in WC')
-(CO - ( AA + PO + PR )).output('CO.Z1:CO not on AA + PO + PR')
+(WR     ).covering(AP + AC).output('WN.Z1:AP+AC not in WN(R)')
+(WC     ).covering(AP + AR).output('WN.Z2:AP+AR not in WN(C)')
+(CO - ( AA + PO + PR )).output('CO.Z1:CO not on AA+PO+PR')
 (CO - ( M1           )).output('CO.Z3:CO not on M1')
 (V1 - ( M1           )).output('V1.Z1:V1 not on M1')
 (V1 - ( M2           )).output('V1.Z2:V1 not on M2')
@@ -42,25 +49,23 @@ M1W = M1.drc( width(projection) > 10.0 ).extents(1)
 #
 (WN     ).drc(             width <  8.0 ).output('WN.W1:WN Wmin <  8.0')
 (WN     ).drc(             space < 12.0 ).output('WN.S1:WN Smin < 12.0')
-(WN     ).drc(      sep(WR     ) <  9.5 ).output('WN.S2:WN-WR Smin <  9.5')
-(WN     ).drc(      sep(WC     ) < 12.0 ).output('WN.S3:WN-WC Smin < 12.0')
-(WR     ).drc(      sep(WC     ) <  9.5 ).output('WN.S4:WR-WC Smin <  9.5')
-(WR     ).drc(             space <  8.0 ).output('WN.S5:WR Smin <  8.0')
-(WC     ).drc(             space < 12.0 ).output('WN.S6:WC Smin < 12.0')
+(WN     ).drc(      sep(WR     ) <  9.5 ).output('WN.S2:WN-WN(R) Smin <  9.5')
+(WN     ).drc(      sep(WC     ) < 12.0 ).output('WN.S3:WN-WN(C) Smin < 12.0')
+(WR     ).drc(      sep(WC     ) <  9.5 ).output('WN.S4:WN(R)-WN(C) Smin <  9.5')
+(WR     ).drc(             space <  8.0 ).output('WN.S5:WN(R) Smin <  8.0')
+(WC     ).drc(             space < 12.0 ).output('WN.S6:WN(C) Smin < 12.0')
 (WN     ).drc(      sep(AP     ) <  5.0 ).output('WN.AP:WN-AP Smin <  5.0')
 (WN     ).drc(      sep(AN     ) < 10.0 ).output('WN.AN:WN-AN Smin < 10.0')
-(AR.extents).drc(      bbox_min <   2.8 ).output('AR.W1: Wmax <  2.8')
-(AR.extents).drc(      bbox_min >  20.0 ).output('AR.W1: Wmax > 20.0')
 (AR     ).drc(             space <  4.0 ).output('AR.S1:AR Smin <  4.0')
-(AR     ).drc( enclosed(WR     ) < 10.0 ).output('AR.WR:AR-WR Emin < 10.0')
-(AN     ).drc( enclosed(WR     ) <  5.0 ).output('AN.WR:AN-WR Emin <  5.0')
+(AR     ).drc( enclosed(WR     ) < 10.0 ).output('AR.WR:AR-WN(R) Emin < 10.0')
+(AN     ).drc( enclosed(WR     ) <  5.0 ).output('AN.WR:AN-WN(R) Emin <  5.0')
 (AR     ).drc(      sep(AN     ) <  4.0 ).output('AR.AN:AR-AN Smin <  4.0')
-(AC     ).drc(           width <   28.5 ).output('AC.W1: Wmax < 28.5')
-(AC     ).drc(           width >  120.0 ).output('AC.W1: Wmax > 120.0')
-(AN     ).drc( enclosed(WC     ) <  3.0 ).output('AN.WC:AN-WC Emin <  3.0')
+(AC     ).drc(           width <   28.5 ).output('AC.W1:AC Wmin <  28.5')
+(AC     ).drc(           width >  120.0 ).output('AC.W1:AC Wmax > 120.0')
+(AN     ).drc( enclosed(WC     ) <  3.0 ).output('AN.WC:AN-WN(C) Emin <  3.0')
 (AC     ).drc(      sep(AN     ) <  2.8 ).output('AC.AN:AC-AN Smin <  2.8')
 # ----- Surrounded -----
-(AC - (AN & WC).holes                   ).output('AC.R1:AC must surrounded AN & WC')
+(AC - (AN & WC).holes                   ).output('AC.R1:AC must surrounded AN(C)')
 # 
 # ----- ----- ----- ----- ----- ----- -----
 # AP/AN/DP/DN related
@@ -69,12 +74,12 @@ M1W = M1.drc( width(projection) > 10.0 ).extents(1)
 (AP     ).drc(             space <  1.4 ).output('AP.S1:AP Smin <  1.4')
 (AP     ).drc(      sep(AN     ) <  2.8 ).output('AP.AN:AP-AN Smin <  2.8')
 # ----- MOS(W) -----
-(AP & PO).sep((AP - PO), 0.1, projection, projecting <  3.4 ).output('AP.WM: Wmax <  3.4')
-(AP & PO).sep((AP - PO), 0.1, projection, projecting > 60.0 ).output('AP.WM: Wmax > 60.0')
+(AP & PO).sep((AP - PO), 0.1, projection, projecting <   3.4 ).output('AP.WM:PMOS Wmin <   3.4')
+(AP & PO).sep((AP - PO), 0.1, projection, projecting >  60.0 ).output('AP.WM:PMOS Wmax >  60.0')
 # 
 # ----- MOS(L) -----
-(AP & PO).sep((PO - AN), 0.1, projection, projecting <  1.0 ).output('AP.LM: Lmax <  1.0')
-(AP & PO).sep((PO - AN), 0.1, projection, projecting > 30.0 ).output('AP.LM: Lmax > 30.0')
+(AP & PO).sep((PO - AN), 0.1, projection, projecting <   1.0 ).output('AP.LM:PMOS Lmin <   1.0')
+(AP & PO).sep((PO - AN), 0.1, projection, projecting >  30.0 ).output('AP.LM:PMOS Lmax >  30.0')
 # 
 (AP     ).drc( enclosed(WN     ) <  7.0 ).output('AP.WN:AP-WN Emin <  7.0')
 (DP     ).drc(             width <  2.8 ).output('DP.W1:DP Wmin <  2.8')
@@ -84,14 +89,14 @@ M1W = M1.drc( width(projection) > 10.0 ).extents(1)
 (AN     ).drc(             space <  1.4 ).output('AN.S1:AN Smin <  1.4')
 (AN     ).drc(      sep(AP     ) <  2.8 ).output('AN.AP:AN-AP Smin <  2.8')
 # ----- MOS(W) -----
-(AN & PO).sep((AN - PO), 0.1, projection, projecting <  3.4 ).output('AN.WM: Wmax <  3.4')
-(AN & PO).sep((AN - PO), 0.1, projection, projecting > 60.0 ).output('AN.WM: Wmax > 60.0')
+(AN & PO).sep((AN - PO), 0.1, projection, projecting <   3.4 ).output('AN.WM:NMOS Wmin <   3.4')
+(AN & PO).sep((AN - PO), 0.1, projection, projecting >  60.0 ).output('AN.WM:NMOS Wmax >  60.0')
 # 
 # ----- MOS(L) -----
-(AN & PO).sep((PO - AN), 0.1, projection, projecting <  1.0 ).output('AN.LM: Lmax <  1.0')
-(AN & PO).sep((PO - AN), 0.1, projection, projecting > 30.0 ).output('AN.LM: Lmax > 30.0')
+(AN & PO).sep((PO - AN), 0.1, projection, projecting <   1.0 ).output('AN.LM:NMOS Lmin <   1.0')
+(AN & PO).sep((PO - AN), 0.1, projection, projecting >  30.0 ).output('AN.LM:NMOS Lmax >  30.0')
 # 
-(AN     ).drc( enclosed(WN - WC) <  5.0 ).output('AN.WN:AN-WN - WC Emin <  5.0')
+(AN     ).drc( enclosed(WN - WC) <  5.0 ).output('AN.WN:AN-WN(M) Emin <  5.0')
 (DN     ).drc(             width <  2.8 ).output('DN.W1:DN Wmin <  2.8')
 (DN     ).drc(      sep(AP     ) <  2.8 ).output('DN.AP:DN-AP Smin <  2.8')
 (DN     ).drc(      sep(AN     ) <  2.8 ).output('DN.AN:DN-AN Smin <  2.8')
@@ -103,59 +108,73 @@ M1W = M1.drc( width(projection) > 10.0 ).extents(1)
 (PO     ).drc(      sep(AP     ) <  0.4 ).output('PO.AP:PO-AP Smin <  0.4')
 (PO     ).drc(      sep(AN     ) <  0.4 ).output('PO.AN:PO-AN Smin <  0.4')
 # ----- MOS(EndCap) -----
-(PO & AP).drc( enclosed(PO, projection, without_touching_edges ) <  1.2).output('PO.EP:PO & AP-PO ECmin <  1.2')
+(PO & AP).drc( enclosed(PO, projection, without_touching_edges ) <  1.2).output('PO.EP:PO&AP Endcap <  1.2')
 # 
 # ----- MOS(EndCap) -----
-(PO & AN).drc( enclosed(PO, projection, without_touching_edges ) <  1.2).output('PO.EN:PO & AN-PO ECmin <  1.2')
+(PO & AN).drc( enclosed(PO, projection, without_touching_edges ) <  1.2).output('PO.EN:PO&AN Endcap <  1.2')
 # 
 (CO     ).drc(             width <  1.0 ).output('CO.W1:CO Wmin <  1.0')
 (CO     ).drc(             space <  1.0 ).output('CO.S1:CO Smin <  1.0')
-(CO & AD).drc(            width !=  1.2 ).output('CO.WD:CO & AD Wfix <  1.2')
-(CO & AD).drc( enclosed(AP + AN) <  1.2 ).output('CO.AD:CO & AD-AP + AN Emin <  1.2')
+(CO & AD).drc(            width !=  1.2 ).output('CO.WD:CO(D) Wfix <  1.2')
+(CO & AD).drc( enclosed(AP + AN) <  1.2 ).output('CO.AD:CO(D)-AP+AN Emin <  1.2')
 (CO     ).drc( enclosed(AP     ) <  0.8 ).output('CO.AP:CO-AP Emin <  0.8')
 (CO     ).drc( enclosed(AN     ) <  0.8 ).output('CO.AN:CO-AN Emin <  0.8')
-(CO     ).drc(      sep(PO & AM) <  1.0 ).output('CO.PG:CO-PO & AM Smin <  1.0')
+(CO     ).drc(      sep(PO & AM) <  1.0 ).output('CO.PG:CO-PO(G) Smin <  1.0')
 (CO     ).drc( enclosed(PO     ) <  0.8 ).output('CO.PO:CO-PO Emin <  0.8')
 # ----- ----- ----- ----- ----- ----- -----
 # AR/PR related
 #
+# ----- RES(W) -----
+(RR     ).sep((AR  - RR), 0.1, projection, projecting <   2.8 ).output('AR.W1:RR Wmin <   2.8')
+(RR     ).sep((AR  - RR), 0.1, projection, projecting >  20.0 ).output('AR.W1:RR Wmax >  20.0')
+# 
+# ----- RES(L) -----
+(RR     ).sep((ARW - RR), 0.1, projection, projecting <  13.0 ).output('AR.L1:RR Lmin <  13.0')
+(RR     ).sep((ARW - RR), 0.1, projection, projecting > 100.0 ).output('AR.L1:RR Lmax > 100.0')
+# 
 (PO     ).drc(      sep(AR     ) <  1.0 ).output('AR.PO:PO-AR Smin <  1.0')
-(PO & WR).drc(             width <  2.0 ).output('AR.PW:PO & WR Wmin <  2.0')
+(PO & WR).drc(             width <  2.0 ).output('AR.PW:PO(AR) Wmin <  2.0')
 # ----- AR beveling -----
 (AR     ).drc( primary.edges.count != 8 ).output('AR.XY:AR shape NOT Octagon')
 (AR.extents - AR).drc(       area < 0.5 ).output('AR.XY:AR trimed corner size <  0.5')
 # 
 # ----- Surrounded -----
-(AR - (PO & WR).holes                   ).output('PO.R1:AR must surrounded PO & WR')
+(AR - (PO & WR).holes                   ).output('PO.R1:AR must surrounded PO(AR)')
 # 
-(PR     ).drc(         bbox_min <   4.0 ).output('PR.W1: Wmax <  4.0')
-(PR     ).drc(         bbox_min >  20.0 ).output('PR.W1: Wmax > 20.0')
-(PR     ).drc(             space <  2.0 ).output('PR.S1:PR Smin <  2.0')
-(CO & AR).drc(             width <  1.0 ).output('CR.W1:CO & AR Wmin <  1.0')
-(CO & AR).drc( enclosed(AR, projection, two_sides_allowed) <  1.5 ).output('CR.AT:CO & AR-AR, projection, two_sides_allowed Emin <  1.5')
-(CO & AR).drc( enclosed(AR     ) <  1.0 ).output('CR.AS:CO & AR-AR Emin <  1.0')
-(CO & AC).drc(             width <  1.2 ).output('CC.W1:CO & AC Wmin <  1.2')
-(CO & AC).drc(             space <  1.2 ).output('CC.S1:CO & AC Smin <  1.2')
-(CO & AC).drc( enclosed(AC     ) <  2.9 ).output('CC.AC:CO & AC-AC Emin <  2.9')
-(CO & AC).drc( enclosed(AN     ) <  1.2 ).output('CC.AN:CO & AC-AN Emin <  1.2')
+# ----- RES(W) -----
+(RS     ).sep((PR  - RS), 0.1, projection, projecting <   4.0 ).output('PR.W1:RS Wmin <   4.0')
+(RS     ).sep((PR  - RS), 0.1, projection, projecting >  20.0 ).output('PR.W1:RS Wmax >  20.0')
+# 
+# ----- RES(L) -----
+(RS     ).sep((RSW - RS), 0.1, projection, projecting <  20.0 ).output('PR.L1:RS Lmin <  20.0')
+(RS     ).sep((RSW - RS), 0.1, projection, projecting > 100.0 ).output('PR.L1:RS Lmax > 100.0')
+# 
+(RS     ).drc(             space <  2.0 ).output('PR.S1:RS Smin <  2.0')
+(CO & AR).drc(             width <  1.0 ).output('CR.W1:CO(RR) Wmin <  1.0')
+(CO & AR).drc( enclosed(AR, projection, two_sides_allowed) <  1.5 ).output('CR.AT:CO(RR)-AR(T) Emin <  1.5')
+(CO & AR).drc( enclosed(AR     ) <  1.0 ).output('CR.AS:CO(RR)-AR(S) Emin <  1.0')
+(CO & AC).drc(             width <  1.2 ).output('CC.W1:CO(C) Wmin <  1.2')
+(CO & AC).drc(             space <  1.2 ).output('CC.S1:CO(C) Smin <  1.2')
+(CO & AC).drc( enclosed(AC     ) <  2.9 ).output('CC.AC:CO(C)-AC Emin <  2.9')
+(CO & AC).drc( enclosed(AN     ) <  1.2 ).output('CC.AN:CO(C)-AN Emin <  1.2')
 # ----- ----- ----- ----- ----- ----- -----
 # BEOL related
 #
 (M1     ).drc(             width <  1.8 ).output('M1.W1:M1 Wmin <  1.8')
 (M1     ).drc(             space <  1.4 ).output('M1.S1:M1 Smin <  1.4')
-((M1 & WC).not_interacting(AC)).drc(             space < 10.0 ).output('M1.SC:(M1 & WC).not_interacting(AC) Smin < 10.0')
-(M1     ).drc(enclosing(CO - CL) <  0.8 ).output('M1.CO:M1-CO - CL Fmin <  0.8')
-(M1     ).drc(enclosing(CO & AC) <  1.2 ).output('M1.CC:M1-CO & AC Fmin <  1.2')
-(M1     ).drc(enclosing(CL     ) <  1.2 ).output('M1.CL:M1-CL Fmin <  1.2')
+(M1C    ).drc(             space < 10.0 ).output('M1.SC:M1(C) Smin < 10.0')
+(M1     ).drc(enclosing(CO - CL) <  0.8 ).output('M1.CO:M1-CO(S) Fmin <  0.8')
+(M1     ).drc(enclosing(CO & AC) <  1.2 ).output('M1.CC:M1-CO(C) Fmin <  1.2')
+(M1     ).drc(enclosing(CL     ) <  1.2 ).output('M1.CL:M1-CO(L) Fmin <  1.2')
 # ----- M1(Wide) -----
-(M1W    ).drc(  sep(M1, projection, projecting >= 10.0 ) <  2.0).output('M1.SW:M1W Smin <  2.0')
+(M1W    ).drc(  sep(M1, projection, projecting >= 10.0 ) <  2.0).output('M1.SW:M1(W) Smin <  2.0')
 # 
 (V1     ).drc(            width !=  1.4 ).output('V1.W1:V1 Wfix <  1.4')
 (V1     ).drc(             space <  1.5 ).output('V1.S1:V1 Smin <  1.5')
 (V1     ).drc( enclosed(M1     ) <  1.0 ).output('V1.M1:V1-M1 Emin <  1.0')
 (V1     ).drc(      sep(PO     ) <  1.2 ).output('V1.PO:V1-PO Smin <  1.2')
 (V1     ).drc(      sep(CO     ) <  1.0 ).output('V1.CO:V1-CO Smin <  1.0')
-(V1     ).drc(      sep(CL     ) <  1.4 ).output('V1.CL:V1-CL Smin <  1.4')
+(V1     ).drc(      sep(CL     ) <  1.4 ).output('V1.CL:V1-CO(L) Smin <  1.4')
 (M2     ).drc(             width <  3.0 ).output('M2.W1:M2 Wmin <  3.0')
 (M2     ).drc(             space <  2.0 ).output('M2.S1:M2 Smin <  2.0')
 (M2     ).drc(enclosing(V1     ) <  1.0 ).output('M2.V1:M2-V1 Fmin <  1.0')
