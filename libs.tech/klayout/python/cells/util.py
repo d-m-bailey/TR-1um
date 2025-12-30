@@ -319,7 +319,7 @@ def draw_fet( cell, l, w, layer,
               po_s   : float = DR['PO.S1'].min, 
               co_e   : float = DR['CO.AP'].min, 
               co_pg  : float = DR['CO.PG'].min, 
-              e_cap  : float = DR['PO.EM'].min,
+              e_cap  : float = 0.0,
               y_0    : str = 'c',
               fnum = 1):
     #

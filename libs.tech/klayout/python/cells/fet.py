@@ -63,7 +63,7 @@ class pfet(pya.PCellDeclarationHelper):
     '''   
     def produce_impl(self):
         #
-        draw_fet( self.cell, l=self.l, w=self.w, fnum=self.n, y_0=self.y0, layer=AP_layer)
+        draw_fet( self.cell, l=self.l, w=self.w, fnum=self.n, y_0=self.y0, e_cap = DR['PO.EP'].min, layer=AN_layer)
         #
       
 class nfet(pya.PCellDeclarationHelper):
@@ -100,5 +100,5 @@ class nfet(pya.PCellDeclarationHelper):
 
     def produce_impl(self):
         #
-        draw_fet( self.cell, l=self.l, w=self.w, fnum=self.n, y_0=self.y0, layer=AN_layer)
+        draw_fet( self.cell, l=self.l, w=self.w, fnum=self.n, y_0=self.y0, e_cap = DR['PO.EN'].min, layer=AN_layer)
         #       
