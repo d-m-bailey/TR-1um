@@ -24,7 +24,7 @@
     
     11. DONE: Develop new PCell sets for Drawing Layout.
     
-    12. ONGOING: Develop Python script to generate the DRC runset from DR.csv file.
+    12. DONE: Develop Python script to generate the DRC runset from DR.csv file.
     
     13. PLAN: Develop new LVS for Drawing Layer design.
   

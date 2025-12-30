@@ -22,7 +22,7 @@ def print_drc( f, row ) :
     #
     try : 
         min = float(row[4])
-        if float(row[5]) == float('inf') :
+        if row[5] == '' :
             max = -1.0 
         else :
             max = float(row[5])
@@ -48,7 +48,7 @@ print_head( head_file, py_file )
 csv = csv.reader(csv_file, delimiter=",", doublequote=True, lineterminator="\r\n", quotechar='"', skipinitialspace=True)
 
 for row in csv:
-    if row[0] != '' and row[0] != 'Name' :
+    if row[0] != '' and row[0] != 'Rule' :
         print_drc(py_file, row)
 
 head_file.close()

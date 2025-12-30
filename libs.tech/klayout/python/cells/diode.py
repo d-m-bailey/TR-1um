@@ -18,6 +18,7 @@ class diode_p(pya.PCellDeclarationHelper):
         #
         self.Cmin = DR['CO.WD'].min
         self.Emin = DR['CO.AD'].min
+        self.Fmin = DR['M1.CL'].min
         self.Wmin = self.Cmin + 2 * self.Emin
         #
         self.param("x",  self.TypeDouble, "X(um)",     default=self.Wmin)
@@ -39,8 +40,8 @@ class diode_p(pya.PCellDeclarationHelper):
         draw_acont( self.cell, x_size=self.x, y_size=self.y, 
                    co_w = self.Cmin, co_e = self.Emin, layer = CO_layer )
         #
-        draw_metal( self.cell, x_size = self.x, y_size = self.y, co_w = self.Cmin, layer = AP_layer)
-        draw_metal( self.cell, x_size = self.x, y_size = self.y, co_w = self.Cmin, layer = M1_layer, keep=False)
+        draw_metal( self.cell, x_size = self.x, y_size = self.y, co_e = self.Emin, co_w = self.Cmin, layer = AP_layer)
+        draw_metal( self.cell, x_size = self.x, y_size = self.y, co_e = self.Fmin, co_w = self.Cmin, layer = M1_layer, keep=False)
 
 class diode_n(pya.PCellDeclarationHelper):
 
@@ -50,6 +51,7 @@ class diode_n(pya.PCellDeclarationHelper):
         #
         self.Cmin = DR['CO.WD'].min
         self.Emin = DR['CO.AD'].min
+        self.Fmin = DR['M1.CL'].min
         self.Wmin = self.Cmin + 2 * self.Emin
         #
         self.param("x",  self.TypeDouble, "X(um)",     default=self.Wmin)
@@ -71,5 +73,5 @@ class diode_n(pya.PCellDeclarationHelper):
         draw_acont( self.cell, x_size=self.x, y_size=self.y, 
                    co_w = self.Cmin, co_e = self.Emin, layer = CO_layer )
         #
-        draw_metal( self.cell, x_size = self.x, y_size = self.y, co_w = self.Cmin, layer = AN_layer)
-        draw_metal( self.cell, x_size = self.x, y_size = self.y, co_w = self.Cmin, layer = M1_layer, keep=False)
+        draw_metal( self.cell, x_size = self.x, y_size = self.y, co_e = self.Emin, co_w = self.Cmin, layer = AN_layer)
+        draw_metal( self.cell, x_size = self.x, y_size = self.y, co_e = self.Fmin, co_w = self.Cmin, layer = M1_layer, keep=False)
