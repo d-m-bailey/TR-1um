@@ -89,8 +89,8 @@ def draw_metal( cell,
 #
 def draw_hole ( cell, l, w, 
                thick : float = DR['AR.PW'].min, 
-               sep   : float = DR['AR.PO'].min, 
-               layer = PG_layer, 
+               sep   : float = DR['AR.GC'].min, 
+               layer = GC_layer, 
                inlet = 0.0 ):
     #
     box_x  = l + 2 * ( thick + sep )
@@ -149,7 +149,7 @@ def draw_lcont ( cell,
 def draw_cont ( cell, 
                 co_w   : float = DR['CO.W1'].min, 
                 co_s   : float = DR['CO.S1'].min,
-                co_e   : float = DR['CO.PO'].min,
+                co_e   : float = DR['CO.GC'].min,
                 x_size : float = 0,
                 y_size : float = 0,
                 x_disp : float = 0, 
@@ -204,7 +204,7 @@ def draw_cont ( cell,
 def draw_acont ( cell, 
                 co_w   : float = DR['CO.W1'].min, 
                 co_s   : float = DR['CO.S1'].min,
-                co_e   : float = DR['CO.PO'].min,
+                co_e   : float = DR['CO.GC'].min,
                 x_size : float = 0,
                 y_size : float = 0,
                 x_disp : float = 0, 
@@ -316,9 +316,9 @@ def draw_dcont ( cell, l, w,
 #
 def draw_fet( cell, l, w, layer, 
               co_w   : float = DR['CO.W1'].min, 
-              po_s   : float = DR['PO.S1'].min, 
+              po_s   : float = DR['GC.S1'].min, 
               co_e   : float = DR['CO.AP'].min, 
-              co_pg  : float = DR['CO.PG'].min, 
+              co_pg  : float = DR['CO.GC'].min, 
               e_cap  : float = 0.0,
               y_0    : str = 'c',
               fnum = 1):
@@ -339,7 +339,7 @@ def draw_fet( cell, l, w, layer,
             n2 = math.ceil(n / 2)
             x_disp = sign * po_p * n2
         #
-        cell.shapes(PG_layer).insert(po_path).transform(pya.DTrans( x_disp, 0 ))
+        cell.shapes(GC_layer).insert(po_path).transform(pya.DTrans( x_disp, 0 ))
         #
         #
         sign = sign * -1
@@ -366,15 +366,15 @@ def draw_fet( cell, l, w, layer,
 #
 def draw_res_p( cell, l, w ,
                co_w : float = DR['CO.W1'].min, 
-               co_e : float = DR['CO.PO'].min, 
-               layer = PR_layer):
+               co_e : float = DR['CO.GC'].min, 
+               layer = GR_layer):
     #
     m1_w    = co_w + 2 * co_e
     res_len = l + co_w + 2 * co_e 
     #
     res_box = pya.DBox(-res_len/2.0, -w/2.0,  res_len/2.0, w/2.0 )
     #
-    # Draw PR
+    # Draw GR
     #
     cell.shapes(layer).insert(res_box)                         
     #
@@ -431,7 +431,7 @@ def draw_res_d( cell, l, w ,
     draw_metal( cell, x_size = m1_x, y_size = m1_y, x_disp = -x_disp )
     draw_metal( cell, x_size = m1_x, y_size = m1_y, x_disp =  x_disp )
     #
-    # Add PO hole 
+    # Add GC hole 
     # 
     draw_hole ( cell, res_len, w )
     #               
@@ -446,19 +446,22 @@ def draw_cap( cell, l, w ,
               co_w  : float = DR['CO.W1'].min, 
               co_s  : float = DR['CO.S1'].min, 
               co_e  : float = DR['CC.AN'].min, 
+              ac_po : float = DR['AC.GC'].min, 
               ac_an : float = DR['AC.AN'].min,
               inlet : float = DR['M1.SC'].min,
               layer = AC_layer ):
     #
     an_w   = co_w + 2 * co_e    # AN ring width
     #
-    # BOX shape
+    # AC BOX shape
     #
     ac_box =  pya.DBox(-l/2.0, -w/2.0,  l/2.0,  w/2.0)
-    #
-    # Draw AC
-    #
     cell.shapes(layer).insert(ac_box)                         
+    #
+    # GC BOX shape
+    #
+    po_box =  ac_box.enlarge(ac_po)
+    cell.shapes(GC_layer).insert(po_box)                         
     #
     # Add CO (variable)
     # 

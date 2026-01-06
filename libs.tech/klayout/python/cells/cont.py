@@ -16,7 +16,7 @@ class cont_po(pya.PCellDeclarationHelper):
         # Initialize super class.
         super(cont_po, self).__init__()
         #
-        self.Wmin = DR['CO.W1'].min + 2 * DR['CO.PO'].min
+        self.Wmin = DR['CO.W1'].min + 2 * DR['CO.GC'].min
         #
         self.param("x",  self.TypeDouble, "X(um)",     default=self.Wmin)
         self.param("y",  self.TypeDouble, "Y(um)",     default=self.Wmin)
@@ -43,7 +43,7 @@ class cont_po(pya.PCellDeclarationHelper):
         draw_acont( self.cell, x_size=self.x, y_size=self.y, x_0 = self.x0, y_0  = self.y0, 
                    co_e = DR['CO.AP'].min, layer = CO_layer )
         #
-        draw_metal( self.cell, x_size = self.x, y_size = self.y, x_0=self.x0, y_0 = self.y0,layer=PG_layer)
+        draw_metal( self.cell, x_size = self.x, y_size = self.y, x_0=self.x0, y_0 = self.y0,layer=GC_layer)
         draw_metal( self.cell, x_size = self.x, y_size = self.y, x_0=self.x0, y_0 = self.y0,layer=M1_layer, keep = False)
       
 class cont_p(pya.PCellDeclarationHelper):

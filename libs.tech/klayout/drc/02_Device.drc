@@ -1,0 +1,39 @@
+# Basic check for layer polygons
+# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
+# Original version was made by jun1okamura from TokaiRika's document 
+# LICENSE: Apache License Version 2.0, January 2004,
+#          http://www.apache.org/licenses/
+# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
+#  Key Layer definition
+#
+WR  = WN.covering(AR)                                       # Nwell for RR
+WC  = WN.covering(AC)                                       # Nwell for CSIO
+WM  = WN.covering(AP)                                       # Nwell for PMOS
+#
+AA  = (AN + AP + AC + AR)                                   # ALL ACTIVE
+#
+MP  = (AP.interacting(PO) & WN - ESD)                       # PMOS
+MN  = (AN.interacting(PO) & WP - ESD)                       # NMOS
+AM  = (MP + MN)                                             # ALL MOS
+#
+MPE = (AP.interacting(PO) & WN & ESD)                       # PMOS (ESD)
+MNE = (AN.interacting(PO) & WP & ESD)                       # NMOS (ESD)
+#
+GP  = (AN.not_interacting(PO) & WN)                         # BG-contact (PMOS)
+GN  = (AP.not_interacting(PO) & WP)                         # BG-contact (NMOS)
+#
+DP  = (AP.not_interacting(PO) & WN)                         # DIODE(P)
+DN  = (AN.not_interacting(PO) & WP)                         # DIODE(N)
+AD  = (DP + DN)                                             # ALL DIODE 
+#
+CL  = CO.drc( area > 1.0 )                                  # LARGE CONTACT
+#
+M1W = M1.drc( width(projection) > 10.0 ).extents(1)         # WIDE M1
+M1C = (M1 & WC).not_interacting(AC)                         # M1 for GUARD-RING (CSIO)
+#
+RS  = (PR - (CO & PR).sized(2.0)).and(PR).sized(2.0).and(PR)    # ACTUAL RS
+RR  = (AR - (CO & AR).sized(2.0)).and(AR).sized(2.0).and(AR)    # ACTUAL RR
+#
+RSW = (PR - (CO & PR).sized(2.0)).and(PR).sized(2.0)        # RS WIDE SIDE to measure RS Length
+ARW = (AR - (CO & AR).sized(2.0)).and(AR).sized(2.0)        # AR WIDE SIDE to measure RR Length
+#

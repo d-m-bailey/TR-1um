@@ -6,25 +6,20 @@
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 # RR Resistance
 #
-AARC = AARR & NSD - PSD          # RR Contact
-AARB = AARR & NSD & PSD          # RR Body
+ARC = AR - RR                   # RR Contact
 #
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 # Saliside Gate Resistance
 #
-SGR = SG.interacting(RS)         # SG for RS
-SGC = SGR - RS                   # RS Contact
-SGB = SGR & RS                   # RS Body
-#
-SGG = SG.not_interacting(RS)     # SG for except RS
+RSC = PR - RS                   # RS Contact
 #
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 # Electical connection layers
 #
-SDMP = (AAMP - SGG)      # MP S/D
-SDMN = (AAMN - SGG)      # MN S/D
-SDPE = (AAPE - SGG)      # MPE S/D
-SDNE = (AANE - SGG)      # MNE S/D
+SDP  = (MP  - PO)               # MP S/D
+SDN  = (MN  - PO)               # MN S/D
+SDPE = (MPE - PO)               # MPE S/D
+SDNE = (MNE - PO)               # MNE S/D
 #
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 # Global node
@@ -36,38 +31,35 @@ connect_global(BULK, "VSS")
 #
 # ---
 # Well 
-connect(NWMP, AAGP)      # NWELL
-connect(BULK, AAGN)      # BULK
+connect(WN  , GP)       # NWELL
+connect(BULK, GN)       # BULK
 # ---
 # Active
-connect(NWCS, AACC)      # CIS
-connect(NWCS, AAGC)      # CIS
-connect(NWRR, AAGR)      # BG-RR
+connect(WC,   AC)       # CIS
+connect(WC,   GP)       # BG-CIS
+connect(WR,   RR)       # BG-RR
+connect(WR,   GP)       # BG-RR
 # ---
 # mos
-connect(SDMP, CONT)      # MP S/D
-connect(SDMN, CONT)      # MN S/D
-connect(SDPE, CONT)      # MPE S/D
-connect(SDNE, CONT)      # MNE S/D
-connect(AAGP, CONT)      # BG-PMOS
-connect(AAGN, CONT)      # BG-NMOS
+connect(SDP,  CO)       # MP S/D
+connect(SDN,  CO)       # MN S/D
+connect(SDPE, CO)       # MPE S/D
+connect(SDNE, CO)       # MNE S/D
+connect(GP,   CO)       # BG-PMOS
+connect(GN,   CO)       # BG-NMOS
 # ---
 # diode
-connect(AADP, CONT)      # DP
-connect(AADN, CONT)      # DN
-# ---
-# capacitance
-connect(AAGC, CONT)      # BG-CIS
+connect(DP,   CO)       # DP
+connect(DN,   CO)       # DN
 # ---
 # resistance
-connect(AARC, CONT)      # RR Terminal
-connect(AAGR, CONT)      # BG-RR
-connect(SGC,  CONT)      # RS-CONT
+connect(ARC,  CO)       # RR Terminal
+connect(RSC,  CO)       # RS-CONT
 # ---
 # BEOL
-connect(SGG,  CONT)      # SGG-CONT
-connect(CONT, M1)        # CONT-M1
-connect(M1,   TC)        # M1-TC
-connect(TC,   M2)        # TC-M2
-connect(M1,   M1_LBL)    # Attaches labels
-connect(M2,   M2_LBL)    # Attaches labels
+connect(PO,   CO)       # PO-CO
+connect(CO,   M1)       # CO-M1
+connect(M1,   V1)       # M1-V1
+connect(V1,   M2)       # V1-M2
+connect(M1,   M1_LBL)   # Attaches labels
+connect(M2,   M2_LBL)   # Attaches labels

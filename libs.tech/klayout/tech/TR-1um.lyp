@@ -105,7 +105,7 @@
   <marked>false</marked>
   <xfill>false</xfill>
   <animation>0</animation>
-  <name>PO</name>
+  <name>GC</name>
   <source>8/1@1</source>
  </properties>
  <properties>
@@ -123,7 +123,7 @@
   <marked>false</marked>
   <xfill>false</xfill>
   <animation>0</animation>
-  <name>PR</name>
+  <name>GR</name>
   <source>8/2@1</source>
  </properties>
  <properties>

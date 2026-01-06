@@ -31,7 +31,7 @@ class tr_1um(pya.Library):
         self.layout().register_pcell("diode_n", diode_n())
         #
         # CAP Devices 
-        self.layout().register_pcell("cap",  cap()) # CSIO device
+        self.layout().register_pcell("moscap",  cap()) # CSIO device
         #
         # RES Devices 
         self.layout().register_pcell("res_diff", res_d()) # Diff resistance

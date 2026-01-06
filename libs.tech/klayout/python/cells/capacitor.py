@@ -21,7 +21,7 @@ class cap(pya.PCellDeclarationHelper):
 
     def display_text_impl(self):
         # Provide a descriptive text for the cell
-        return "cap(X=" + ('%3f' % self.x) + ",Y=" + ('%3f' % self.y) + ")"
+        return "moscap(X=" + ('%3f' % self.x) + ",Y=" + ('%3f' % self.y) + ")"
     
     def coerce_parameters_impl(self):
         # Check parameters

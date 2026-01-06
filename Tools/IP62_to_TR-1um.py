@@ -69,8 +69,8 @@ AN    = ly.layer(  3, 2)
 AR    = ly.layer(  3, 3)
 AC    = ly.layer(  3, 4)
 #
-PG    = ly.layer(  8, 1)
-PR    = ly.layer(  8, 2)
+GC    = ly.layer(  8, 1)
+GR    = ly.layer(  8, 2)
 #
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 def convert_drawing( cell : db.Cell ) :
@@ -135,10 +135,10 @@ def convert_drawing( cell : db.Cell ) :
        cell.shapes(AC).insert(db.Polygon(shape))
     #
     for shape in (P1) :
-       cell.shapes(PG).insert(db.Polygon(shape))
+       cell.shapes(GC).insert(db.Polygon(shape))
     #
     for shape in (P2) :
-       cell.shapes(PR).insert(db.Polygon(shape))
+       cell.shapes(GR).insert(db.Polygon(shape))
     #
     # ----- ----- ----- -----  
     # Delete IMPLANT Layers

@@ -39,21 +39,21 @@ L = {
     'AP+AR'       : 'AP + AR',
     'AP+AC'       : 'AP + AC',
     'AP+AN'       : 'AP + AN',
-    'AA+PO+PR'    : 'AA + PO + PR',
+    'AA+GC+GR'    : 'AA + GC + GR',
     'AP+AN+AC+AR' : 'AA',
-    'AP-PO'       : 'AP - PO',
-    'AN-PO'       : 'AN - PO',
-    'PMOS'        : 'AP & PO',
-    'NMOS'        : 'AN & PO',
+    'AP-GC'       : 'AP - GC',
+    'AN-GC'       : 'AN - GC',
+    'PMOS'        : 'AP & GC',
+    'NMOS'        : 'AN & GC',
     'DP'          : 'DP',
     'DN'          : 'DN',
-    'PO+PR'       : 'PO + PR',
-    'PO'          : 'PO',
-    'PO-AP'       : 'PO - AP',
-    'PO-AN'       : 'PO - AN',
-    'PR'          : 'PR',
-    'PO(G)'       : 'PO & AM',
-    'PO(AR)'      : 'PO & WR',
+    'GC+GR'       : 'GC + GR',
+    'GC'          : 'GC',
+    'GC-AP'       : 'GC - AP',
+    'GC-AN'       : 'GC - AN',
+    'GR'          : 'GR',
+    'GC(G)'       : 'GC & AM',
+    'GC(AR)'      : 'GC & WR',
     'CO'          : 'CO',
     'CO(L)'       : 'CL',
     'CO(S)'       : 'CO - CL',
@@ -73,7 +73,7 @@ L = {
     'RR'          : 'RR',
     'RS'          : 'RS',
     'RR(L)'       : 'AR  - RR',
-    'RS(L)'       : 'PR  - RS',
+    'RS(L)'       : 'GR  - RS',
     'RR(W)'       : 'ARW - RR',
     'RS(W)'       : 'RSW - RS',
     ''            : 'XXX',
@@ -113,13 +113,13 @@ def print_MX ( f, rule, func, L1, L2, L3, L4, min, max ) :
             print( "(%-7s).drc(           width <  %5.1f ).output('%-5s:%2s Wmin < %5.1f')" % (L1,min,rule,L3,min), file=f)
             print( "(%-7s).drc(           width >  %5.1f ).output('%-5s:%2s Wmax > %5.1f')" % (L1,max,rule,L3,max), file=f)
             return
-        case 'PR.W1' | 'AR.W1' :
+        case 'GR.W1' | 'AR.W1' :
             print( "# ----- RES(W) -----", file=f)
             print( "(%-7s).sep((%-7s), 0.1, projection, projecting < %5.1f ).output('%-5s:%2s Wmin < %5.1f')" % (L1,L2,min,rule,L3,min), file=f)
             print( "(%-7s).sep((%-7s), 0.1, projection, projecting > %5.1f ).output('%-5s:%2s Wmax > %5.1f')" % (L1,L2,max,rule,L3,max), file=f)
             print( "# ", file=f)
             return
-        case 'PR.L1' | 'AR.L1' :
+        case 'GR.L1' | 'AR.L1' :
             print( "# ----- RES(L) -----", file=f)
             print( "(%-7s).sep((%-7s), 0.1, projection, projecting < %5.1f ).output('%-5s:%2s Lmin < %5.1f')" % (L1,L2,min,rule,L3,min), file=f)
             print( "(%-7s).sep((%-7s), 0.1, projection, projecting > %5.1f ).output('%-5s:%2s Lmax > %5.1f')" % (L1,L2,max,rule,L3,max), file=f)
