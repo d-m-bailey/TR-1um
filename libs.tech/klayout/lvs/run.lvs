@@ -29,5 +29,6 @@ report_lvs    # LVS report window
 # %include 01_Extract.lvs
 # %include 02_Extract.lvs
 # %include 03_Extract.lvs
-# %include 04_Compare.lvs
+# %include 04_Custom.lvs
+# %include 05_Compare.lvs
 ### %include test.lvs
