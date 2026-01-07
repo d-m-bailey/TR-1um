@@ -23,7 +23,7 @@ netlist.flatten_circuit("moscap*")
 Lay_file = source.cell_name + ".extracted"
 Sch_file = source.cell_name + ".cir"
 #
-target_netlist(Lay_file, write_spice, "Created by KLayout")
+target_netlist(Lay_file, write_spice(true), "Created by KLayout")
 #
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 # netlist extraction

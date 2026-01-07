@@ -7,23 +7,17 @@
 * pin C
 * pin Y
 * pin gnd
-.SUBCKT NOR3 3 4 5 6 7 8
-* net 3 vdd
-* net 4 B
-* net 5 A
-* net 6 C
-* net 7 Y
-* net 8 gnd
+.SUBCKT NOR3 vdd B A C Y gnd
 * device instance $1 r0 *1 6.1,44.8 PMOS_mst
-M$1 2 4 3 3 PMOS_mst L=1U W=10.2U AS=28.56P AD=15.3P PS=26U PD=13.2U
+M$1 \$7 B vdd vdd PMOS_mst L=1U W=10.2U AS=28.56P AD=15.3P PS=26U PD=13.2U
 * device instance $2 r0 *1 10.1,44.8 PMOS_mst
-M$2 1 5 2 3 PMOS_mst L=1U W=10.2U AS=15.3P AD=15.3P PS=13.2U PD=13.2U
+M$2 \$8 A \$7 vdd PMOS_mst L=1U W=10.2U AS=15.3P AD=15.3P PS=13.2U PD=13.2U
 * device instance $3 r0 *1 14.1,44.8 PMOS_mst
-M$3 7 6 1 3 PMOS_mst L=1U W=10.2U AS=15.3P AD=28.56P PS=13.2U PD=26U
+M$3 Y C \$8 vdd PMOS_mst L=1U W=10.2U AS=15.3P AD=28.56P PS=13.2U PD=26U
 * device instance $4 r0 *1 6.1,6.8 NMOS_mst
-M$4 7 4 8 8 NMOS_mst L=1U W=3.4U AS=9.52P AD=5.1P PS=12.4U PD=6.4U
+M$4 Y B gnd gnd NMOS_mst L=1U W=3.4U AS=9.52P AD=5.1P PS=12.4U PD=6.4U
 * device instance $5 r0 *1 10.1,6.8 NMOS_mst
-M$5 8 5 7 8 NMOS_mst L=1U W=3.4U AS=5.1P AD=5.1P PS=6.4U PD=6.4U
+M$5 gnd A Y gnd NMOS_mst L=1U W=3.4U AS=5.1P AD=5.1P PS=6.4U PD=6.4U
 * device instance $6 r0 *1 14.1,6.8 NMOS_mst
-M$6 7 6 8 8 NMOS_mst L=1U W=3.4U AS=5.1P AD=9.52P PS=6.4U PD=12.4U
+M$6 Y C gnd gnd NMOS_mst L=1U W=3.4U AS=5.1P AD=9.52P PS=6.4U PD=12.4U
 .ENDS NOR3
