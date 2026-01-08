@@ -4,62 +4,50 @@
 # LICENSE: Apache License Version 2.0, January 2004,
 #          http://www.apache.org/licenses/
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-# RR Resistance
+# MOS extraction 5V CMOS
 #
-ARC = AR - RR                   # RR Contact
+extract_devices(mos4("PMOS_mst" ), 
+                            { "SD" => (MP - PO),        # S/D region
+                              "G"  => (MP & PO),        # Channel region
+                              "W"  => (MP & PO & WN),   # Backgate region
+                              "tS" => (SDP),            # Terminal: Source
+                              "tD" => (SDP),            # Terminal: Drain
+                              "tG" => (PO),             # Terminal: Gate
+                              "tB" => (WN) })           # Terminal: Backgate
+#
+tolerance("PMOS_mst", "W", :relative => 0.01)           # 1% tolerance 
+tolerance("PMOS_mst", "L", :relative => 0.0)            # 0% tolerance 
+#
+extract_devices(mos4("NMOS_mst" ), 
+                            { "SD" => (MN - PO),        # S/D region
+                              "G"  => (MN & PO),        # Channel region
+                              "W"  => (MN & PO & BULK), # Backgate region
+                              "tS" => (SDN),            # Terminal: Source
+                              "tD" => (SDN),            # Terminal: Drain
+                              "tG" => (PO),             # Terminal: Gate
+                              "tB" => (BULK) })         # Terminal: Backgate
+#
+tolerance("NMOS_mst", "W", :relative => 0.01)           # 1% tolerance 
+tolerance("NMOS_mst", "L", :relative => 0.0)            # 0% tolerance 
 #
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-# Saliside Gate Resistance
+# DIODE extraction
 #
-RSC = PR - RS                   # RS Contact
+extract_devices(diode("DP"), 
+                            { "P"  => (DP),           # P region
+                              "N"  => (DP & WN),      # N region
+                              "tA" => (DP),           # Terminal: Anode
+                              "tC" => (WN) })         # Terminal: Cathode
+#                              
+tolerance("DP", "A", :relative => 0.05)               # 5% tolerance 
+tolerance("DP", "P", :relative => 0.05)               # 5% tolerance 
 #
-# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-# Electical connection layers
+extract_devices(diode("DN"),                          # Floating Protection
+                            { "P"  => (DN & BULK),    # P region
+                              "N"  => (DN),           # N region
+                              "tA" => (BULK),         # Terminal: Anode
+                              "tC" => (DN) })         # Terminal: Cathode
 #
-SDP  = (MP  - PO)               # MP S/D
-SDN  = (MN  - PO)               # MN S/D
-SDPE = (MPE - PO)               # MPE S/D
-SDNE = (MNE - PO)               # MNE S/D
+tolerance("DN", "A", :relative => 0.05)               # 5% tolerance 
+tolerance("DN", "P", :relative => 0.05)               # 5% tolerance 
 #
-# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-# Global node
-#
-connect_global(BULK, "VSS")
-#
-# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-# Connections
-#
-# ---
-# Well 
-connect(WN  , GP)       # NWELL
-connect(BULK, GN)       # BULK
-# ---
-# Active
-connect(WC,   AC)       # CIS
-connect(WC,   GP)       # BG-CIS
-connect(WR,   RR)       # BG-RR
-connect(WR,   GP)       # BG-RR
-# ---
-# mos
-connect(SDP,  CO)       # MP S/D
-connect(SDN,  CO)       # MN S/D
-connect(SDPE, CO)       # MPE S/D
-connect(SDNE, CO)       # MNE S/D
-connect(GP,   CO)       # BG-PMOS
-connect(GN,   CO)       # BG-NMOS
-# ---
-# diode
-connect(DP,   CO)       # DP
-connect(DN,   CO)       # DN
-# ---
-# resistance
-connect(ARC,  CO)       # RR Terminal
-connect(RSC,  CO)       # RS-CONT
-# ---
-# BEOL
-connect(PO,   CO)       # PO-CO
-connect(CO,   M1)       # CO-M1
-connect(M1,   V1)       # M1-V1
-connect(V1,   M2)       # V1-M2
-connect(M1,   M1_LBL)   # Attaches labels
-connect(M2,   M2_LBL)   # Attaches labels

@@ -65,7 +65,7 @@ L = {
     'M1'          : 'M1',
     'M1(C)'       : 'M1C',
     'M1(W)'       : 'M1W',
-    'V1'          : 'V1',
+    'V1'          : 'V1 - V1P',
     'M2'          : 'M2',
     'Endcap'      : 'Endcap',
     'Bevel'       : 'Bevel',
@@ -76,6 +76,21 @@ L = {
     'RS(L)'       : 'GR  - RS',
     'RR(W)'       : 'ARW - RR',
     'RS(W)'       : 'RSW - RS',
+    'APE'         : 'MPE',
+    'ANE'         : 'MNE',
+    'PMOSE'       : 'MPE & GC',
+    'NMOSE'       : 'MNE & GC',
+    'APE-GC'      : 'MPE - GC',
+    'ANE-GC'      : 'MNE - GC',
+    'GC-APE'      : 'GC - MPE',
+    'GC-ANE'      : 'GC - MNE',
+    'CO(E)'       : 'COE',
+    'CD(E)'       : 'COD',
+    'CS(E)'       : 'COS',
+    'PO'          : 'PO',
+    'V1(P)'       : 'V1P',
+    'M1(P)'       : 'M1P',
+    'M2(P)'       : 'M2P',
     ''            : 'XXX',
     }
 
@@ -87,10 +102,7 @@ def print_Zn ( f, rule, func, L1, L2, L3, L4, min, max ) :
         case 'WR' | 'WC' :
             print( "(%-7s).covering(%5s).output('%-5s:%2s not in %2s')" % (L1,L2,rule,L4,L3), file=f)
             return
-        case 'CO' :
-            print( "(%2s - ( %-12s )).output('%-5s:%2s not on %s')" % (L1, L2, rule, L3, L4), file=f)
-            return
-        case 'V1' :
+        case 'CO' | 'V1' | 'PO' :
             print( "(%2s - ( %-12s )).output('%-5s:%2s not on %s')" % (L1, L2, rule, L3, L4), file=f)
             return
     print(rule)
@@ -101,7 +113,7 @@ def print_Sn ( f, rule, func, L1, L2, L3, L4, min, max ) :
             return
         elif L1 == 'M1W' :
             print( "# ----- M1(Wide) -----", file=f)
-            print( "(%-7s).drc(  sep(%2s, projection, projecting >= 10.0 ) < %4.1f).output('%-5s:%2s %s < %4.1f')" % (L1,L2,min,rule,L3,func,min), file=f)
+            print( "(%-7s).drc(  sep(%2s, projection, projecting >= 10.0 ) < %4.1f).output('%-5s:%2s %s < %4.1f')" % (L1,L2,min-0.1,rule,L3,func,min), file=f)
             print( "# ", file=f)
             return
         else :
@@ -125,13 +137,13 @@ def print_MX ( f, rule, func, L1, L2, L3, L4, min, max ) :
             print( "(%-7s).sep((%-7s), 0.1, projection, projecting > %5.1f ).output('%-5s:%2s Lmax > %5.1f')" % (L1,L2,max,rule,L3,max), file=f)
             print( "# ", file=f)
             return
-        case 'AP.WM' | 'AN.WM' :
+        case 'AP.WM' | 'AN.WM' | 'APE.WM' | 'ANE.WM' :
             print( "# ----- MOS(W) -----", file=f)
             print( "(%-7s).sep((%-7s), 0.1, projection, projecting < %5.1f ).output('%-5s:%2s Wmin < %5.1f')" % (L1,L2,min,rule,L3,min), file=f)
             print( "(%-7s).sep((%-7s), 0.1, projection, projecting > %5.1f ).output('%-5s:%2s Wmax > %5.1f')" % (L1,L2,max,rule,L3,max), file=f)
             print( "# ", file=f)
             return
-        case 'AP.LM' | 'AN.LM' :
+        case 'AP.LM' | 'AN.LM' | 'APE.LM' | 'ANE.LM' :
             print( "# ----- MOS(L) -----", file=f)
             print( "(%-7s).sep((%-7s), 0.1, projection, projecting < %5.1f ).output('%-5s:%2s Lmin < %5.1f')" % (L1,L2,min,rule,L3,min), file=f)
             print( "(%-7s).sep((%-7s), 0.1, projection, projecting > %5.1f ).output('%-5s:%2s Lmax > %5.1f')" % (L1,L2,max,rule,L3,max), file=f)
@@ -146,6 +158,9 @@ def gen_drc( f, rule, func, L1, L2, L3, L4, min, max ) :
     match func :
         case 'None' :
             print_Zn ( f, rule, func, L1, L2, L3, L4, min, max )
+            return
+        case 'Exist' :
+            print( "(%-7s).not_covering(%5s).output('%-5s:%2s not_covering %2s')" % (L1,L2,rule,L4,L3), file=f)
             return
         case 'Wmin' :
             print( "(%-7s).drc(             width < %4.1f ).output('%-5s:%2s %s < %4.1f')" % (L1,min,rule,L3,func,min), file=f)
@@ -176,9 +191,9 @@ def gen_drc( f, rule, func, L1, L2, L3, L4, min, max ) :
             print( "# ", file=f)
             return
         case 'XYmin' :
-            print( "# ----- AR beveling -----", file=f)
+            print( "# ----- Beveling -----", file=f)
             print( "(%-7s).drc( primary.edges.count != 8 ).output('%-5s:%2s shape NOT Octagon')"          % (L1,rule,L3), file=f)   
-            print( "(%-2s.extents - %2s).drc(       area < 0.5 ).output('%-5s:%2s trimed corner size < %4.1f')" % (L1,L1,rule,L3,min/2), file=f)   
+            print( "(%-2s.extents - %2s).drc(       area < %4.2f ).output('%-5s:%2s trimed corner size < %4.2f')" % (L1,L1,(min**2)/2,rule,L3,(min**2)/2), file=f)   
             print( "# ", file=f)
             return
     print(rule, func)
