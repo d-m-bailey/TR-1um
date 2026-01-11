@@ -128,13 +128,16 @@ report("TR-1um DRC(Drawing)")
 (RR     ).sep((ARW - RR), 0.1, projection, projecting > 100.0 ).output('AR.L1:RR Lmax > 100.0')
 # 
 (GC     ).drc(      sep(AR     ) <  1.0 ).output('AR.GC:GC-AR Smin <  1.0')
-(GC & WR).drc(             width <  2.0 ).output('AR.PW:GC(AR) Wmin <  2.0')
+(GC & WR).drc(             width <  2.0 ).output('AR.PW:GC(R) Wmin <  2.0')
 # ----- Beveling -----
 (AR     ).drc( primary.edges.count != 8 ).output('AR.XY:AR shape NOT Octagon')
 (AR.extents - AR).drc(       area < 0.50 ).output('AR.XY:AR trimed corner size < 0.50')
 # 
 # ----- Surrounded -----
-(AR - (GC & WR).holes                   ).output('GC.R1:AR must surrounded GC(AR)')
+(AR - (GC & WR).holes                   ).output('GC.R1:AR must surrounded GC(R)')
+# 
+# ----- TieDown -----
+((GC & WR) - antenna_check((WR), GC, 0.0)).output('GC.R2:GC(R) must tie down to WN(R)')
 # 
 # ----- RES(W) -----
 (RS     ).sep((GR  - RS), 0.1, projection, projecting <   4.0 ).output('GR.W1:RS Wmin <   4.0')

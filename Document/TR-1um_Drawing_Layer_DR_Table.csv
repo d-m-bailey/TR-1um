@@ -74,11 +74,11 @@ Rule,L1,L2,Func,MIN,MAX,IP62 Rule Name
 AR.W1,RR,RR(L),Wmin/max,2.8,20.0,Table I-2-1
 AR.L1,RR,RR(W),Lmin/max,13.0,100.0,Table I-2-1
 AR.GC,GC,AR,Smin,1.0,,ERRR15
-AR.PW,GC(AR),,Wmin,2.0,,ERRR06
+AR.PW,GC(R),,Wmin,2.0,,ERRR06
 AR.XY,AR,Bevel,XYmin,1.0,,
-GC.AN,GC(AR),AN,Smin,???,???,
-GC.R1,AR,GC(AR),Donut,0.0,,
-GC.R2,GC,TieDown,,0.0,,
+GC.AN,GC(R),AN,Smin,???,???,
+GC.R1,AR,GC(R),Donut,0.0,,
+GC.R2,GC(R),WN(R),TieDown,0.0,,
 GR.W1,RS,RS(L),Wmin/max,4.0,20.0,Table I-2-1
 GR.L1,RS,RS(W),Lmin/max,20.0,100.0,Table I-2-1
 GR.S1,RS,RS,Smin,2.0,,ERRS04
@@ -144,5 +144,5 @@ M1.PE,M2,,EXTL,19.0,,ER1804
 M1.PW,M2,,EXTW,40.0,,ER1804
 #,Electrical,,,,,
 Rule,L1,L2,Func,MIN,MAX,IP62 Rule Name
-GC.AN,PO,,ANT,0.0,,
+GC.ANT,GC+GR,,ANT,0.0,,
 ,,,,,,

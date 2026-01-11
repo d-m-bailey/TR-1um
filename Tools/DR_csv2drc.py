@@ -32,6 +32,7 @@ L = {
     'AP'          : 'AP',
     'AN'          : 'AN',
     'AN(C)'       : 'AN & WC',
+    'AN(R)'       : 'AN & WR',
     'AR'          : 'AR',
     'AR(T)'       : 'AR, projection, two_sides_allowed',
     'AR(S)'       : 'AR',
@@ -53,7 +54,7 @@ L = {
     'GC-AN'       : 'GC - AN',
     'GR'          : 'GR',
     'GC(G)'       : 'GC & AM',
-    'GC(AR)'      : 'GC & WR',
+    'GC(R)'       : 'GC & WR',
     'CO'          : 'CO',
     'CO(L)'       : 'CL',
     'CO(S)'       : 'CO - CL',
@@ -188,6 +189,11 @@ def gen_drc( f, rule, func, L1, L2, L3, L4, min, max ) :
         case 'Donut' :
             print( "# ----- Surrounded -----", file=f)
             print( "(%-2s - (%-7s).holes                   ).output('%-5s:%2s must surrounded %s')"            % (L1,L2,rule,L3, L4), file=f) 
+            print( "# ", file=f)
+            return
+        case 'TieDown' :
+            print( "# ----- TieDown -----", file=f)
+            print( "((%-7s) - antenna_check((%-2s), GC, 0.0)).output('%-5s:%2s must tie down to %s')"             % (L1,L2,rule,L3, L4), file=f) 
             print( "# ", file=f)
             return
         case 'XYmin' :
