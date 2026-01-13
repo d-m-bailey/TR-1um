@@ -10,7 +10,9 @@ MASK  = input(63, 0)                            # DRC check waiver area
 MEAS  = input(63, 1)                            # MEASUREMT area recognition
 ESD   = input(63, 2)                            # IO/ESD area recognition
 RS    = input(63,61)                            # RS area recognition
-SCRB  = input(80, 0)                            # DRC check waiver area (Seal-Ring)
+TEMP  = input(80, 0)               # SCRB
+BULK  = extent
+SCRB  = TEMP.drc(switch(TEMP.holes, (BULK - TEMP.holes + TEMP), (BULK - BULK) ))
 #
 PSUB  = input(140, 0).not(MASK + SCRB)          # Nwell/Pwell
 NW    = input(36,  0).not(MASK + SCRB)          # N-well mask
@@ -45,4 +47,4 @@ M2_LBL = labels(49,  0).not(MASK + SCRB)  # M2 Label
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 #  Bounding box means BULK
 #
-BULK  = extent
+# BULK  = extent
