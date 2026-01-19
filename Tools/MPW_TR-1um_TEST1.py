@@ -64,6 +64,7 @@ def generate_dummys( X : int, Y : int, name : str ) :
     #    
     ofile = getGitRoot() + MPW_folder + '/MPW_%-s_%02d-%02d.gds' % (name,X,Y)
     ly.write(ofile)
+    ly.clear()
 #
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 # Main

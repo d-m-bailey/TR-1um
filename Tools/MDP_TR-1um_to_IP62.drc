@@ -84,6 +84,7 @@ GCS = (AN & NWCS).not_interacting(GC).hulls    # CSIO Back Gate
 #
 CL   = (AC.sized(1.4, square_limit)).merged.snap(0.05, 0.05)
 R    = (AR.sized(2.0, square_limit)).extents.merged.snap(0.05, 0.05)
+RS   = (GR.sized(1.4, square_limit)).merged.snap(0.05, 0.05)
 RPSD = (R - (CO & R).sized(4.2)).and(R)
 #
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
@@ -100,16 +101,16 @@ NBEx = (((MN + MNE).sized(2.7, square_limit)).merged).sized(-2.7, square_limit).
 NBE  = ((NBEx).sized(1.4, octagon_limit).merged).snap(0.05, 0.05)
 #
 PMx  = (((   DP+GP+MN+DN+GN+    MNE+GCS).sized(2.7, square_limit)).merged).sized(-2.7, square_limit).snap(0.05, 0.05)
-PM   = R + ((PMx).sized(1.4, octagon_limit).merged).snap(0.05, 0.05)
+PM   = R + RS + ((PMx).sized(1.4, octagon_limit).merged).snap(0.05, 0.05)
 #
 NMx  = (((MP+DP+GP+   DN+GN+MPE+MNE+GCS).sized(2.7, square_limit)).merged).sized(-2.7, square_limit).snap(0.05, 0.05)
-NM   = R + ((NMx).sized(1.4, octagon_limit).merged).snap(0.05, 0.05)
+NM   = R + RS + ((NMx).sized(1.4, octagon_limit).merged).snap(0.05, 0.05)
 #
 PSDx = (((AN + GCS).sized(2.5, square_limit)).merged).sized(-2.5, square_limit).snap(0.05, 0.05)
-PSD  = RPSD + ((PSDx).sized(1.4, octagon_limit).merged).snap(0.05, 0.05)
+PSD  = RPSD + RS + ((PSDx).sized(1.4, octagon_limit).merged).snap(0.05, 0.05)
 #
 NSDx = (((AP + AC ).sized(2.7, square_limit)).merged).sized(-2.7, square_limit).snap(0.05, 0.05) 
-NSD  = R    + ((NSDx).sized(1.4, octagon_limit).merged).snap(0.05, 0.05)
+NSD  = (R    + ((NSDx).sized(1.4, octagon_limit).merged).snap(0.05, 0.05) + CL).merged
 #
 HPM  = BULK
 #
