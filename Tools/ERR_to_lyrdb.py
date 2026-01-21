@@ -25,10 +25,8 @@ else :
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 # tag
 tag_list = ['waived','red','green','blue','yellow','important']
-cat_list = []
 err_list = []
 item_dic = {}
-
 
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 # tags
@@ -53,7 +51,7 @@ def xml_category( ) :
         category = ET.SubElement(child, 'category')
         ET.SubElement(category, 'name').text = '%s' % err_name
         ET.SubElement(category, 'description')
-        ET.SubElement(category, 'categories')
+#        ET.SubElement(category, 'categories')
 
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 # categories
@@ -86,7 +84,7 @@ def xml_items( ) :
             ET.SubElement(item, 'comment')
             ET.SubElement(item, 'image')
             values = ET.SubElement(item, 'values')
-            ET.SubElement(values, 'value').text = 'polygon: (%-.2f, %-.2f ;%-.2f, %-.2f)' % data 
+            ET.SubElement(values, 'value').text = 'edge: (%-.3f, %-.3f ;%-.3f, %-.3f)' % data 
 
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 # Print head
@@ -107,9 +105,9 @@ def print_xml( name ) :
     doc.writexml(out_file, encoding='utf-8', newl='\n', indent='', addindent='  ')
 
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-# read_line
+# parse line
 #
-def read_line( line ) :
+def parse_line( line ) :
     global SKIP
     global CELL
     global RULE
@@ -151,23 +149,23 @@ else :
     out_file  = open( ofile, "w", encoding="utf8")
 #
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
+# READLINE
 #
-SKIP = 0
+SKIP = 0    # # of Skip lines 
 #
 while True :
     line = err_file.readline()
     if not line:                # EOF
         break
     elif SKIP > 0 :
-        SKIP = SKIP - 1
+        SKIP = SKIP - 1         # SKIP count down
         continue
     #
     else :
-        read_line( line )
+        parse_line( line )
 
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-#
-
+# OUTPUT
 print_xml( args[0] )
 
 exit
