@@ -48,7 +48,7 @@ def placing_mpw( X : int, Y : int, name : str ) :
         cl = ly.cell(idx)
     #
     XX = X_pitch * X - (X_pitch * (X_num / 2 - 0.5 ))
-    YY = Y_pitch * Y - (Y_pitch * (Y_num / 2 - 0.5 ))
+    YY = (Y_pitch * (Y_num / 2 - 0.5 )) - Y_pitch * Y  
     #
     top.insert(db.DCellInstArray(cl.cell_index(), db.DTrans(db.DVector(XX, YY))))
 #
@@ -59,8 +59,6 @@ top = ly.create_cell("TOP_%s" % datetime.date.today() )
 for x in range(X_num) :
     for y in range(Y_num) :
         placing_mpw( x, y, "dummy")
-
-
 
 #ofile = getGitRoot() + MPW_folder + '/MPW_%-s_%02d-%02d.gds' % (name,X,Y)
 ofile = 'MPW_%-s.gds' % (datetime.date.today())
