@@ -10,25 +10,17 @@ import math
 from .layers_def import *
 from .rules_def  import *
 
-co_width    = DR['CO.W1'].value
-co_space    = DR['CO.S2'].value
-co_enc_diff = DR['CO.AP'].value
-co_sep_pg   = DR['CO.PO'].value
-co_enc_pg   = DR['CO.PG'].value
-co_enc_pr   = DR['CO.PR'].value
-co_enc_difft= DR['CO.AT'].value
-co_enc_m1   = DR['CO.M1'].value
-po_end      = DR['PO.EC'].value
-po_space    = DR['PO.S2'].value
-
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 # How many contacts can place within len
 #
-def len_2_num ( len : float = 1.0 ):    
+def len_2_num ( len : float = 1.0, 
+               co_w : float = DR['CO.W1'].min, 
+               co_s : float = DR['CO.S1'].min, 
+               co_e : float = DR['CO.AP'].min ):    
     #
-    len   = len - 2 * co_enc_diff               
-    num_e = math.floor( len              / (co_width + co_space)) 
-    num_o = math.floor((len  - co_width) / (co_width + co_space))
+    len   = len - 2 * co_e
+    num_e = math.floor( len          / (co_w + co_s)) 
+    num_o = math.floor((len  - co_w) / (co_w + co_s))
     if num_e == num_o :
         return(num_e + 1)
     else :
@@ -37,195 +29,456 @@ def len_2_num ( len : float = 1.0 ):
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 # Insert Metal on the contact
 #
-def draw_metal ( cell, num : int = 1, x_disp : float = 0 ):
+def draw_metal( cell,
+                co_w   : float = DR['CO.W1'].min, 
+                co_s   : float = DR['CO.S1'].min, 
+                co_e   : float = DR['M1.CO'].min, 
+                x_size : float = 0,
+                y_size : float = 0,
+                x_disp : float = 0, 
+                y_disp : float = 0, 
+                x_0    : str = 'c', 
+                y_0    : str = 'c', 
+                keep   : bool = True,
+                layer = M1_layer ):
     #
-    co_pitch = (co_width + co_space)
-    m1_width = (co_width + 2 * co_enc_m1)
+    x_num = len_2_num ( x_size, co_w = co_w, co_s = co_s, co_e = co_e )
+    y_num = len_2_num ( y_size, co_w = co_w, co_s = co_s, co_e = co_e )
     #
-    if num % 2 == 0 :   # even number of contacts
-        n2 = math.floor((num - 1)/ 2)
-        y_disp = (co_pitch * n2 + co_pitch / 2) + co_width / 2 + co_enc_m1
-    else :              # odd number of contacts
-        n2 = math.ceil((num - 1) / 2)
-        y_disp = co_pitch * n2 + co_width / 2 + co_enc_m1
+    co_p  = (co_w + co_s)
     #
-    m1_path = pya.DPath([pya.DPoint(0, -y_disp), pya.DPoint(0, y_disp)], m1_width)
-    #
-    cell.shapes(M1_layer).insert(m1_path).transform(pya.DTrans( x_disp, 0 ))
-    #
-
-# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-# Insert number of contacts into cell
-#
-def draw_acont ( cell, xnum : int = 1, ynum : int = 1 ):
-    #
-    sign     = 1.0
-    co_pitch = (co_width + co_space)
-    co_box   = pya.DBox(-co_width/2.0, -co_width/2.0,  co_width/2.0,  co_width/2.0)
-    #
-    for n in range(xnum) :
-        if xnum % 2 == 0 :   # even number of contacts
-            n2 = math.floor(n / 2)
-            x_disp = sign * (co_pitch * n2 + co_pitch / 2)
+    if keep == True :
+        x_len = x_size / 2.0
+        y_len = y_size / 2.0
+    else :
+        if x_num % 2 == 0 : # even number of contacts
+            n2 = math.floor((x_num - 1)/ 2)
+            x_len = (co_p * n2 + co_p / 2) + co_w / 2 + co_e
         else :              # odd number of contacts
-            n2 = math.ceil(n / 2)
-            x_disp = sign * co_pitch * n2
+            n2 = math.ceil((x_num - 1) / 2)
+            x_len = co_p * n2 + co_w / 2 + co_e
         #
-        draw_cont( cell, num = ynum , x_disp = x_disp )
-        #
-        sign = sign * -1
-
-# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-#  Draw Bottom/Top plate for contact
-#
-def draw_plate ( cell, width : float = co_width, space : float = co_space,
-                xnum : int = 1, ynum : int = 1, layer = PG_layer, enc = 1.0 ):
-    #
-    pitch = (width + space)
-    #
-    if ynum % 2 == 0 :   # even number of contacts
-        n2 = math.floor((ynum - 1)/ 2)
-        y_disp = (pitch * n2 + pitch / 2) + width / 2
-    else :              # odd number of contacts
-        n2 = math.ceil((ynum - 1) / 2)
-        y_disp =  pitch * n2 + width / 2 
-    #
-    if xnum % 2 == 0 :   # even number of contacts
-        n2 = math.floor((xnum - 1)/ 2)
-        x_disp = (pitch * n2 + pitch / 2) + width / 2
-    else :              # odd number of contacts
-        n2 = math.ceil((xnum - 1) / 2)
-        x_disp =  pitch * n2 + width / 2 
-    #
-    box = pya.DBox(-(x_disp + enc),-(y_disp + enc), (x_disp + enc), (y_disp + enc))
-    #                      
-    cell.shapes(layer).insert(box)
-    #
-
-# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-# Insert number of contacts into cell
-#
-def draw_cont ( cell, width : float = co_width, space : float = co_space,
-               num : int = 1, x_disp : float = 0, layer = CO_layer ):
-    #
-    sign  = 1.0
-    pitch = (width + space)
-    box   =  pya.DBox(-width/2.0, -width/2.0,  width/2.0,  width/2.0)
-    #
-    for n in range(num) :
-        if num % 2 == 0 :   # even number of contacts
-            n2 = math.floor(n / 2)
-            y_disp = sign * (pitch * n2 + pitch / 2)
+        if y_num % 2 == 0 : # even number of contacts
+            n2 = math.floor((y_num - 1)/ 2)
+            y_len = (co_p * n2 + co_p / 2) + co_w / 2 + co_e
         else :              # odd number of contacts
-            n2 = math.ceil(n / 2)
-            y_disp = sign * pitch * n2
-        #
-        cell.shapes(layer).insert(box).transform(pya.DTrans( x_disp, y_disp ))
-        #
-        sign = sign * -1
+            n2 = math.ceil((y_num - 1) / 2)
+            y_len = co_p * n2 + co_w / 2 + co_e
+    #
+    if x_0 == 'l' :     # X offset
+        x_disp = x_disp - (x_size / 2 - x_len)
+    elif x_0 == 'r' :
+        x_disp = x_disp + (x_size / 2 - x_len)
+    else :
+        x_disp = x_disp 
+    #
+    if y_0 == 'b' :     # Y offset
+        y_disp = y_disp - (y_size / 2 - y_len)
+    elif y_0 == 't' :
+        y_disp = y_disp + (y_size / 2 - y_len)
+    else :
+        y_disp = y_disp
+    #
+    box = pya.DBox(-x_len, -y_len, x_len, y_len) 
+    #
+    cell.shapes(layer).insert(box).transform(pya.DTrans( x_disp, y_disp ))
+    #
+  
+# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
+# Insert Hole shape
+#
+def draw_hole ( cell, l, w, 
+               thick : float = DR['AR.PW'].min, 
+               sep   : float = DR['AR.GC'].min, 
+               layer = GC_layer, 
+               inlet = 0.0 ):
+    #
+    box_x  = l + 2 * ( thick + sep )
+    box_y  = w + 2 * ( thick + sep )
+    hole_x = l + 2 * ( sep )
+    hole_y = w + 2 * ( sep )
+    #
+    if inlet > 0.0 :
+        box   =  pya.DPolygon( [(-inlet/2.0,   -box_y/2.0 ), 
+                                (-box_x/2.0,   -box_y/2.0 ),
+                                (-box_x/2.0,    box_y/2.0 ),
+                                (-inlet/2.0,    box_y/2.0 ), 
+                                (-inlet/2.0,    hole_y/2.0), 
+                                (-hole_x/2.0,   hole_y/2.0), 
+                                (-hole_x/2.0,  -hole_y/2.0), 
+                                (-inlet/2.0,   -hole_y/2.0) ]) 
+        cell.shapes(layer).insert(box)
+        box   =  pya.DPolygon( [( inlet/2.0,   -box_y/2.0 ), 
+                                ( box_x/2.0,   -box_y/2.0 ),
+                                ( box_x/2.0,    box_y/2.0 ),
+                                ( inlet/2.0,    box_y/2.0 ), 
+                                ( inlet/2.0,    hole_y/2.0), 
+                                ( hole_x/2.0,   hole_y/2.0), 
+                                ( hole_x/2.0,  -hole_y/2.0), 
+                                ( inlet/2.0,   -hole_y/2.0) ]) 
+        cell.shapes(layer).insert(box)
+    #
+    else :
+        box   =  pya.DPolygon(  [(-box_x/2.0, -box_y/2.0),
+                                (-box_x/2.0,   box_y/2.0),
+                                ( box_x/2.0,   box_y/2.0),
+                                ( box_x/2.0,  -box_y/2.0) ])
+        hole  =  pya.DBox( -hole_x/2.0, -hole_y/2.0,  hole_x/2.0,  hole_y/2.0 )
+        #                      
+        cell.shapes(layer).insert(box.insert_hole(hole))
     #
 
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 # Insert long shape of contacts into cell
 #
-def draw_lcont ( cell, x_size : float = co_width, y_size : float = co_width, 
-               x_disp : float = 0, y_disp : float = 0, layer = CO_layer ):
+def draw_lcont ( cell, 
+                x_size : float = DR['CO.W1'].min, 
+                y_size : float = DR['CO.W1'].min, 
+                x_disp : float = 0, 
+                y_disp : float = 0, 
+                layer = CO_layer ):
     #
-    box   =  pya.DBox(-x_size/2.0, -y_size/2.0,  x_size/2.0,  y_size/2.0)
-    cell.shapes(layer).insert(box).transform(pya.DTrans( x_disp, y_disp ))
+    co_box   =  pya.DBox(-x_size/2.0, -y_size/2.0,  x_size/2.0,  y_size/2.0)
+    #
+    cell.shapes(layer).insert(co_box).transform(pya.DTrans( x_disp, y_disp ))
+    #
+
+# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
+# Insert number of contacts into cell
+#
+def draw_cont ( cell, 
+                co_w   : float = DR['CO.W1'].min, 
+                co_s   : float = DR['CO.S1'].min,
+                co_e   : float = DR['CO.GC'].min,
+                x_size : float = 0,
+                y_size : float = 0,
+                x_disp : float = 0, 
+                y_disp : float = 0, 
+                x_0    : str = 'c',
+                y_0    : str = 'c',
+                layer = CO_layer ):
+    #
+    x_num = len_2_num ( x_size, co_w = co_w, co_s = co_s, co_e = co_e )
+    y_num = len_2_num ( y_size, co_w = co_w, co_s = co_s, co_e = co_e )
+    #
+    sign   = 1.0
+    pitch  = (co_w + co_s)
+    co_box = pya.DBox(-co_w/2.0, -co_w/2.0,  co_w/2.0,  co_w/2.0)
+    #
+    for n in range(y_num) :
+        if y_0 == 'c' and y_num % 2 == 0 :  # even number of contacts
+            n2 = math.floor(n / 2)
+            disp = sign * (pitch * n2 + pitch / 2)
+        elif y_0 == 'c' :                   # odd number of contacts
+            n2 = math.ceil(n / 2)
+            disp = sign * pitch * n2
+        elif y_0 == 'b' :                   # start from south
+            disp =  1.0 * pitch * n - (y_size / 2.0 - co_e - co_w / 2)
+        elif y_0 == 't' :                   # start from north
+            disp = -1.0 * pitch * n + (y_size / 2.0 - co_e - co_w / 2)
+        #
+        cell.shapes(layer).insert(co_box).transform(pya.DTrans( x_disp, y_disp + disp ))
+        #
+        sign = sign * -1
+    #
+    for n in range(x_num) :
+        if x_0 == 'c' and x_num % 2 == 0 :  # even number of contacts
+            n2 = math.floor(n / 2)
+            disp = sign * (pitch * n2 + pitch / 2)
+        elif x_0 == 'c' :                   # odd number of contacts
+            n2 = math.ceil(n / 2)
+            disp = sign * pitch * n2
+        elif x_0 == 'l' :                   # start from west
+            disp =  1.0 * pitch * n - (x_size / 2.0 - co_e - co_w / 2)
+        elif x_0 == 'r' :                   # start from east
+            disp = -1.0 * pitch * n + (x_size / 2.0 - co_e - co_w / 2)
+        #
+        cell.shapes(layer).insert(co_box).transform(pya.DTrans( x_disp + disp, y_disp ))
+        #
+        sign = sign * -1
     #
 
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 # Insert X-Y array of contacts into cell
 #
-def draw_acont ( cell, width : float = co_width, space : float = co_space,
-                xnum : int = 1, ynum : int = 1, layer = CO_layer ):
+def draw_acont ( cell, 
+                co_w   : float = DR['CO.W1'].min, 
+                co_s   : float = DR['CO.S1'].min,
+                co_e   : float = DR['CO.GC'].min,
+                x_size : float = 0,
+                y_size : float = 0,
+                x_disp : float = 0, 
+                y_disp : float = 0, 
+                x_0    : str = 'c',
+                y_0    : str = 'c',
+                layer = CO_layer ):
     #
-    sign  = 1.0
-    pitch = (width + space)
-    box   = pya.DBox(-width/2.0, -width/2.0,  width/2.0,  width/2.0)
+    x_num = len_2_num ( x_size, co_w = co_w, co_s = co_s, co_e = co_e )
     #
-    for n in range(xnum) :
-        if xnum % 2 == 0 :   # even number of contacts
+    sign   = 1.0
+    pitch  = (co_w + co_s)
+    #
+    for n in range(x_num) :
+        if x_0 == 'c' and x_num % 2 == 0 :   # even number of contacts
             n2 = math.floor(n / 2)
             x_disp = sign * (pitch * n2 + pitch / 2)
-        else :              # odd number of contacts
+        elif x_0 == 'c' :
             n2 = math.ceil(n / 2)
             x_disp = sign * pitch * n2
+        elif x_0 == 'l' :                    # start from west
+            x_disp =  1.0 * pitch * n - (x_size / 2.0 - (co_e + co_w / 2))
+        elif x_0 == 'r' :                    # start from east
+            x_disp = -1.0 * pitch * n + (x_size / 2.0 - (co_e + co_w / 2))
         #
-        draw_cont( cell, width = width, space = space, num = ynum, x_disp = x_disp, layer = layer)
+        draw_cont ( cell, 
+                   co_w   = co_w, 
+                   co_s   = co_s, 
+                   co_e   = co_e, 
+                   y_size = y_size, 
+                   x_disp = x_disp,
+                   y_0    = y_0, 
+                   layer = layer )
         #
         sign = sign * -1
 
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 #  Draw FET
 #
-def draw_fet( cell, l, w ,layer, fnum = 1):
+def draw_dcont ( cell, l, w,
+                 co_w  : float = DR['CO.W1'].min, 
+                 co_s  : float = DR['CO.S1'].min, 
+                 co_e  : float = DR['CC.AN'].min, 
+                 ac_an : float = DR['AC.AN'].min,
+                 inlet : float = DR['M1.SC'].min,
+                 layer = CO_layer ):
     #
-    sign      = 1.0
-    po_pitch  = l + po_space
-    po_length = w + 2 * po_end
-    sdg_width = l + 2 * (co_enc_diff + co_width + co_sep_pg)
+    an_w   = co_w + 2 * co_e
+    box_x  = l + 2 * ( ac_an + an_w )
+    box_y  = w + 2 * ( ac_an + an_w )
+    co_lx  = l + 2 * ( ac_an + co_e ) + co_w
+    co_ly  = w + 2 * ( ac_an + co_e ) + co_w
+    co_xi  = (box_x - inlet) / 4
     #
-    po_path = pya.DPath([pya.DPoint(0, -po_length/2), pya.DPoint(0, po_length/2)], l)
+    draw_cont ( cell, co_w = co_w, co_s = co_s, co_e = co_e, 
+               y_size =  box_y / 2, 
+               x_disp = -co_lx / 2, 
+               y_disp =  box_y / 4, 
+               y_0    = 't',
+               layer  = layer  )
+    draw_cont ( cell, co_w = co_w, co_s = co_s, co_e = co_e, 
+               y_size =  box_y / 2, 
+               x_disp = -co_lx / 2, 
+               y_disp = -box_y / 4, 
+               y_0    = 'b',
+               layer  = layer  )
+    #
+    draw_cont ( cell, co_w = co_w, co_s = co_s, co_e = co_e, 
+               y_size =  box_y / 2, 
+               x_disp =  co_lx / 2, 
+               y_disp =  box_y / 4, 
+               y_0    = 't',
+               layer  = layer  )
+    draw_cont ( cell, co_w = co_w, co_s = co_s, co_e = co_e, 
+               y_size =  box_y / 2, 
+               x_disp =  co_lx / 2, 
+               y_disp = -box_y / 4, 
+               y_0    = 'b',
+               layer  = layer  )
+    #
+    draw_cont ( cell, co_w = co_w, co_s = co_s, co_e = co_e, 
+               x_size =  (box_x - inlet) / 2, 
+               y_disp =  co_ly / 2, 
+               x_disp = -(box_x / 2 - co_xi), 
+               x_0 = 'l',
+               layer  = layer  )
+    draw_cont ( cell, co_e = co_e, 
+               x_size =  (box_x - inlet) / 2, 
+               y_disp = -co_ly / 2, 
+               x_disp = -(box_x / 2 - co_xi), 
+               x_0 = 'l',
+               layer  = layer  )
+    #
+    draw_cont ( cell, co_w = co_w, co_s = co_s, co_e = co_e, 
+               x_size =  (box_x - inlet) / 2, 
+               y_disp =  co_ly / 2, 
+               x_disp =  (box_x / 2 - co_xi), 
+               x_0 = 'r',
+               layer  = layer  )
+    draw_cont ( cell, co_e = co_e, 
+               x_size =  (box_x - inlet) / 2, 
+               y_disp = -co_ly / 2, 
+               x_disp =  (box_x / 2 - co_xi), 
+               x_0 = 'r',
+               layer  = layer  )
+
+# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
+#  Draw FET
+#
+def draw_fet( cell, l, w, layer, 
+              co_w   : float = DR['CO.W1'].min, 
+              po_s   : float = DR['GC.S1'].min, 
+              co_e   : float = DR['CO.AP'].min, 
+              co_pg  : float = DR['CO.GG'].min, 
+              e_cap  : float = 0.0,
+              y_0    : str = 'c',
+              fnum = 1):
+    #
+    sign    = 1.0
+    po_p    = l + po_s
+    po_len  = w + 2 * e_cap
+    sdg_w   = l + 2 * (co_pg + co_w + co_e)
+    m1_w    = co_w + 2 * co_e
+    #
+    po_path = pya.DPath([pya.DPoint(0, -po_len/2), pya.DPoint(0, po_len/2)], l)
     #
     for n in range(fnum) :
         if fnum % 2 == 0 :   # even number of gates
             n2 = math.floor(n / 2)
-            x_disp = sign * (po_pitch * n2 + po_pitch / 2)
+            x_disp = sign * (po_p * n2 + po_p / 2)
         else :              # odd number of gates
             n2 = math.ceil(n / 2)
-            x_disp = sign * po_pitch * n2
+            x_disp = sign * po_p * n2
         #
-        cell.shapes(PG_layer).insert(po_path).transform(pya.DTrans( x_disp, 0 ))
+        cell.shapes(GC_layer).insert(po_path).transform(pya.DTrans( x_disp, 0 ))
         #
         #
         sign = sign * -1
     #
-    sdg_width = sdg_width + po_pitch * (fnum - 1)               # Width of SDG region
-    co_disp   = sdg_width / 2 - co_enc_diff - co_width / 2      # Center of Contact
+    sdg_w     = sdg_w + po_p * (fnum - 1)           # Width of SDG region
+    co_disp   = sdg_w / 2 - co_e - co_w / 2         # Center of Contact
     #
-    sdg_box = pya.DBox(-sdg_width/2.0,  -w/2.0, sdg_width/2.0, w/2.0 )
+    sdg_box = pya.DBox(-sdg_w/2.0,  -w/2.0, sdg_w/2.0, w/2.0 )
     #
     cell.shapes(layer).insert(sdg_box)                          # Draw AA
     #
     # Add CO
     # 
-    draw_cont( cell, num=len_2_num( w ), x_disp = -co_disp )
-    draw_cont( cell, num=len_2_num( w ), x_disp =  co_disp )
+    draw_cont( cell, y_size = w, x_disp = -co_disp, y_0 = y_0, layer = CO_layer )
+    draw_cont( cell, y_size = w, x_disp =  co_disp, y_0 = y_0, layer = CO_layer )
     #
     # Add M1
     # 
-    draw_metal( cell, num=len_2_num( w ), x_disp = -co_disp )
-    draw_metal( cell, num=len_2_num( w ), x_disp =  co_disp )
+    draw_metal( cell, x_size = m1_w, y_size = w, x_disp = -co_disp, y_0 = y_0, keep = False)
+    draw_metal( cell, x_size = m1_w, y_size = w, x_disp =  co_disp, y_0 = y_0, keep = False)
 
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-#  Draw Resistor 
+#  Draw Poly Resistor 
 #
-def draw_res( cell, l, w ,layer):
+def draw_res_p( cell, l, w ,
+               co_w : float = DR['CO.W1'].min, 
+               co_e : float = DR['CO.GC'].min, 
+               layer = GR_layer):
     #
-    res_len = l + co_width + 2 * co_enc_pr
+    m1_w    = co_w + 2 * co_e
+    res_len = l + co_w + 2 * co_e 
     #
-    res_box = pya.DBox(-w/2.0,  -res_len/2.0, w/2.0, res_len/2.0 )
-    mes_box = pya.DBox(-w/2.0,  -l/2.0, w/2.0, l/2.0 )
+    res_box = pya.DBox(-res_len/2.0, -w/2.0,  res_len/2.0, w/2.0 )
     #
-    cont_l  = w - 2 * co_enc_pr
-    #
-    # Draw PR
+    # Draw GR
     #
     cell.shapes(layer).insert(res_box)                         
-    cell.shapes(ME_layer).insert(mes_box)                         
     #
     # Add CO
     # 
-    draw_lcont( cell, x_size=cont_l, y_disp = -l/2 )
-    draw_lcont( cell, x_size=cont_l, y_disp =  l/2 )
+    draw_cont( cell, y_size = w, x_disp = -l/2, layer = CO_layer )
+    draw_cont( cell, y_size = w, x_disp =  l/2, layer = CO_layer )
     #
     # Add M1
     # 
-    metal_x = cont_l + 2 * co_enc_m1
-    metal_y = co_width + 2 * co_enc_m1
+    draw_metal( cell, x_size = m1_w, y_size = w, x_disp = -l/2, keep = False)
+    draw_metal( cell, x_size = m1_w, y_size = w, x_disp =  l/2, keep = False)
     #
-    draw_lcont( cell, x_size=metal_x, y_size=metal_y, y_disp = -l/2, layer=M1_layer )
-    draw_lcont( cell, x_size=metal_x, y_size=metal_y, y_disp =  l/2, layer=M1_layer )
 
+# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
+#  Draw Diff Resistor 
+#
+def draw_res_d( cell, l, w ,
+               co_w : float = DR['CO.W1'].min, 
+               co_s : float = DR['CR.AS'].min, 
+               co_t : float = DR['CR.AT'].min, 
+               r_xy : float = DR['AR.XY'].min,
+               co_m : float = DR['M1.CL'].min, 
+               layer = AR_layer ):
+    #
+    res_len = l + 2 * (co_w + co_t)
+    cont_l  = w - 2 * co_s
+    x_disp  = (l + co_w) / 2
+    m1_x    = co_w   + 2 * co_m
+    m1_y    = cont_l + 2 * co_m
+    #
+    # Octagon shape
+    #
+    res_oct = pya.DPolygon( [ (-(res_len/2.0       ), (w/2.0 - r_xy)),
+                              (-(res_len/2.0 - r_xy), (w/2.0       )),
+                              ( (res_len/2.0 - r_xy), (w/2.0       )),
+                              ( (res_len/2.0       ), (w/2.0 - r_xy)),
+                              ( (res_len/2.0       ),-(w/2.0 - r_xy)),
+                              ( (res_len/2.0 - r_xy),-(w/2.0       )),
+                              (-(res_len/2.0 - r_xy),-(w/2.0       )),
+                              (-(res_len/2.0       ),-(w/2.0 - r_xy)) ])
+    #
+    # Draw AR
+    #
+    cell.shapes(layer).insert(res_oct)                         
+    #
+    # Add CO (variable)
+    # 
+    draw_lcont ( cell, y_size = cont_l, x_disp= -x_disp )
+    draw_lcont ( cell, y_size = cont_l, x_disp=  x_disp )
+    #
+    # Add M1
+    # 
+    draw_metal( cell, x_size = m1_x, y_size = m1_y, x_disp = -x_disp )
+    draw_metal( cell, x_size = m1_x, y_size = m1_y, x_disp =  x_disp )
+    #
+    # Add GC hole 
+    # 
+    draw_hole ( cell, res_len, w )
+    #               
+
+# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
+#  Draw Capacito
+#
+def draw_cap( cell, l, w , 
+              cc_w  : float = DR['CC.W1'].min, 
+              cc_s  : float = DR['CC.S1'].min, 
+              cc_e  : float = DR['CC.AC'].min,
+              co_w  : float = DR['CO.W1'].min, 
+              co_s  : float = DR['CO.S1'].min, 
+              co_e  : float = DR['CC.AN'].min, 
+              ac_po : float = DR['AC.GC'].min, 
+              ac_an : float = DR['AC.AN'].min,
+              inlet : float = DR['M1.SC'].min,
+              layer = AC_layer ):
+    #
+    an_w   = co_w + 2 * co_e    # AN ring width
+    #
+    # AC BOX shape
+    #
+    ac_box =  pya.DBox(-l/2.0, -w/2.0,  l/2.0,  w/2.0)
+    cell.shapes(layer).insert(ac_box)                         
+    #
+    # GC BOX shape
+    #
+    po_box =  ac_box.enlarge(ac_po)
+    cell.shapes(GC_layer).insert(po_box)                         
+    #
+    # Add CO (variable)
+    # 
+    draw_acont( cell,
+                co_w   = cc_w,
+                co_s   = cc_s,
+                co_e   = cc_e,
+                x_size = l, 
+                y_size = w,
+                layer  = CO_layer )
+    #
+    draw_metal( cell, x_size = l, y_size = w, keep = False)
+    #
+    #
+    # Add AN hole 
+    # 
+    draw_hole ( cell, l, w, thick = an_w, sep = ac_an, layer = AN_layer )
+    draw_hole ( cell, l, w, thick = an_w, sep = ac_an, layer = M1_layer, inlet = inlet)
+    #
+    draw_dcont( cell, l, w,  co_w = co_w, co_s = co_s, co_e = co_e, ac_an = ac_an, inlet = inlet)

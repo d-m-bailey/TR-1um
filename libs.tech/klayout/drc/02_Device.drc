@@ -1,0 +1,107 @@
+# Basic check for layer polygons
+# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
+# Original version was made by jun1okamura from TokaiRika's document 
+# LICENSE: Apache License Version 2.0, January 2004,
+#          http://www.apache.org/licenses/
+# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
+#  Key Layer definition
+#
+WR  = WN.covering(AR)                                       # Nwell for RR
+WC  = WN.covering(AC)                                       # Nwell for CSIO
+WM  = WN.covering(AP)                                       # Nwell for PMOS
+#
+AA  = (AN + AP + AC + AR)                                   # ALL ACTIVE
+#
+MP  = (AP.interacting(GC) & WN - ESD)                       # PMOS
+MN  = (AN.interacting(GC) & WP - ESD)                       # NMOS
+AM  = (MP + MN)                                             # ALL MOS
+#
+MPE = (AP.interacting(GC) & WN & ESD)                       # PMOS (ESD)
+MNE = (AN.interacting(GC) & WP & ESD)                       # NMOS (ESD)
+#
+GP  = (AN.not_interacting(GC) & WN)                         # BG-contact (PMOS)
+GN  = (AP.not_interacting(GC) & WP)                         # BG-contact (NMOS)
+#
+DP  = (AP.not_interacting(GC) & WN)                         # DIODE(P)
+DN  = (AN.not_interacting(GC) & WP)                         # DIODE(N)
+AD  = (DP + DN)                                             # ALL DIODE 
+#
+CL  = CO.drc( area > 1.0 )                                  # LARGE CONTACT
+COE = CO & (MPE + MNE)                                      # S/D CONTACT on ESD MOSFET
+#
+M1W = M1.drc( width(projection) > 10.0 ).extents(1)         # WIDE M1
+M1C = ((M1 & WC).not_interacting(AC)) & AN                  # M1 for GUARD-RING (CSIO)
+M1P = M1.interacting(PO)                                    # M1 for PAD
+# M1W.output("M1W")                                         # DEBUG
+#
+V1P = V1.interacting(PO)                                    # M1 for PAD
+#
+M2P = M2.interacting(PO)                                    # M2 for PAD
+#
+RS  = (GR - (CO & GR).sized(2.0)).and(GR).sized(2.0).and(GR)    # ACTUAL RS
+RR  = (AR - (CO & AR).sized(2.0)).and(AR).sized(2.0).and(AR)    # ACTUAL RR
+#
+RSW = (GR - (CO & GR).sized(2.0)).and(GR).sized(2.0)        # RS WIDE SIDE to measure RS Length
+ARW = (AR - (CO & AR).sized(2.0)).and(AR).sized(2.0)        # AR WIDE SIDE to measure RR Length
+#
+# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
+# RR Resistance
+#
+ARC = AR - RR                   # RR Contact
+#
+# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
+# Saliside Gate Resistance
+#
+RSC = GR - RS                   # RS Contact
+#
+# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
+# Electical connection layers
+#
+SDP  = (MP  - GC)               # MP S/D
+SDN  = (MN  - GC)               # MN S/D
+SDPE = (MPE - GC)               # MPE S/D
+SDNE = (MNE - GC)               # MNE S/D
+#
+# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
+# Global node
+#
+connect_global(BULK, "VSS")
+#
+# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
+# Connections
+#
+# ---
+# Well 
+connect(WN  , GP)       # NWELL
+connect(BULK, GN)       # BULK
+# ---
+# Active
+connect(WC,   AC)       # CIS
+connect(WC,   GP)       # BG-CIS
+connect(WR,   RR)       # BG-RR
+connect(WR,   GP)       # BG-RR
+# ---
+# mos
+connect(SDP,  CO)       # MP S/D
+connect(SDN,  CO)       # MN S/D
+connect(SDPE, CO)       # MPE S/D
+connect(SDNE, CO)       # MNE S/D
+connect(GP,   CO)       # BG-PMOS
+connect(GN,   CO)       # BG-NMOS
+# ---
+# diode
+connect(DP,   CO)       # DP
+connect(DN,   CO)       # DN
+# ---
+# resistance
+connect(ARC,  CO)       # RR Terminal
+connect(RSC,  CO)       # RS-CONT
+# ---
+# BEOL
+connect(GC,   CO)       # GC-CO
+connect(CO,   M1)       # CO-M1
+connect(M1,   V1)       # M1-V1
+connect(V1,   M2)       # V1-M2
+connect(M1,   M1_LBL)   # Attaches labels
+connect(M2,   M2_LBL)   # Attaches labels
+#

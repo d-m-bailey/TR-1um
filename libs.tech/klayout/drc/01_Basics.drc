@@ -11,13 +11,13 @@
 (AN).ongrid( 0.050 ).output( "ERR01: OFFGRID 0.050" )
 (AR).ongrid( 0.050 ).output( "ERR01: OFFGRID 0.050" )
 (AC).ongrid( 0.050 ).output( "ERR01: OFFGRID 0.050" )
-(PO).ongrid( 0.050 ).output( "ERR01: OFFGRID 0.050" )
-(PR).ongrid( 0.050 ).output( "ERR01: OFFGRID 0.050" )
+(GC).ongrid( 0.050 ).output( "ERR01: OFFGRID 0.050" )
+(GR).ongrid( 0.050 ).output( "ERR01: OFFGRID 0.050" )
 (CO).ongrid( 0.050 ).output( "ERR01: OFFGRID 0.050" )
 (M1).ongrid( 0.050 ).output( "ERR01: OFFGRID 0.050" )
 (V1).ongrid( 0.050 ).output( "ERR01: OFFGRID 0.050" )
 (M2).ongrid( 0.050 ).output( "ERR01: OFFGRID 0.050" )
-(PD).ongrid( 0.050 ).output( "ERR01: OFFGRID 0.050" )
+(PO).ongrid( 0.050 ).output( "ERR01: OFFGRID 0.050" )
 # --------- --------- --------- --------- --------- --------- ---------
 #  Twisted Polygon
 #
@@ -26,13 +26,13 @@
 (AN).odd_polygons.output("ERR02: twisted polygon")
 (AR).odd_polygons.output("ERR02: twisted polygon")
 (AC).odd_polygons.output("ERR02: twisted polygon")
-(PO).odd_polygons.output("ERR02: twisted polygon")
-(PR).odd_polygons.output("ERR02: twisted polygon")
+(GC).odd_polygons.output("ERR02: twisted polygon")
+(GR).odd_polygons.output("ERR02: twisted polygon")
 (CO).odd_polygons.output("ERR02: twisted polygon")
 (M1).odd_polygons.output("ERR02: twisted polygon")
 (V1).odd_polygons.output("ERR02: twisted polygon")
 (M2).odd_polygons.output("ERR02: twisted polygon")
-(PD).odd_polygons.output("ERR02: twisted polygon")
+(PO).odd_polygons.output("ERR02: twisted polygon")
 # --------- --------- --------- --------- --------- --------- ---------
 #  Check Non-diagonal shape
 #
@@ -41,10 +41,10 @@
 (AN).drc(if_none( rectilinear, angle(absolute) == 45 )).output( "ERR03: NOT Diagonal" )
 (AR).drc(if_none( rectilinear, angle(absolute) == 45 )).output( "ERR03: NOT Diagonal" )
 (AC).drc(if_none( rectilinear, angle(absolute) == 45 )).output( "ERR03: NOT Diagonal" )
-(PO).drc(if_none( rectilinear, angle(absolute) == 45 )).output( "ERR03: NOT Diagonal" )
-(PR).drc(if_none( rectilinear, angle(absolute) == 45 )).output( "ERR03: NOT Diagonal" )
+(GC).drc(if_none( rectilinear, angle(absolute) == 45 )).output( "ERR03: NOT Diagonal" )
+(GR).drc(if_none( rectilinear, angle(absolute) == 45 )).output( "ERR03: NOT Diagonal" )
 (CO).drc(if_none( rectilinear, angle(absolute) == 45 )).output( "ERR03: NOT Diagonal" )
 (M1).drc(if_none( rectilinear, angle(absolute) == 45 )).output( "ERR03: NOT Diagonal" )
 (V1).drc(if_none( rectilinear, angle(absolute) == 45 )).output( "ERR03: NOT Diagonal" )
 (M2).drc(if_none( rectilinear, angle(absolute) == 45 )).output( "ERR03: NOT Diagonal" )
-(PD).drc(if_none( rectilinear, angle(absolute) == 45 )).output( "ERR03: NOT Diagonal" )
+(PO).drc(if_none( rectilinear, angle(absolute) == 45 )).output( "ERR03: NOT Diagonal" )

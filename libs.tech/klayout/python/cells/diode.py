@@ -16,49 +16,62 @@ class diode_p(pya.PCellDeclarationHelper):
         # Initialize super class.
         super(diode_p, self).__init__()
         #
-        self.param("nx", self.TypeInt,  "X-Num", default=1)
-        self.param("ny", self.TypeInt,  "Y-Num", default=1)
+        self.Cmin = DR['CO.WD'].min
+        self.Emin = DR['CO.AD'].min
+        self.Fmin = DR['M1.CL'].min
+        self.Wmin = self.Cmin + 2 * self.Emin
+        #
+        self.param("x",  self.TypeDouble, "X(um)",     default=self.Wmin)
+        self.param("y",  self.TypeDouble, "Y(um)",     default=self.Wmin)
 
     def display_text_impl(self):
         # Provide a descriptive text for the cell
-        return "diode_p(X-Num" + ('%3d' % self.nx) + ",Y-Num" + ('%3d' % self.ny) + ")"
+        return "diode_p(X:" + ('%3f' % self.x) + ",Y:" + ('%3f' % self.y) + ")"
     
     def coerce_parameters_impl(self):
         # Check parameters
-        if self.nx != 1 :
-            self.nx = 1
-        if self.ny != 1 :
-            self.ny = 1
+        if self.x < self.Wmin :
+            self.x = self.Wmin
+        if self.y < self.Wmin :
+            self.y = self.Wmin
 
     def produce_impl(self):
         #
-        draw_acont( self.cell, width = DR['CO.W1'].value, xnum=self.nx, ynum=self.ny )
-        draw_plate( self.cell, width = DR['CO.W1'].value, xnum=self.nx, ynum=self.ny, layer=M1_layer, enc=DR['CO.M1'].value )
-        draw_plate( self.cell, width = DR['CO.W1'].value, xnum=self.nx, ynum=self.ny, layer=AP_layer, enc=DR['CO.AD'].value )
-      
+        draw_acont( self.cell, x_size=self.x, y_size=self.y, 
+                   co_w = self.Cmin, co_e = self.Emin, layer = CO_layer )
+        #
+        draw_metal( self.cell, x_size = self.x, y_size = self.y, co_e = self.Emin, co_w = self.Cmin, layer = AP_layer)
+        draw_metal( self.cell, x_size = self.x, y_size = self.y, co_e = self.Fmin, co_w = self.Cmin, layer = M1_layer, keep=False)
+
 class diode_n(pya.PCellDeclarationHelper):
 
     def __init__(self):
         # Initialize super class.
         super(diode_n, self).__init__()
         #
-        self.param("nx", self.TypeInt,  "X-Num", default=1)
-        self.param("ny", self.TypeInt,  "Y-Num", default=1)
+        self.Cmin = DR['CO.WD'].min
+        self.Emin = DR['CO.AD'].min
+        self.Fmin = DR['M1.CL'].min
+        self.Wmin = self.Cmin + 2 * self.Emin
+        #
+        self.param("x",  self.TypeDouble, "X(um)",     default=self.Wmin)
+        self.param("y",  self.TypeDouble, "Y(um)",     default=self.Wmin)
 
     def display_text_impl(self):
         # Provide a descriptive text for the cell
-        return "diode_n(X-Num" + ('%3d' % self.nx) + ",Y-Num" + ('%3d' % self.ny) + ")"
+        return "diode_n(X:" + ('%3f' % self.x) + ",Y:" + ('%3f' % self.y) + ")"
     
     def coerce_parameters_impl(self):
         # Check parameters
-        if self.nx != 1 :
-            self.nx = 1
-        if self.ny != 1 :
-            self.ny = 1
+        if self.x < self.Wmin :
+            self.x = self.Wmin
+        if self.y < self.Wmin :
+            self.y = self.Wmin
 
     def produce_impl(self):
         #
-        draw_acont( self.cell, width = DR['CO.W1'].value, xnum=self.nx, ynum=self.ny )
-        draw_plate( self.cell, width = DR['CO.W1'].value, xnum=self.nx, ynum=self.ny, layer=M1_layer, enc=DR['CO.M1'].value )
-        draw_plate( self.cell, width = DR['CO.W1'].value, xnum=self.nx, ynum=self.ny, layer=AN_layer, enc=DR['CO.AD'].value )
-    
+        draw_acont( self.cell, x_size=self.x, y_size=self.y, 
+                   co_w = self.Cmin, co_e = self.Emin, layer = CO_layer )
+        #
+        draw_metal( self.cell, x_size = self.x, y_size = self.y, co_e = self.Emin, co_w = self.Cmin, layer = AN_layer)
+        draw_metal( self.cell, x_size = self.x, y_size = self.y, co_e = self.Fmin, co_w = self.Cmin, layer = M1_layer, keep=False)

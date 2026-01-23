@@ -19,10 +19,16 @@
     8. DONE: Develop MASK to Drawing Layer conversion tool.
 
     9. DONE: Develop new DRC for Drawing Layer design.
+    
+    10. DONE: Develop Drawing to MASK Layer conversion tool.
+    
+    11. DONE: Develop new PCell sets for Drawing Layout.
+    
+    12. DONE: Develop Python script to generate the DRC runset from DR.csv file.
+    
+    13. DONE: Develop new LVS for Drawing Layer design.
 
-   10. ONGOING: Develop Drawing to MASK Layer conversion tool.
-   
-   11. PLAN: Develop new LVS for Drawing Layer design.
+    13. PLAN: ADD ESD device check to DRC/LVS
   
 
 

@@ -105,7 +105,7 @@
   <marked>false</marked>
   <xfill>false</xfill>
   <animation>0</animation>
-  <name>PO</name>
+  <name>GC</name>
   <source>8/1@1</source>
  </properties>
  <properties>
@@ -123,7 +123,7 @@
   <marked>false</marked>
   <xfill>false</xfill>
   <animation>0</animation>
-  <name>PR</name>
+  <name>GR</name>
   <source>8/2@1</source>
  </properties>
  <properties>
@@ -213,7 +213,7 @@
   <marked>false</marked>
   <xfill>false</xfill>
   <animation>0</animation>
-  <name>PD</name>
+  <name>PO</name>
   <source>14/0@1</source>
  </properties>
  <properties>
@@ -222,7 +222,7 @@
   <fill-color>#c0c0c0</fill-color>
   <frame-brightness>0</frame-brightness>
   <fill-brightness>0</fill-brightness>
-  <dither-pattern>I2</dither-pattern>
+  <dither-pattern>I1</dither-pattern>
   <line-style>I1</line-style>
   <valid>true</valid>
   <visible>true</visible>
