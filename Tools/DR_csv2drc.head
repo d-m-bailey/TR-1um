@@ -10,6 +10,7 @@ if $input
         source($input, $top_cell)
     else
         source($input)
+    end
 end
 # warning_rep = new_report("TR-1um DRC(warning)", "warning.lyrdb")
 report("TR-1um DRC(Drawing)")
