@@ -6,7 +6,7 @@
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 # MOS extraction 5V CMOS
 #
-extract_devices(mos4("PMOS_mst" ), 
+extract_devices(mos4("PMOS" ), 
                             { "SD" => (MP - GC),        # S/D region
                               "G"  => (MP & GC),        # Channel region
                               "W"  => (MP & GC & WN),   # Backgate region
@@ -18,7 +18,7 @@ extract_devices(mos4("PMOS_mst" ),
 tolerance("PMOS_mst", "W", :relative => 0.01)           # 1% tolerance 
 tolerance("PMOS_mst", "L", :relative => 0.0)            # 0% tolerance 
 #
-extract_devices(mos4("NMOS_mst" ), 
+extract_devices(mos4("NMOS" ), 
                             { "SD" => (MN - GC),        # S/D region
                               "G"  => (MN & GC),        # Channel region
                               "W"  => (MN & GC & BULK), # Backgate region

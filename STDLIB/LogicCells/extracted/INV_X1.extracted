@@ -6,8 +6,8 @@
 * pin Y
 * pin gnd
 .SUBCKT INV_X1 vdd A Y gnd
-* device instance $1 r0 *1 6.1,44.8 PMOS_mst
-M$1 Y A vdd vdd PMOS_mst L=1U W=10.2U AS=28.56P AD=28.56P PS=26U PD=26U
-* device instance $2 r0 *1 6.1,6.8 NMOS_mst
-M$2 Y A gnd gnd NMOS_mst L=1U W=3.4U AS=9.52P AD=9.52P PS=12.4U PD=12.4U
+* device instance $1 r0 *1 6.1,44.8 PMOS
+M$1 Y A vdd vdd PMOS L=1U W=10.2U AS=28.56P AD=28.56P PS=26U PD=26U
+* device instance $2 r0 *1 6.1,6.8 NMOS
+M$2 Y A gnd gnd NMOS L=1U W=3.4U AS=9.52P AD=9.52P PS=12.4U PD=12.4U
 .ENDS INV_X1
