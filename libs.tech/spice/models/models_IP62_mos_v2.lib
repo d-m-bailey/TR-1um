@@ -4,11 +4,13 @@
 
 * simulator lang=spectre
 
+.param sdwidth=2.8u
+
 * // model PMOS ////////////////////////////////////////
 .subckt PMOS d g s b
-.param w=0 l=0 as=0 ad=0 ps=0 pd=0 nrd=0 nrs=0 m=1
+.param w=w l=l AS='w*sdwidth' AD='w*sdwidth' PS='2*(sdwidth+w)' PD='2*(sdwidth+w)' nrd=0 nrs=0 m=1
 M1 d g s b PMOS_mst w=w l=l as=as ad=ad ps=ps pd=pd nrd=nrd nrs=nrs m=m
-.ends PMOS
+.ends PMOSg
 
 .model PMOS_mst PMOS
 * type	 = p	       							      
@@ -49,7 +51,7 @@ M1 d g s b PMOS_mst w=w l=l as=as ad=ad ps=ps pd=pd nrd=nrd nrs=nrs m=m
 
 *// model NMOS ////////////////////////////////////////
 .subckt NMOS d g s b
-.param w=0 l=0 as=0 ad=0 ps=0 pd=0 nrd=0 nrs=0 m=1
+.param w=w l=l AS='w*sdwidth' AD='w*sdwidth' PS='2*(sdwidth+w)' PD='2*(sdwidth+w)' nrd=0 nrs=0 m=1
 M1 d g s b NMOS_mst w=w l=l as=as ad=ad ps=ps pd=pd nrd=nrd nrs=nrs m=m
 .ends NMOS
 
