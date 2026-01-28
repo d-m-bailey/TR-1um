@@ -16,17 +16,11 @@ if $input
         source($input)
     end
 end
-#
+# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 if $netlist_only == 'true'
     NET_ONLY = true
 else
     NET_ONLY = false
-end
-# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-# 
-# 
-if $input 
-    source($input)
 end
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 #
