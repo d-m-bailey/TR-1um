@@ -1,11 +1,24 @@
-# TR-1um DRC v0.001 
-# Original version was made by jun1okamura from TokaiRika's document 
+#
+# TR-1um DRC header template for KLayout macro generation
+# TR-1um: Copyright 2025 OpenSUSI non-profit organaization 
+## Original version was made by jun1okamura from TokaiRika's document 
 # LICENSE: Apache License Version 2.0, January 2004,
 #          http://www.apache.org/licenses/
 # ----- ------ ----- 
-# source($input, "TOP")
 # warning_rep = new_report("TR-1um DRC(warning)", "warning.lyrdb")
-report("TR-1um DRC(MASK)")
+if $input 
+    if $top_cell
+        source($input, $top_cell)
+    else
+        source($input)
+    end
+end
+#
+if $report
+    report("TR-1um DRC(MASK)", $report)
+else
+    report("TR-1um DRC(MASK)")
+end
 #----
 # %include IP62/00_Layers.drc
 # %include IP62/01_Basics.drc
