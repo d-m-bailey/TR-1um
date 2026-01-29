@@ -156,8 +156,8 @@ HPM  = BULK
 (M3        ).output(122, 0)               # Metal-3
 (SCRB      ).output(80,  0)               # SCRB
 (TXM1      ).output(48,  0)               # TEXT M1
-(TXM1      ).output(49,  0)               # TEXT M2
-(PIN       ).output(48,  1)               # PIN M1
+(TXM2      ).output(48,  1)               # PIN M1
+(PIN       ).output(49,  0)               # TEXT M2
 #
 (MASK      ).output(63,  0)               # DRC check waiver area
 (MEAS      ).output(63,  1)               # LVS MEASUREMT area recognition
