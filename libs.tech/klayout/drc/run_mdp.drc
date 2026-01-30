@@ -180,7 +180,7 @@ DLBGRR = (HVNW & PSD)
 #
 (MASK      ).output(63,  0)               # DRC check waiver area
 (PTECT     ).output(63,  1)               # PTECT area recognition (for protection)
-(ESD       ).output(80,  2)               # DRC IO/ESD area recognition
+(ESD       ).output(80,  1)               # DRC IO/ESD area recognition
 (SCRB      ).output(80,  0)               # DRC check waiver area (Seal-Ring)
 #
 (DLWLMP    ).output(150, 0)
