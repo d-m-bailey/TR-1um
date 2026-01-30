@@ -24,7 +24,7 @@ flat                                # FLAT mode
 #
 MASK  = input(63, 0)                # DRC check waiver area
 PTECT = input(63, 1)                # MEASUREMT area recognition
-ESD   = input(63, 2)                # IO/ESD area recognition
+ESD   = input(63, 2)                # IO/ESD  area recognition
 #
 AP    = input(3,  1)
 AN    = input(3,  2)
@@ -79,10 +79,10 @@ SG   = (GC + GR)                    # SG
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 # IMPLANT MASK AUTO GENERATION
 #
-MP  = (AP & NWMP - ESD).interacting(GC)
-MN  = (AN & PWMN - ESD).interacting(GC)
-MPE = (AP & NWMP & ESD).interacting(GC)
-MNE = (AN & PWMN & ESD).interacting(GC)
+MP  = (AP & NWMP - ESD ).interacting(GC)
+MN  = (AN & PWMN - ESD ).interacting(GC)
+MPE = (AP & NWMP & ESD ).interacting(GC)
+MNE = (AN & PWMN & ESD ).interacting(GC)
 DP  = (AP & NWMP).not_interacting(GC)
 DN  = (AN & PWMN).not_interacting(GC)
 GP  = (AN & NWMP).not_interacting(GC)
@@ -125,7 +125,26 @@ NSD  = (R    + ((NSDx).sized(1.4, octagon_limit).merged).snap(0.05, 0.05) + CL).
 HPM  = BULK
 #
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-#  Mask layer generation
+# RECOGNITION LAYER AUTO GENERATION
+#
+DLWLMP = ( NW.not_interacting(AC + AR) )
+DLWLMN = ( PWMN )
+DLWLRR = ( HVNW )
+DLMP   = ( MP.sized(2.7, square_limit).merged.sized(-1.3, square_limit).snap(0.05, 0.05) )
+DLMN   = ( MN.sized(2.7, square_limit).merged.sized(-1.3, square_limit).snap(0.05, 0.05) )
+DLRR   = ( HVNW & GC.hulls)
+DLRS   = ( GR.sized(1.4, square_limit).merged.snap(0.05, 0.05) )
+DLCSIO = ( NWCS ).sized(1.5)
+DLDP   = ( DP.sized(2.7, square_limit).merged.sized(-1.3, square_limit).snap(0.05, 0.05) )
+DLDN   = ( DN.sized(2.7, square_limit).merged.sized(-1.3, square_limit).snap(0.05, 0.05) )
+DLMPE  = (MPE.sized(2.7, square_limit).merged.sized(-1.3, square_limit).snap(0.05, 0.05) )
+DLMNE  = (MNE.sized(2.7, square_limit).merged.sized(-1.3, square_limit).snap(0.05, 0.05) )
+DLBGMP = ( GP.sized(2.7, square_limit).merged.sized(-1.3, square_limit).snap(0.05, 0.05) )
+DLBGMN = ( GN.sized(2.7, square_limit).merged.sized(-1.3, square_limit).snap(0.05, 0.05) )
+DLBGRR = (HVNW & PSD)
+#
+# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
+#  MDP layer output
 #
 (PSUB      ).output(140, 0)               # Nwell/Pwell
 (NW + _NW  ).output(36,  0)               # NW 
@@ -156,44 +175,26 @@ HPM  = BULK
 (M3        ).output(122, 0)               # Metal-3
 (SCRB      ).output(80,  0)               # SCRB
 (TXM1      ).output(48,  0)               # TEXT M1
-(TXM2      ).output(48,  1)               # PIN M1
-(PIN       ).output(49,  0)               # TEXT M2
+(TXM2      ).output(48,  1)               # TEXT M2
+(PIN       ).output(49,  0)               # PIN  M1
 #
 (MASK      ).output(63,  0)               # DRC check waiver area
 (PTECT     ).output(63,  1)               # PTECT area recognition (for protection)
 (ESD       ).output(63,  2)               # DRC IO/ESD area recognition
 (SCRB      ).output(80,  0)               # DRC check waiver area (Seal-Ring)
-# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-# RECOGNITION LAYER AUTO GENERATION
 #
-DLWLMP = ( NW.not_interacting(AC + AR) )
-DLWLMN = ( PWMN )
-DLWLRR = ( HVNW )
-DLMP   = ( MP.sized(2.7, square_limit).merged.sized(-1.3, square_limit).snap(0.05, 0.05) )
-DLMN   = ( MN.sized(2.7, square_limit).merged.sized(-1.3, square_limit).snap(0.05, 0.05) )
-DLRR   = ( HVNW & GC.hulls)
-DLRS   = ( GR.sized(1.4, square_limit).merged.snap(0.05, 0.05) )
-DLCSIO = ( NWCS ).sized(1.5)
-DLDP   = ( DP.sized(2.7, square_limit).merged.sized(-1.3, square_limit).snap(0.05, 0.05) )
-DLDN   = ( DN.sized(2.7, square_limit).merged.sized(-1.3, square_limit).snap(0.05, 0.05) )
-DLMPE  = (MPE.sized(2.7, square_limit).merged.sized(-1.3, square_limit).snap(0.05, 0.05) )
-DLMNE  = (MNE.sized(2.7, square_limit).merged.sized(-1.3, square_limit).snap(0.05, 0.05) )
-DLBGMP = ( GP.sized(2.7, square_limit).merged.sized(-1.3, square_limit).snap(0.05, 0.05) )
-DLBGMN = ( GN.sized(2.7, square_limit).merged.sized(-1.3, square_limit).snap(0.05, 0.05) )
-DLBGRR = (HVNW & PSD)
-#
-(DLWLMP).output(150, 0)
-(DLWLMN).output(151, 0)
-(DLWLRR).output(154, 0)    
-(DLMP  ).output(157, 0)
-(DLMN  ).output(158, 0)
-(DLRR  ).output(162, 0)
-(DLRS  ).output(165, 0)
-(DLCSIO).output(166, 0)
-(DLDP  ).output(167, 0)
-(DLDN  ).output(168, 0)
-(DLMPE ).output(169, 0)
-(DLMNE ).output(170, 0)
-(DLBGMP).output(177, 0)
-(DLBGMN).output(178, 0)
-(DLBGRR).output(182, 0)    
+(DLWLMP    ).output(150, 0)
+(DLWLMN    ).output(151, 0)
+(DLWLRR    ).output(154, 0)    
+(DLMP      ).output(157, 0)
+(DLMN      ).output(158, 0)
+(DLRR      ).output(162, 0)
+(DLRS      ).output(165, 0)
+(DLCSIO    ).output(166, 0)
+(DLDP      ).output(167, 0)
+(DLDN      ).output(168, 0)
+(DLMPE     ).output(169, 0)
+(DLMNE     ).output(170, 0)
+(DLBGMP    ).output(177, 0)
+(DLBGMN    ).output(178, 0)
+(DLBGRR    ).output(182, 0)    
