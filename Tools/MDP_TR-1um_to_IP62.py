@@ -1,39 +1,54 @@
-# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-# Copyright (c) 2026 jun1okamura <jun1okamura@gmail.com>  
+#!/usr/bin/env python3
+# ----- ------ ----- ----- ------ ----- ----- ------ -----
+# Copyright (c) 2026 jun1okamura
 # SPDX-License-Identifier: Apache-2.0
-# ----- ------ ----- 
-#
-#  python3 MDP_TR-1um_to_IP62.py INPUT_TR-1um_GDS OUTPUT_IP62_GDS 
-#
+# ----- ------ ----- ----- ------ ----- ----- ------ -----
+
 import sys
 import subprocess
+import shutil
 import click
-import klayout
+
+KLAYOUT_BIN = shutil.which("klayout") or "/usr/local/bin/klayout"
 
 @click.command()
 @click.argument(
-    "rfile",    
+    "rfile",
     type=click.Path(exists=True, file_okay=True, dir_okay=False),
 )
 @click.argument(
-    "input",
+    "input_gds",
     type=click.Path(exists=True, file_okay=True, dir_okay=False),
 )
 @click.argument(
-    "output",
-    type=click.Path(exists=False, file_okay=True, dir_okay=False),
+    "output_gds",
+    type=click.Path(file_okay=True, dir_okay=False),
 )
-@click.option("--top", required=True)
+@click.option("--top", required=True, help="Top cell name")
+def mdp(rfile: str, input_gds: str, output_gds: str, top: str):
 
-def MDP(rfile: str, input: str, output: str, top: str):
-    klayout = "/usr/local/bin/klayout"
-    #
-    mdp_command = klayout + ' -b -r ' + rfile + ' -rd cellname=' + top + ' -rd input=' + input + ' -rd output=' + output
-    mdp_process = subprocess.Popen(mdp_command.split())
-    print(mdp_process.stdout)
-    if mdp_process.returncode != 0:
-        print(mdp_process.stderr)
-        sys.exit(mdp_process.returncode)
+    cmd = [
+        KLAYOUT_BIN,
+        "-b",
+        "-r", rfile,
+        "-rd", f"cellname={top}",
+        "-rd", f"input={input_gds}",
+        "-rd", f"output={output_gds}",
+    ]
+
+    print("Running:", " ".join(cmd))
+
+    result = subprocess.run(cmd, capture_output=True, text=True)
+
+    print(result.stdout)
+
+    if result.returncode != 0:
+        print("ERROR:")
+        print(result.stderr)
+        sys.exit(result.returncode)
+
+    print("Done.")
+
 
 if __name__ == "__main__":
-    MDP()
+    mdp()
