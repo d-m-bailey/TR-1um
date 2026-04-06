@@ -78,9 +78,9 @@
  <edit-path-ext-var-end>0.0</edit-path-ext-var-end>
  <edit-path-width>0.23</edit-path-width>
  <edit-pcell-show-parameter-names>false</edit-pcell-show-parameter-names>
- <edit-recent-inst-param>'',ASCII_2E,'0',false,'20',false,'1','0','0','1','0','0','',;'',ASCII_2D,'0',false,'20',false,'1','0','0','1','0','0','',;Basic,TEXT,'0',false,'20',false,'1','0','0','1','0','0','!bias:##0;cspacing:##0;eff_ch:##16;eff_cw:##12;eff_dr:##1;eff_lw:##2;font:#0;font_name:\'std_font\';inverse:false;layer:[layer:13/0];lspacing:##0;mag:##20;text:\'4\';',;Basic,TEXT,'0',false,'20',false,'1','0','0','1','0','0','!bias:##0;cspacing:##0;eff_ch:##16;eff_cw:##12;eff_dr:##1;eff_lw:##2;font:#0;font_name:\'std_font\';inverse:false;layer:[layer:13/0];lspacing:##0;mag:##20;text:\'3\';',;Basic,TEXT,'0',false,'20',false,'1','0','0','1','0','0','!bias:##0;cspacing:##0;eff_ch:##0.8;eff_cw:##0.6;eff_dr:##0.05;eff_lw:##0.1;font:#0;font_name:\'std_font\';inverse:false;layer:[layer:13/0];lspacing:##0;mag:##1;text:\'2\';',;Basic,TEXT,'0',false,'1',false,'1','0','0','1','0','0','!bias:##0;cspacing:##0;eff_ch:##0.8;eff_cw:##0.6;eff_dr:##0.05;eff_lw:##0.1;font:#0;font_name:\'std_font\';inverse:false;layer:[layer:13/0];lspacing:##0;mag:##1;text:\'1\';',;Basic,TEXT,'0',false,'1',false,'1','0','0','1','0','0','!bias:##0;cspacing:##0;eff_ch:##0.8;eff_cw:##0.6;eff_dr:##0.05;eff_lw:##0.1;font:#0;font_name:\'std_font\';inverse:false;layer:nil;lspacing:##0;mag:##1;text:\'\';',;Basic,TEXT,'0',false,'1',false,'1','0','0','1','0','0','!',</edit-recent-inst-param>
+ <edit-recent-inst-param/>
  <edit-recent-path-param/>
- <edit-recent-shape-param>'63/1',</edit-recent-shape-param>
+ <edit-recent-shape-param/>
  <edit-recent-text-param/>
  <edit-show-shapes-of-instances>true</edit-show-shapes-of-instances>
  <edit-snap-objects-to-grid>true</edit-snap-objects-to-grid>
@@ -91,7 +91,7 @@
  <edit-text-valign>bottom</edit-text-valign>
  <edit-top-level-selection>false</edit-top-level-selection>
  <fit-new-cell>true</fit-new-cell>
- <flat-cell-list>false</flat-cell-list>
+ <flat-cell-list>true</flat-cell-list>
  <full-hierarchy-new-cell>true</full-hierarchy-new-cell>
  <global-trans>r0 *1 0,0</global-trans>
  <grid-axis-color>auto</grid-axis-color>
@@ -885,9 +885,9 @@ zoom_menu.zoom_out:false
 </menu-items-hidden>
  <min-inst-label-size>16</min-inst-label-size>
  <mouse-wheel-mode>0</mouse-wheel-mode>
- <mru>'/Users/okamura/Dropbox/91_OpenPDK/OpenSUSI_MPW_TR2026/users/Nakabuchi-Kaito/GDSII_MDP.gds'@'OpenRule1um' '/Users/okamura/Dropbox/91_OpenPDK/OpenSUSI_MPW_TR2026/users/jun1okamura/GDSII_MDP.gds'@'OpenRule1um' '/Users/okamura/Dropbox/91_OpenPDK/OpenSUSI_MPW_TR2026/project/ALL_GDSII_MDP.gds'@'OpenRule1um' '/Users/okamura/Downloads/IP62_username.gds'@'OpenRule1um' '/Users/okamura/Dropbox/91_OpenPDK/TR-1um_MPW_template/src/tr_1um_username.gds'@'OpenRule1um' '/Users/okamura/Dropbox/91_OpenPDK/TR-1um/libs.tech/klayout/libraries/TR-1um_frame_25x25.gds'@'OpenRule1um' '/Users/okamura/Dropbox/91_OpenPDK/TR-1um/GDSII/20250924_OSS_Workshop_TR-1um/LOGO_opensusi.gds'@'TR-1um' '/Users/okamura/Dropbox/91_OpenPDK/TR-1um/Tools/OpenSUSI_LOGO.gds'@'TR-1um' '/Users/okamura/Dropbox/91_OpenPDK/OpenSUSI_MPW_TR2026_TEST/users/jun1okamura/876fcd74e3/GDSII_MDP.gds'@'TR-1um' '/Users/okamura/Dropbox/91_OpenPDK/OpenSUSI_MPW_TR2026_TEST/logos/NUMBERS.gds'@'TR-1um' '/Users/okamura/Dropbox/91_OpenPDK/OpenSUSI_MPW_TR2026_TEST/FFG_LOGO.gds'@'TR-1um' '/Users/okamura/Dropbox/91_OpenPDK/OpenSUSI_MPW_TR2026_TEST/logos/OpenSUSI_LOGO.gds'@'TR-1um' '/Users/okamura/Dropbox/91_OpenPDK/OpenSUSI_MPW_TR2026_TEST/logos/FFG_LOGO.gds'@'TR-1um' '/Users/okamura/Desktop/OpenSUSI_LOGO_400x400.gds'@'TR-1um' '/Users/okamura/Desktop/FFG_LOGO.gds'@'TR-1um' '/Users/okamura/Dropbox/91_OpenPDK/OpenSUSI_MPW_TR2026_TEST/project/ALL_GDSII_MDP.gds'@'TR-1um'</mru>
+ <mru/>
  <mru-bookmarks/>
- <mru-layer-properties>'/Users/okamura/Dropbox/91_OpenPDK/TR-1um/libs.tech/klayout/tech/TR-1um.lyp'</mru-layer-properties>
+ <mru-layer-properties/>
  <mru-sessions/>
  <navigator-show-all-hier-levels>false</navigator-show-all-hier-levels>
  <navigator-show-images>true</navigator-show-images>
@@ -914,7 +914,6 @@ zoom_menu.zoom_out:false
  <rdb-marker-vertex-size>-1</rdb-marker-vertex-size>
  <rdb-max-marker-count>1000</rdb-max-marker-count>
  <rdb-show-all>false</rdb-show-all>
- <rdb-tree-state/>
  <rdb-window-dim>1</rdb-window-dim>
  <rdb-window-mode>fit-marker</rdb-window-mode>
  <rdb-window-state-v2/>
@@ -948,8 +947,8 @@ zoom_menu.zoom_out:false
  <shb-window-state/>
  <show-bookmarks-view>false</show-bookmarks-view>
  <show-hierarchy-panel>true</show-hierarchy-panel>
- <show-layer-panel>false</show-layer-panel>
- <show-layer-toolbox>false</show-layer-toolbox>
+ <show-layer-panel>true</show-layer-panel>
+ <show-layer-toolbox>true</show-layer-toolbox>
  <show-libraries-view>true</show-libraries-view>
  <show-navigator>false</show-navigator>
  <show-properties>false</show-properties>
@@ -963,7 +962,6 @@ zoom_menu.zoom_out:false
  <stipple-offset>true</stipple-offset>
  <stipple-palette>0 1 2 3 4 5[1] 6 7 8 9[0] 10 11 12 13 14 15</stipple-palette>
  <stream-import-spec2/>
- <subres-mode>false</subres-mode>
  <synchronized-views>false</synchronized-views>
  <tech-editor-window-state/>
  <technology-data>&lt;?xml version="1.0" encoding="utf-8"?&gt;
@@ -1191,8 +1189,8 @@ zoom_menu.zoom_out:false
  <transient-sel-line-style>-1</transient-sel-line-style>
  <transient-sel-line-width>1</transient-sel-line-width>
  <transient-sel-vertex-size>0</transient-sel-vertex-size>
- <window-geometry>AdnQywADAAAAAABlAAAAIQAABWUAAAOuAAAAZQAAAD0AAAVlAAADrgAAAAAAAAAABegAAABlAAAAPQAABWUAAAOu</window-geometry>
- <window-state>AAAA/wAAAAD9AAAAAgAAAAAAAAFNAAADG/wCAAAABPsAAAAqAG4AYQB2AGkAZwBhAHQAbwByAF8AZABvAGMAawBfAHcAaQBkAGcAZQB0AAAAAAD/////AAAAkAD////7AAAAHABoAHAAXwBkAG8AYwBrAF8AdwBpAGQAZwBlAHQBAAAAPAAAAVsAAAAWAP////sAAAAcAGUAbwBfAGQAbwBjAGsAXwB3AGkAZABnAGUAdAAAAAEdAAABGQAAAJYA////+wAAACAAbABpAGIAcwBfAGQAbwBjAGsAXwB3AGkAZABnAGUAdAEAAAGYAAABvwAAABYA////AAAAAQAAAJQAAAMb/AIAAAAD+wAAACoAYgBvAG8AawBtAGEAcgBrAHMAXwBkAG8AYwBrAF8AdwBpAGQAZwBlAHQAAAAAAP////8AAAAWAP////sAAAAcAGwAcABfAGQAbwBjAGsAXwB3AGkAZABnAGUAdAAAAAA8AAACmAAAABYA////+wAAABwAbAB0AF8AZABvAGMAawBfAHcAaQBkAGcAZQB0AAAAADwAAAMbAAAAFgD///8AAAOzAAADGwAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAABAAAADgB0AG8AbwBsAGIAYQByAQAAAAD/////AAAAAAAAAAA=</window-state>
+ <window-geometry/>
+ <window-state/>
  <xor-anotb>false</xor-anotb>
  <xor-axorb>true</xor-axorb>
  <xor-bnota>false</xor-bnota>
