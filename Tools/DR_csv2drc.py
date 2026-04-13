@@ -157,13 +157,13 @@ def print_MX(f, rule, func, L1, L2, L3, L4, min, max):
     match rule:
         case "AC.W1" | "GC.W1" | "CR.W2":
             print(
-                "(%-7s).drc(           width <  %5.1f ).output('%-5s:%2s Wmin < %5.1f')"
-                % (L1, min, rule, L3, min),
+                "(%-7s).sep((%-7s), 0.1, projection, projecting < %5.1f ).output('%-5s:%2s Wmin < %5.1f')"
+                % (L1, L1, min, rule, L3, min),
                 file=f,
             )
             print(
-                "(%-7s).drc(           width >  %5.1f ).output('%-5s:%2s Wmax > %5.1f')"
-                % (L1, max, rule, L3, max),
+                "(%-7s).sep((%-7s), 0.1, projection, projecting > %5.1f ).output('%-5s:%2s Wmax > %5.1f')"
+                % (L1, L1, max, rule, L3, max),
                 file=f,
             )
             return
