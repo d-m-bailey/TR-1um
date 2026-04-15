@@ -111,8 +111,12 @@ end
 # ----- ----- ----- ----- ----- ----- ----- ----- 
 # PC/CO related
 #
+<<<<<<< HEAD
 (GC     ).sep((GC     ), 0.1, projection, projecting <   1.0 ).output('GC.W1:GC Wmin <   1.0')
 (GC     ).sep((GC     ), 0.1, projection, projecting >  30.0 ).output('GC.W1:GC Wmax >  30.0')
+=======
+(GC     ).drc(             width <  1.0 ).output('GC.W1:GC Wmin <  1.0')
+>>>>>>> 2eab922 (DRC run.drc revised for GC.W1)
 (GC     ).drc(             space <  1.2 ).output('GC.S1:GC Smin <  1.2')
 (GC     ).drc(      sep(AP     ) <  0.4 ).output('GC.AP:GC-AP Smin <  0.4')
 (GC     ).drc(      sep(AN     ) <  0.4 ).output('GC.AN:GC-AN Smin <  0.4')
