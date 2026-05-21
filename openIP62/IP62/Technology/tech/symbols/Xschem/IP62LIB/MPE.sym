@@ -3,7 +3,17 @@ G {}
 K {type=pmos
 format="@spiceprefix@name @pinlist @model w=@w l=@l @extra as=@as ad=@ad ps=@ps pd=@pd nrd=@nrd nrs=@nrs m=@m"
 lvs_format="M@name @pinlist PMOS w=@w l=@l m=@m"
-template="name=XM1 model=MPE w=11u l=2u m=1 as=0 ad=0 ps=0 pd=0 nrd=0 nrs=0"
+template="name=XM1
+model=MPE
+w=11u
+l=2u
+m=1
+as=0
+ad=0
+ps=0
+pd=0
+nrd=0
+nrs=0"
 drc="fet_drc @name @symname @model @w @l"
 }
 V {}
