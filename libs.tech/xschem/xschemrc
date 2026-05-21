@@ -627,10 +627,8 @@ set XSCHEM_START_WINDOW $env(PDK_ROOT)/$env(PDK)/libs.tech/xschem/top.sch
 if {[info exists PDK_ROOT]} {
   if {[info exists env(PDK)]} {
     source $env(PDK_ROOT)/$env(PDK)/libs.tech/xschem/xschem-drc
-    # source $env(PDK_ROOT)/$env(PDK)/libs.tech/xschem/xschem-menu
   }
 }
-
 
 #array unset dircolor
 #set dircolor(IP62LIB$) blue
