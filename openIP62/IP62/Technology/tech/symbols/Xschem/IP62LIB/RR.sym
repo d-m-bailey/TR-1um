@@ -2,7 +2,7 @@ v {xschem version=3.4.8RC file_version=1.3}
 G {}
 K {type=poly_resistor
 format="@spiceprefix@name @pinlist @model w=@w l=@l R=@R tc1=@tc1 tc2=@tc2 m=@m"
-lvs_format="@spiceprefix@name @pinlist @model w=@w l=@l m=@m"
+lvs_format="X@name @pinlist @model w=@w l=@l m=@m"
 template="name=R1
 w=4e-06
 R=1
