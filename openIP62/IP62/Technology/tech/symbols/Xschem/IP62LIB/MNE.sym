@@ -8,7 +8,6 @@ model=MNE
 w=11u
 l=2u
 m=1
-spiceprefix=X
 as=0
 ad=0
 ps=0
