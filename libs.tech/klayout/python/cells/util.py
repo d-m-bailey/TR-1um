@@ -291,7 +291,7 @@ def draw_dcont ( cell, l, w,
                x_disp = -(box_x / 2 - co_xi), 
                x_0 = 'l',
                layer  = layer  )
-    draw_cont ( cell, co_w = co_w, co_s = co_s, co_e = co_e, 
+    draw_cont ( cell, co_e = co_e, 
                x_size =  (box_x - inlet) / 2, 
                y_disp = -co_ly / 2, 
                x_disp = -(box_x / 2 - co_xi), 
@@ -304,7 +304,7 @@ def draw_dcont ( cell, l, w,
                x_disp =  (box_x / 2 - co_xi), 
                x_0 = 'r',
                layer  = layer  )
-    draw_cont ( cell, co_w = co_w, co_s = co_s, co_e = co_e, 
+    draw_cont ( cell, co_e = co_e, 
                x_size =  (box_x - inlet) / 2, 
                y_disp = -co_ly / 2, 
                x_disp =  (box_x / 2 - co_xi), 
@@ -459,11 +459,10 @@ def draw_cap( cell, l, w ,
               co_e  : float = DR['CC.AN'].min, 
               ac_po : float = DR['AC.GC'].min, 
               ac_an : float = DR['AC.AN'].min,
-              an_wc : float = DR['AN.WC'].min,
               inlet : float = DR['M1.SC'].min,
               layer = AC_layer ):
     #
-    an_w   = cc_w + 2 * co_e    # AN ring width
+    an_w   = co_w + 2 * co_e    # AN ring width
     #
     # AC BOX shape
     #
@@ -474,12 +473,6 @@ def draw_cap( cell, l, w ,
     #
     po_box =  ac_box.enlarge(ac_po)
     cell.shapes(GC_layer).insert(po_box)                         
-    #
-    # WN BOX shape
-    #
-    ac_box =  pya.DBox(-l/2.0, -w/2.0,  l/2.0,  w/2.0)
-    wn_box =  ac_box.enlarge(ac_an+an_w+an_wc)
-    cell.shapes(WN_layer).insert(wn_box)
     #
     # Add CO (variable)
     # 
@@ -499,5 +492,4 @@ def draw_cap( cell, l, w ,
     draw_hole ( cell, l, w, thick = an_w, sep = ac_an, layer = AN_layer )
     draw_hole ( cell, l, w, thick = an_w, sep = ac_an, layer = M1_layer, inlet = inlet)
     #
-    draw_dcont( cell, l, w,  co_w = cc_w, co_s = cc_s, co_e = co_e, ac_an = ac_an, inlet = inlet)
-
+    draw_dcont( cell, l, w,  co_w = co_w, co_s = co_s, co_e = co_e, ac_an = ac_an, inlet = inlet)

@@ -7,9 +7,6 @@
 #
 import pya
 #
-WN_layer = pya.LayerInfo(140, 0)
-#
-AP_layer = pya.LayerInfo( 3, 1)
 AP_layer = pya.LayerInfo( 3, 1)
 AN_layer = pya.LayerInfo( 3, 2)
 AR_layer = pya.LayerInfo( 3, 3)
