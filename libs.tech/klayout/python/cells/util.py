@@ -412,7 +412,7 @@ def draw_res_d( cell, l, w ,
                layer = AR_layer ):
     #
     res_len = l + 2 * (co_w + co_t)
-    cont_l  = w - 2 * co_s
+    cont_l  = max( w - 2 * co_s, co_w )
     x_disp  = (l + co_w) / 2
     m1_x    = co_w   + 2 * co_m
     m1_y    = cont_l + 2 * co_m
@@ -448,7 +448,7 @@ def draw_res_d( cell, l, w ,
     #               
 
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-#  Draw Capacito
+#  Draw Capacitor
 #
 def draw_cap( cell, l, w , 
               cc_w  : float = DR['CC.W1'].min, 
