@@ -1,11 +1,11 @@
-# TR-1um LVS v0.001 
-# Original version was made by jun1okamura from TokaiRika's document 
+# TR-1um LVS v0.001
+# Original version was made by jun1okamura from TokaiRika's document
 # LICENSE: Apache License Version 2.0, January 2004,
 #          http://www.apache.org/licenses/
-# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
+# ----- ------ ----- ----- ------ ----- ----- ------ -----
 # LVS preparation
-# 
-# cell_name + ".extracted" is extracted circuit file 
+#
+# cell_name + ".extracted" is extracted circuit file
 # cell_name + ".cir"       is circuit file to compare
 # cell_name + ".spice"     is circuit file to compare (alternative)
 #
@@ -24,11 +24,11 @@ end
 writer = RBA::NetlistSpiceWriter::new(MyWriter::new)
 writer.use_net_names = true
 #
-# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
+# ----- ------ ----- ----- ------ ----- ----- ------ -----
 # Netlist extraction
 #
 # PCELL have to be flatten
-# 
+#
 netlist.flatten_circuit("fet_p*")
 netlist.flatten_circuit("fet_n*")
 netlist.flatten_circuit("diode_p*")
@@ -37,24 +37,30 @@ netlist.flatten_circuit("res_poly*")
 netlist.flatten_circuit("res_diff*")
 netlist.flatten_circuit("moscap*")
 #
-# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
+# ----- ------ ----- ----- ------ ----- ----- ------ -----
 # Refrence https://www.klayout.de/doc-qt5/manual/lvs_tweaks.html
 #
-netlist.make_top_level_pins()           # top cell .subckt has pins
+# netlist.make_top_level_pins()           # top cell .subckt has pins
 #
-#netlist.simplify                        
+#netlist.simplify
 #
-netlist.make_top_level_pins             # Generate top pin 
+netlist.make_top_level_pins             # Generate top pin
 #
 netlist.purge                           # delete empty cell
 netlist.purge_nets                      # delete floating net
+# netlist.combine_devices
 #
 # use_net_names = true
-target_netlist(Lay_file, write_spice(true), "Created by KLayout")   
+# target_netlist(Lay_file, write_spice(true), "Created by KLayout")
+target_netlist(Lay_file, writer, "Created by KLayout")
 #
-# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
+# ----- ------ ----- ----- ------ ----- ----- ------ -----
 #
-unless NET_ONLY
+if NET_ONLY
+    puts("Starting TR-1um LVS in Net Only Mode")
+    netlist.combine_devices
+    puts("Done")
+else
 #
     reader      = RBA::NetlistSpiceReader::new(MyReader::new)
     #
@@ -63,10 +69,31 @@ unless NET_ONLY
     #
     schematic(Sch_file, reader)
     #
-    schematic.make_top_level_pins   # https://www.klayout.de/doc/manual/lvs_compare.html#h2-299
+    # schematic.make_top_level_pins   # https://www.klayout.de/doc/manual/lvs_compare.html#h2-299
     #
     align
     #
-    compare
+    schematic.combine_devices
+    netlist.combine_devices
     #
-end   
+    if IGNORE_TOP_PORTS_MISMATCH
+        puts("Starting TR-1um LVS Comparison")
+        success = compare
+    else
+        puts("Starting TR-1um LVS Comparison in strict port mode")
+        puts("flag_missing_ports enabled: missing/mislabeled top-level ports are treated as errors")
+        success = compare && flag_missing_ports
+    end
+    #================================================
+    #------------- COMPARISON RESULTS ---------------
+    #================================================
+    if ! success
+        puts('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+        puts("ERROR : Netlists don't match")
+        puts('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+    else
+        puts('==========================================')
+        puts('INFO : Congratulations! Netlists match.')
+        puts('==========================================')
+    end
+end
