@@ -381,7 +381,7 @@ def draw_res_p( cell, l, w ,
                layer = GR_layer):
     #
     m1_w    = co_w + 2 * co_e
-    res_len = l + co_w + 2 * co_e 
+    res_len = l + 2 * (co_w + co_e)
     #
     res_box = pya.DBox(-res_len/2.0, -w/2.0,  res_len/2.0, w/2.0 )
     #
@@ -391,13 +391,13 @@ def draw_res_p( cell, l, w ,
     #
     # Add CO
     # 
-    draw_cont( cell, y_size = w, x_disp = -l/2, layer = CO_layer )
-    draw_cont( cell, y_size = w, x_disp =  l/2, layer = CO_layer )
+    draw_cont( cell, y_size = w, x_disp = -l/2 - co_w/2, layer = CO_layer )
+    draw_cont( cell, y_size = w, x_disp =  l/2 + co_w/2, layer = CO_layer )
     #
     # Add M1
     # 
-    draw_metal( cell, x_size = m1_w, y_size = w, x_disp = -l/2, keep = False)
-    draw_metal( cell, x_size = m1_w, y_size = w, x_disp =  l/2, keep = False)
+    draw_metal( cell, x_size = m1_w, y_size = w, x_disp = -l/2 - co_w/2, keep = False)
+    draw_metal( cell, x_size = m1_w, y_size = w, x_disp =  l/2 + co_w/2, keep = False)
     #
 
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
