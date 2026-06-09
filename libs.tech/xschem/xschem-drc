@@ -77,7 +77,7 @@ proc res_drc {instance symbol model w l} {
         if { $l < 20.0e-6 } {
           append res "${instance} ($model): resistor length is too small, l = $l, min. l > 20.0u" \n
         }
-        if { $l < 100.0e-6 } {
+        if { $l > 100.0e-6 } {
           append res "${instance} ($model): resistor length is too big, l = $l, max. l < 100.0u" \n
         }
       }
