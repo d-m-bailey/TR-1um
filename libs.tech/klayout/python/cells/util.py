@@ -17,10 +17,12 @@ def len_2_num ( len : float = 1.0,
                co_w : float = DR['CO.W1'].min, 
                co_s : float = DR['CO.S1'].min, 
                co_e : float = DR['CO.AP'].min ):    
-    #
+    # Since len is a float, it might be represented as slightly smaller than the actual value.
+    # This causes the calculated number to be one lower (possibly zero!)
+    # Adding a sub-dbu before flooring fixes the problem
     len   = len - 2 * co_e
-    num_e = math.floor( len          / (co_w + co_s)) 
-    num_o = math.floor((len  - co_w) / (co_w + co_s))
+    num_e = math.floor( len          / (co_w + co_s) + 0.0001) 
+    num_o = math.floor((len  - co_w) / (co_w + co_s) + 0.0001)
     if num_e == num_o :
         return(num_e + 1)
     else :
