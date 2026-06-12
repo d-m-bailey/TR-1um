@@ -58,7 +58,7 @@ L = {
     "GC(R)": "GC & WR",
     "CO": "CO",
     "CO(L)": "CL",
-    "CO(S)": "CO - CL",
+    "CO(S)": "CS",
     "CO(C)": "CO & WC",
     "CO(CC)": "CO & AC",
     "CO(M)": "CO & AM",

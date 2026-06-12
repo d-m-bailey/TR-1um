@@ -30,6 +30,7 @@ AD  = (DP + DN)                                             # ALL DIODE
 #
 CL  = CO.drc( area > 1.0 )                                  # LARGE CONTACT
 COE = CO & (MPE + MNE)                                      # S/D CONTACT on ESD MOSFET
+CS  = CO - (AR + WC + AD + MPE + MNE)                       # Small CO
 #
 M1W = M1.sized(-5.0).merged.sized(5.0).merged               # WIDE M1
 M1C = ((M1 & WC).not_interacting(AC)) & AN                  # M1 for GUARD-RING (CSIO)
