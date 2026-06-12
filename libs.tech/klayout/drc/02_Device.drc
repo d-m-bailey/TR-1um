@@ -15,13 +15,14 @@ AA  = (AN + AP + AC + AR)                                   # ALL ACTIVE
 MP  = (AP.interacting(GC) & WN - ESD)                       # PMOS
 MN  = (AN.interacting(GC) & WP - ESD)                       # NMOS
 AM  = (MP + MN)                                             # ALL MOS
-GM  = (GC - AC)						    # CONTACT on mosfet poly (except for CSIO)
+GM  = (GC - AC)                                             # mosfet poly for CO check (exclude CSIO)
 #
 MPE = (AP.interacting(GC) & WN & ESD)                       # PMOS (ESD)
 MNE = (AN.interacting(GC) & WP & ESD)                       # NMOS (ESD)
 #
-GP  = (AN & WN)                         		    # BG-contact (PMOS) (poly interaction not relevant)
-GN  = (AP & WP)                         		    # BG-contact (NMOS) (poly interaction not relevant)
+GP  = (AN & WN)                                             # BG-contact (PMOS) (poly interaction not relevant)
+GN  = (AP & WP)                                             # BG-contact (NMOS) (poly interaction not relevant)
+BG  = ((GP + GN) - WC)                                      # BG-contact except for CSIO
 #
 DP  = (AP.not_interacting(GC) & WN)                         # DIODE(P)
 DN  = (AN.not_interacting(GC) & WP)                         # DIODE(N)

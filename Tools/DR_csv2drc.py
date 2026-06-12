@@ -59,10 +59,10 @@ L = {
     "CO": "CO",
     "CO(L)": "CL",
     "CO(S)": "CO - CL",
-    "CO(C)": "CO & AC",
+    "CO(C)": "CO & WC",
     "CO(M)": "CO & AM",
+    "CO(B)": "CO & BG",
     "CO(G)": "CO & GM",
-    "CO(M1C)": "CO & M1C",
     "CO(R)": "CO & WR",
     "CO(RR)": "CO & AR",
     "CL(RR)": "CL & AR",
@@ -132,7 +132,7 @@ def print_Zn(f, rule, func, L1, L2, L3, L4, min, max):
 
     print(rule)
 
-Sn_OVERLAP_OK = ["WN.S2", "WN.S3", "WN.AP", "WN.AN", "GC.AP", "GC.AN", "APE.CO", "ANE.CO", "PO.M1", "PO.M2", "CO.SC", "CO.SM1C", "CO.AD", "CO.SD", "COE.S1", "V1.CL"] 
+Sn_OVERLAP_OK = ["WN.S4", "WN.AP", "WN.AN", "DP.AP", "DN.AN", "GC.AP", "GC.AN", "APE.CO", "ANE.CO", "PO.M1", "PO.M2", "V1.CL"] 
 
 def print_Sn(f, rule, func, L1, L2, L3, L4, min, max):
     if L1 == L2:
@@ -151,6 +151,13 @@ def print_Sn(f, rule, func, L1, L2, L3, L4, min, max):
         )
         print("# ", file=f)
         return
+    elif L3.startswith(L4): # Derived layers spacing to original layers
+        print(
+            "(%-7s).drc(sep(%-7s, transparent) < %4.1f ).output('%-5s:%2s-%s %s < %4.1f')"
+            % (L1, L2, min, rule, L3, L4, func, min),
+            file=f,
+        )
+        return
     else:
         print(
             "(%-7s).drc(      sep(%-7s) < %4.1f ).output('%-5s:%2s-%s %s < %4.1f')"
@@ -159,7 +166,7 @@ def print_Sn(f, rule, func, L1, L2, L3, L4, min, max):
         )
         if not (rule in Sn_OVERLAP_OK):
             print(
-                "(%-7s) &  (%-7s)                  ).output('%-5s:%2s overlap %s')"
+                "((%-7s) &  (%-7s)                 ).output('%-5s:%2s overlap %s')"
                 % (L1, L2, rule, L3, L4),
                 file=f,
             )
