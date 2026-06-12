@@ -210,11 +210,9 @@ end
 (M1W    ).drc(             width < 10.0 ).output('M1.W2:M1(W) Wmin < 10.0')
 (M1     ).drc(             space <  1.4 ).output('M1.S1:M1 Smin <  1.4')
 (M1     ).drc(enclosing(CO - CL) <  0.8 ).output('M1.CO:M1-CO(S) Fmin <  0.8')
-(M1     ).drc(enclosing(CO & WC) <  1.3 ).output('M1.CC:M1-CO(C) Fmin <  1.3')
+(M1     ).drc(enclosing(CO & AC) <  1.3 ).output('M1.CC:M1-CO(CC) Fmin <  1.3')
 (M1     ).drc(enclosing(CL     ) <  1.2 ).output('M1.CL:M1-CO(L) Fmin <  1.2')
-# ----- M1(Wide) -----
-(M1W    ).drc(  sep(M1, projection, projecting >= 10.0 ) <  1.9).output('M1.SW:M1(W) Smin <  2.0')
-# 
+(M1W    ).drc(sep(M1     , transparent) <  2.0 ).output('M1.SW:M1(W)-M1 Smin <  2.0')
 (V1 - V1P).drc(             width <  1.4 ).output('V1.W1:V1 Wfix <  1.4')
 (V1 - V1P).drc(          bbox_min <  1.4 ).output('V1.W1:V1 bbox_min <  1.4')
 (V1 - V1P).drc(          bbox_max >  1.4 ).output('V1.W1:V1 bbox_max >  1.4')

@@ -60,6 +60,7 @@ L = {
     "CO(L)": "CL",
     "CO(S)": "CO - CL",
     "CO(C)": "CO & WC",
+    "CO(CC)": "CO & AC",
     "CO(M)": "CO & AM",
     "CO(B)": "CO & BG",
     "CO(G)": "CO & GM",
@@ -141,15 +142,6 @@ def print_Sn(f, rule, func, L1, L2, L3, L4, min, max):
             % (L1, min, rule, L3, func, min),
             file=f,
         )
-        return
-    elif L1 == "M1W":
-        print("# ----- M1(Wide) -----", file=f)
-        print(
-            "(%-7s).drc(  sep(%2s, projection, projecting >= 10.0 ) < %4.1f).output('%-5s:%2s %s < %4.1f')"
-            % (L1, L2, min - 0.1, rule, L3, func, min),
-            file=f,
-        )
-        print("# ", file=f)
         return
     elif L3.startswith(L4): # Derived layers spacing to original layers
         print(
