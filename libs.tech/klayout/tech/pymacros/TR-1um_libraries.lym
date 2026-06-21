@@ -44,9 +44,9 @@ tr_1um(tech_name)
 print("Loaded TR-1um PCells.")
 
 # directory containing this script
-libraries = [{ "name":         "TR-1um_stdcell", 
+libraries = [{ "name":         "TR-1um_5_stdcell", 
                "description":  "TR-1um standard cells",
-               "gds":          "TR-1um_STDCELL.gds"
+               "gds":          "TR-1um_5_STDCELL.gds"
              },
              { "name":         "TR-1um_frame",     
                "description":  "TR-1um pad frame",
