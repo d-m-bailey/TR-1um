@@ -63,6 +63,7 @@ report_lvs(report_path)
 puts('Evaluate switches.')
 
 def bool_check?(obj)
+  return false if obj.nil?
   obj.to_s.downcase == 'true'
 end
 
@@ -115,11 +116,9 @@ end
 # --------------- CUSTOM CLASSES ----------------
 #================================================
 
-# %include 03_Combiner.lvs
-## %include 01_Extract.lvs
-# %include 02_Extract.lvs
+# %include 01_Combiner.lvs
+# %include 02_Device.lvs
 # %include 04_Custom.lvs
-## %include 05_Compare.lvs
 
 # Instantiate a reader using the new delegate
 reader = RBA::NetlistSpiceReader.new(MyReader.new)
